@@ -1,0 +1,12 @@
+# comertali.com — robots.txt
+# GDOS Platform — Ankara Real Estate Intelligence
+
+User-agent: *
+Allow: /
+
+# Explicitly allow all knowledge content (future paths)
+Allow: /ankara-istihbarat/
+Allow: /piyasa-raporlari/
+Allow: /bolge-analizi/
+
+Sitemap: https://comertali.com/sitemap.xml

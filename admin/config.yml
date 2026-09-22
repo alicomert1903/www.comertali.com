@@ -1,0 +1,36 @@
+# comertali.com — Decap CMS yapılandırması
+#
+# Aktifleşmesi için Netlify panelinden yapılması gerekenler:
+#   1) Site bu projeyi barındıran bir GitHub reposuna bağlanmalı (Site settings → Build & deploy)
+#   2) Identity açılmalı (Site settings → Identity → Enable Identity)
+#   3) Git Gateway açılmalı (Identity → Services → Git Gateway)
+#   4) Kendinize bir Identity kullanıcı daveti gönderilmeli (Identity → Invite users)
+# Bu adımlar tamamlanmadan /admin sayfası giriş ekranını gösterir ama içeri girilemez.
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "portfoy"
+    label: "Özel Portföy Kartları"
+    description: "Ana sayfadaki 3 'Özel Portföy' kartının içeriği. Kaydettiğinizde site otomatik yeniden yayınlanır."
+    files:
+      - file: "content/portfolio.json"
+        label: "3 Portföy Kartı"
+        name: "portfolio"
+        fields:
+          - label: "Kartlar"
+            name: "cards"
+            widget: "list"
+            min: 3
+            max: 3
+            summary: "{{title}}"
+            fields:
+              - { label: "Üst Etiket (ör. Çankaya · Diplomatik Kuşak)", name: "badge", widget: "string" }
+              - { label: "Başlık", name: "title", widget: "string" }
+              - { label: "Açıklama", name: "description", widget: "text" }
+              - { label: "Arka Plan Görseli", name: "image", widget: "image" }

@@ -1,0 +1,224 @@
+/* ==========================================================================
+   ALİ CÖMERT - ULTRA-LUXURY REAL ESTATE & CITIZENSHIP CONSULTANCY
+   Custom Design System & Micro-Animations
+   ========================================================================== */
+
+:root {
+  --navy: #0A1128;
+  --navy-light: #121E42;
+  --navy-dark: #050814;
+  --titanium: #E2E8F0;
+  --titanium-muted: #94A3B8;
+  --champagne: #D4AF37;
+  --champagne-light: #F3E5AB;
+  --champagne-dark: #AA8C2C;
+}
+
+/* GTranslate & Character Encoding Fix (Prevent İ/I uppercase/lowercase translation bugs) */
+body, body *, .goog-te-combo, .gtranslate_wrapper, [data-i18n], span, p, h1, h2, h3, h4, a, button, label, option {
+  text-transform: none !important;
+}
+
+/* Hide Google Translate top bar banners & popups for a clean ultra-luxury look */
+.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+  position: static !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--champagne-dark);
+}
+
+/* Base Body Styling */
+body {
+  background-color: var(--navy);
+  color: var(--titanium);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  selection-background-color: var(--champagne);
+  selection-color: var(--navy-dark);
+}
+
+::selection {
+  background-color: var(--champagne);
+  color: var(--navy-dark);
+}
+
+h1, h2, h3, h4, .font-cinzel {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.font-serif, .font-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(18, 30, 66, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.08);
+  box-shadow: 0 20px 50px rgba(5, 8, 20, 0.5);
+}
+
+.glass-panel-gold {
+  background: rgba(18, 30, 66, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 20px 50px rgba(10, 17, 40, 0.8), 0 0 25px rgba(212, 175, 55, 0.1);
+}
+
+.glass-nav-mobile {
+  background: rgba(10, 17, 40, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* Smooth Fade-in Animations on Scroll & Load */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grayscale Profile Hover Transition */
+.profile-portrait-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 25px 60px rgba(5, 8, 20, 0.8);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-portrait-img {
+  filter: grayscale(100%) contrast(105%) brightness(95%);
+  transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-portrait-card:hover .profile-portrait-img,
+.profile-portrait-card:focus-within .profile-portrait-img {
+  filter: grayscale(0%) contrast(105%) brightness(102%);
+  transform: scale(1.03);
+}
+
+.profile-portrait-card:hover {
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 30px 70px rgba(5, 8, 20, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
+}
+
+/* Subtle Gold Pulse Animation */
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(212, 175, 55, 0);
+  }
+}
+
+.btn-gold-pulse {
+  animation: goldPulse 3s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+/* Timeline Custom Styles */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -29px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--navy);
+  border: 3px solid var(--champagne);
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+
+.timeline-item.active::before,
+.timeline-item:hover::before {
+  background-color: var(--champagne);
+  box-shadow: 0 0 15px var(--champagne);
+  transform: scale(1.25);
+}
+
+.timeline-connector {
+  position: absolute;
+  left: -23px;
+  top: 24px;
+  bottom: -10px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.6), rgba(212, 175, 55, 0.1));
+}
+
+/* Interactive Dropdown Glow */
+select:focus, input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--champagne) !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Custom Select Dropdown Arrow */
+.select-luxury {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23D4AF37'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  background-size: 1.25em;
+}
+
+/* Floating Badges Animation */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(8px); }
+}
+
+.floating-badge-1 { animation: floatSlow 6s ease-in-out infinite; }
+.floating-badge-2 { animation: floatReverse 7s ease-in-out infinite; }
+
+/* Hide scrollbars for clean horizontal scrolling strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

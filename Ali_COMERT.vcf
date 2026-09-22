@@ -1,0 +1,18 @@
+BEGIN:VCARD
+VERSION:3.0
+N:CÖMERT;Ali;;;
+FN:Ali CÖMERT
+ORG:TRUEMAX Gayrimenkul
+TITLE:Gayrimenkul Danışmanı
+TEL;TYPE=CELL,VOICE:+905322384039
+TEL;TYPE=WORK,VOICE:+905322384039
+item1.URL:http://www.truemax.com.tr
+item1.X-ABLabel:Firma Ana Sayfa
+item2.URL:https://willowy-manatee-99c222.netlify.app
+item2.X-ABLabel:Kartvizit Web Sayfası
+item3.URL:https://www.instagram.com/alicomertankara?igsh=MXJ1N3Blcm4zYm9saQ%3D%3D&utm_source=qr
+item3.X-ABLabel:Instagram Hesabı
+item4.URL:https://maps.app.goo.gl/fXQF2HnurYumwdAF9?g_st=iw
+item4.X-ABLabel:Konum
+ADR;TYPE=WORK:;;Prof. Dr. Ahmet Taner Kışlalı Mah. 2812. Cad. No:43 ILKO SİTESİ;Çankaya;Ankara;;Türkiye
+END:VCARD

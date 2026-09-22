@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ankara Intelligence Center | GDOS — Ali Cömert</title>
+  <meta name="description" content="Ankara gayrimenkul piyasası için veri odaklı izleme terminali. Bölge analizleri, kentsel dönüşüm takibi ve yatırım rehberleri." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { DEFAULT: '#0A1128', light: '#121E42', dark: '#050814' },
+            titanium: { DEFAULT: '#E2E8F0', muted: '#94A3B8' },
+            champagne: { DEFAULT: '#D4AF37', light: '#F3E5AB', dark: '#AA8C2C' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            cinzel: ['Cinzel', 'Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom Design System CSS -->
+  <link rel="stylesheet" href="assets/css/custom.css" />
+</head>
+<body class="bg-navy text-titanium antialiased selection:bg-champagne selection:text-navy-dark">
+
+  <!-- ==========================================================================
+       HEADER
+       ========================================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-700/40 transition-all duration-300">
+    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 lg:gap-6">
+      
+      <div class="flex items-center justify-between w-full lg:w-auto gap-3">
+        <a href="index.html" class="flex items-center space-x-3 group outline-none">
+          <div class="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-navy-dark border border-champagne/40 overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105">
+            <span class="font-cinzel text-base sm:text-xl font-bold text-champagne">AC</span>
+          </div>
+          <div class="flex flex-col">
+            <h1 class="font-cinzel text-sm sm:text-[17px] font-bold text-titanium tracking-wide leading-none group-hover:text-champagne transition-colors">ALİ CÖMERT</h1>
+            <span class="text-[9px] sm:text-[10px] text-titanium-muted mt-0.5 tracking-wider font-sans font-medium uppercase">TrueMax Gayrimenkul Bünyesinde</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-2 sm:gap-6 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+        <a href="index.html" class="text-[10px] sm:text-xs font-semibold text-titanium-muted hover:text-champagne transition-colors whitespace-nowrap px-2 py-1 uppercase tracking-wider font-sans">Ana Sayfa</a>
+        <a href="intelligence.html" class="text-[10px] sm:text-xs font-semibold text-champagne hover:text-champagne-light transition-colors whitespace-nowrap px-2 py-1 uppercase tracking-wider font-sans border-b border-champagne pb-0.5">Ankara Analizi</a>
+        <a href="index.html#portfolio-showcase" class="text-[10px] sm:text-xs font-semibold text-titanium-muted hover:text-champagne transition-colors whitespace-nowrap px-2 py-1 uppercase tracking-wider font-sans">Özel Portföy</a>
+      </nav>
+      
+    </div>
+  </header>
+
+  <main class="pt-28 sm:pt-36">
+    
+    <!-- ==========================================================================
+         1. HERO
+         ========================================================================== -->
+    <section class="relative pb-16 sm:pb-24 overflow-hidden text-center max-w-4xl mx-auto px-4 reveal-on-scroll">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-navy-light border border-champagne/40 text-champagne text-xs font-semibold mb-6 font-cinzel tracking-wider">
+        <i class="fas fa-satellite-dish"></i>
+        <span>GDOS Knowledge Base</span>
+      </div>
+      <h1 class="font-cinzel text-3xl sm:text-5xl font-bold text-titanium tracking-tight mb-6 leading-tight">
+        Ankara <span class="bg-gradient-to-r from-champagne to-champagne-light bg-clip-text text-transparent">Intelligence Center</span>
+      </h1>
+      <p class="text-sm sm:text-lg text-titanium-muted leading-relaxed font-sans max-w-2xl mx-auto">
+        Burası bir pazarlama platformu değil, bir piyasa izleme terminalidir. Yatırımcılar, mülk sahipleri ve karar vericiler için doğrulanmış Ankara gayrimenkul verileri ve stratejik analizler.
+      </p>
+    </section>
+
+    <!-- ==========================================================================
+         2. INTELLIGENCE DASHBOARD (MODULES)
+         ========================================================================== -->
+    <section class="py-16 sm:py-20 bg-navy-light/30 border-y border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          
+          <!-- Module: District Intelligence -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-pointer group relative">
+            <i class="fas fa-map-marked-alt text-champagne text-xl mb-3 group-hover:scale-110 transition-transform"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Bölge Analizi</h3>
+            <span class="text-[9px] text-emerald-400 font-semibold uppercase tracking-widest mt-auto pt-2">Aktif Terminal</span>
+          </div>
+          
+          <!-- Module: Weekly Notes -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-not-allowed group relative opacity-70">
+            <i class="fas fa-calendar-week text-champagne text-xl mb-3"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Haftalık Notlar</h3>
+            <span class="text-[9px] text-champagne/70 font-semibold uppercase tracking-widest mt-auto pt-2">Yakında</span>
+          </div>
+
+          <!-- Module: Monthly Reports -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-not-allowed group relative opacity-70">
+            <i class="fas fa-chart-pie text-champagne text-xl mb-3"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Aylık Raporlar</h3>
+            <span class="text-[9px] text-champagne/70 font-semibold uppercase tracking-widest mt-auto pt-2">Yakında</span>
+          </div>
+
+          <!-- Module: Investment Guides -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-not-allowed group relative opacity-70">
+            <i class="fas fa-book-open text-champagne text-xl mb-3"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Yatırım Rehberleri</h3>
+            <span class="text-[9px] text-champagne/70 font-semibold uppercase tracking-widest mt-auto pt-2">Yakında</span>
+          </div>
+
+          <!-- Module: Urban Transformation Watch -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-not-allowed group relative opacity-70">
+            <i class="fas fa-city text-champagne text-xl mb-3"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Dönüşüm Takibi</h3>
+            <span class="text-[9px] text-champagne/70 font-semibold uppercase tracking-widest mt-auto pt-2">Yakında</span>
+          </div>
+
+          <!-- Module: Rental Market -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-not-allowed group relative opacity-70">
+            <i class="fas fa-key text-champagne text-xl mb-3"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Kiralama Piyasası</h3>
+            <span class="text-[9px] text-champagne/70 font-semibold uppercase tracking-widest mt-auto pt-2">Yakında</span>
+          </div>
+
+          <!-- Module: Commercial Market -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-not-allowed group relative opacity-70">
+            <i class="fas fa-store-alt text-champagne text-xl mb-3"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Ticari Piyasa</h3>
+            <span class="text-[9px] text-champagne/70 font-semibold uppercase tracking-widest mt-auto pt-2">Yakında</span>
+          </div>
+
+          <!-- Module: Citizenship Investment -->
+          <div class="glass-panel p-5 rounded-2xl border border-slate-700/50 hover:border-champagne/40 transition-colors flex flex-col items-start cursor-not-allowed group relative opacity-70">
+            <i class="fas fa-passport text-champagne text-xl mb-3"></i>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-1">Vatandaşlık Portföyü</h3>
+            <span class="text-[9px] text-champagne/70 font-semibold uppercase tracking-widest mt-auto pt-2">Yakında</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         3. ANKARA DISTRICT INTELLIGENCE
+         ========================================================================== -->
+    <section class="py-20 sm:py-24 bg-navy relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal-on-scroll">
+          <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight mb-4">
+            Ankara <span class="text-champagne">Bölge Analizleri</span>
+          </h2>
+          <p class="text-sm text-titanium-muted font-sans">İlçe ve mahalle bazında objektif piyasa profilleri.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal-on-scroll">
+          
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">Çayyolu</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">Ankara batı koridorunda müstakil yaşam ve yüksek standartlı site konseptinin merkez üssü.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">Oran</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">Diplomatik misyonlara yakınlığıyla bilinen, köklü ve değer istikrarı en yüksek yerleşim bölgesi.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">Çukurambar</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">İş dünyası, bürokrasi ve lüks konutun kesişim noktasında yer alan merkezi iş ve yaşam alanı.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">İncek</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">Eğitim kampüsleri ve yatay mimari projeleriyle Ankara'nın gelişen premium yaşam koridoru.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">Beytepe</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">Yeni nesil lüks konut projeleri ve orman manzarasıyla değer artış potansiyeli taşıyan modern aks.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">Yaşamkent</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">Modern şehircilik altyapısı ve peyzajlı projeleriyle sakin ve düzenli yaşam arayanların tercihi.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">Dikmen</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">Merkeze yakınlığı, vadi projeleri ve kentsel dönüşüm potansiyeliyle dinamik demografiye sahip köklü hat.</p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl border border-slate-700/50 relative overflow-hidden group hover:border-champagne/40 transition-colors cursor-not-allowed">
+            <div class="absolute top-4 right-4 bg-slate-800/80 px-2.5 py-1 rounded-md text-[9px] font-bold text-titanium-muted uppercase tracking-widest border border-slate-700">Yakında</div>
+            <h4 class="font-cinzel text-lg font-bold text-titanium mb-3 mt-1">Alacaatlı</h4>
+            <p class="text-xs text-titanium-muted leading-relaxed font-sans">Geniş peyzajlı, düşük yoğunluklu ve yüksek mahremiyet sunan yeni nesil konseptlerin bulunduğu bölge.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         4. HOW WE ANALYZE (METHODOLOGY)
+         ========================================================================== -->
+    <section class="py-20 sm:py-24 bg-navy-light/40 border-y border-slate-800/80 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal-on-scroll">
+          <span class="text-xs tracking-widest text-champagne font-bold block mb-2 font-cinzel">Sistematiğimiz</span>
+          <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight mb-4">
+            Yatırım Karar Çerçevesi
+          </h2>
+          <p class="text-sm text-titanium-muted font-sans">Geleceği tahmin etmiyoruz; mevcut veriyi, piyasa gerçekliklerini ve riskleri analiz ediyoruz.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8 reveal-on-scroll">
+          
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Lokasyon Kalitesi</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">Mikro bölge dinamikleri ve sosyal altyapı yeterliliği.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-route"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Ulaşım Ağları</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">Ana arterlere erişim ve planlanan altyapı projeleri.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Likidite Durumu</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">Bölgedeki ortalama satış hızı ve ikinci el piyasa derinliği.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-home"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Kira Piyasası</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">Kira çarpanı rasyoları ve kurumsal kiracı talebi.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Gelişim Potansiyeli</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">İmar planı değişiklikleri ve bölgeye kayan yatırımlar.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-city"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Kentsel Dönüşüm</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">Mevcut yapı stoğunun yaş durumu ve dönüşüm fizibilitesi.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Alıcı Profili</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">Bölgeyi tercih eden demografik yapı ve talep sürekliliği.</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-champagne/10 text-champagne flex items-center justify-center text-lg mb-4 border border-champagne/20">
+              <i class="fas fa-balance-scale"></i>
+            </div>
+            <h4 class="font-cinzel text-sm sm:text-base font-bold text-titanium mb-2">Hukuki İnceleme</h4>
+            <p class="text-[11px] sm:text-xs text-titanium-muted leading-relaxed font-sans px-2">Tapu takyidatları, imar durumu ve hukuki ön denetim.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. MARKET INTELLIGENCE PRINCIPLES (PHILOSOPHY)
+         ========================================================================== -->
+    <section class="py-20 sm:py-24 bg-navy relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+        <div class="glass-panel-gold p-8 sm:p-12 rounded-3xl border border-champagne/40 shadow-2xl relative overflow-hidden">
+          
+          <div class="absolute -right-16 -bottom-16 text-champagne/5 text-[12rem] font-serif pointer-events-none">
+            <i class="fas fa-landmark"></i>
+          </div>
+
+          <div class="relative z-10 text-center mb-10">
+            <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight mb-2">
+              GDOS Piyasa İlkeleri
+            </h2>
+            <div class="w-16 h-0.5 bg-champagne mx-auto mt-4"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 relative z-10 font-sans">
+            
+            <div class="flex items-start gap-4">
+              <i class="fas fa-times text-red-400/80 mt-1"></i>
+              <div>
+                <h4 class="text-sm font-bold text-titanium mb-1">Hayali İstatistik Yok</h4>
+                <p class="text-xs text-titanium-muted leading-relaxed">Objektif kaynaklara dayanmayan hiçbir veri paylaşılmaz.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <i class="fas fa-check text-emerald-400 mt-1"></i>
+              <div>
+                <h4 class="text-sm font-bold text-titanium mb-1">Önce Doğrulanmış Bilgi</h4>
+                <p class="text-xs text-titanium-muted leading-relaxed">Piyasa söylentileri değil, işlem görmüş tapu ve kira verileri baz alınır.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <i class="fas fa-times text-red-400/80 mt-1"></i>
+              <div>
+                <h4 class="text-sm font-bold text-titanium mb-1">Gerçekdışı Vaat Yok</h4>
+                <p class="text-xs text-titanium-muted leading-relaxed">Piyasa gerçekliğinin üzerindeki getiri oranları pazarlama aracı yapılmaz.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <i class="fas fa-check text-emerald-400 mt-1"></i>
+              <div>
+                <h4 class="text-sm font-bold text-titanium mb-1">Mülkten Önce Strateji</h4>
+                <p class="text-xs text-titanium-muted leading-relaxed">Portföy sunumundan önce yatırımcının takvimi, riski ve hedefi analiz edilir.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <i class="fas fa-times text-red-400/80 mt-1"></i>
+              <div>
+                <h4 class="text-sm font-bold text-titanium mb-1">Spekülatif Tahmin Yok</h4>
+                <p class="text-xs text-titanium-muted leading-relaxed">Fiyatların geleceği üzerine değil, mevcut verinin analizi üzerine konuşulur.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <i class="fas fa-check text-emerald-400 mt-1"></i>
+              <div>
+                <h4 class="text-sm font-bold text-titanium mb-1">Fikirden Önce Veri</h4>
+                <p class="text-xs text-titanium-muted leading-relaxed">Kişisel kanaatler yerine matematiksel rasyolar (kira çarpanı vb.) önceliklidir.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. FUTURE TOOLS (PLACEHOLDERS)
+         ========================================================================== -->
+    <section class="py-16 sm:py-20 bg-navy-light/20 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll text-center">
+        <h2 class="font-cinzel text-xl sm:text-2xl font-bold text-titanium mb-10">
+          Geliştirme Aşamasındaki Modüller
+        </h2>
+        
+        <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+          <div class="px-5 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-titanium-muted text-xs font-semibold font-sans flex items-center">
+            <i class="fas fa-calculator mr-2 text-champagne/60"></i> Yatırım Hesaplayıcı <span class="ml-2 text-[9px] bg-navy-dark px-1.5 py-0.5 rounded text-slate-400 uppercase tracking-widest">Yakında</span>
+          </div>
+          <div class="px-5 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-titanium-muted text-xs font-semibold font-sans flex items-center">
+            <i class="fas fa-percentage mr-2 text-champagne/60"></i> Kira Çarpanı Analizi <span class="ml-2 text-[9px] bg-navy-dark px-1.5 py-0.5 rounded text-slate-400 uppercase tracking-widest">Yakında</span>
+          </div>
+          <div class="px-5 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-titanium-muted text-xs font-semibold font-sans flex items-center">
+            <i class="fas fa-columns mr-2 text-champagne/60"></i> Bölge Karşılaştırma <span class="ml-2 text-[9px] bg-navy-dark px-1.5 py-0.5 rounded text-slate-400 uppercase tracking-widest">Yakında</span>
+          </div>
+          <div class="px-5 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-titanium-muted text-xs font-semibold font-sans flex items-center">
+            <i class="fas fa-handshake mr-2 text-champagne/60"></i> Portföy Eşleştirme <span class="ml-2 text-[9px] bg-navy-dark px-1.5 py-0.5 rounded text-slate-400 uppercase tracking-widest">Yakında</span>
+          </div>
+          <div class="px-5 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-titanium-muted text-xs font-semibold font-sans flex items-center">
+            <i class="fas fa-robot mr-2 text-champagne/60"></i> Yapay Zeka Asistanı <span class="ml-2 text-[9px] bg-navy-dark px-1.5 py-0.5 rounded text-slate-400 uppercase tracking-widest">Yakında</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. CTA
+         ========================================================================== -->
+    <section class="py-20 sm:py-24 relative overflow-hidden bg-navy-light/40 border-t border-slate-800/80">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-on-scroll">
+        <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium mb-4">
+          Yatırım Stratejinizi Belirleyin
+        </h2>
+        <p class="text-sm sm:text-base text-titanium-muted mb-8 font-sans max-w-2xl mx-auto leading-relaxed">
+          Spesifik bir bölge veya yatırım kararı hakkında veri odaklı stratejik danışmanlık talep edin.
+        </p>
+        <a href="https://wa.me/905322384039?text=Merhaba%20Ali%20Bey%2C%20Ankara%20gayrimenkul%20piyasas%C4%B1%20hakk%C4%B1nda%20stratejik%20dan%C4%B1%C5%9Fmanl%C4%B1k%20talep%20ediyorum." target="_blank" rel="noopener" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-sm transition-all duration-300 shadow-xl hover:scale-105 font-cinzel tracking-wider">
+          <span>Stratejik Danışmanlık Talep Et</span>
+          <i class="fas fa-arrow-right ml-3"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="bg-navy-dark border-t border-slate-800/80 pt-14 sm:pt-16 pb-16 text-xs text-titanium-muted font-sans">
+    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8">
+      
+      <div class="pb-8 sm:pb-10 mb-10 sm:mb-12 border-b border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+        <div>
+          <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-champagne font-cinzel block">Ankara Gayrimenkul Stratejisti | TrueMax Gayrimenkul</span>
+          <h3 class="font-cinzel text-lg sm:text-2xl font-bold text-titanium mt-1">Ali Cömert — TrueMax Gayrimenkul</h3>
+          <p class="text-xs text-titanium-muted mt-0.5">Ankara gayrimenkul piyasasını bölge bazlı analitik yaklaşımla yorumlayan danışmanlık.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 pb-10 sm:pb-12 border-b border-slate-800/60">
+        
+        <div class="md:col-span-1 space-y-4">
+          <div class="flex items-center space-x-3 text-sm pt-2 text-titanium">
+            <a href="https://www.instagram.com/alicomert.realestate" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-champagne hover:text-navy-dark transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/ali-cömert-27b083380" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-champagne hover:text-navy-dark transition-colors">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://wa.me/905322384039" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-champagne hover:text-navy-dark transition-colors">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-cinzel font-bold text-titanium text-sm uppercase tracking-wider">Hızlı Erişim</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-champagne transition-colors">Ana Sayfa</a></li>
+            <li><a href="intelligence.html" class="hover:text-champagne transition-colors">Ankara Analizi (Intelligence Center)</a></li>
+            <li><a href="index.html#portfolio-showcase" class="hover:text-champagne transition-colors">Özel Portföy</a></li>
+            <li><a href="https://truemaxgayrimenkul.com" target="_blank" rel="noopener" class="text-champagne hover:underline">TrueMax Kurumsal</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3.5">
+          <h4 class="font-cinzel font-bold text-titanium text-sm uppercase tracking-wider">İletişim</h4>
+          <p class="leading-relaxed text-titanium-muted">
+            <strong class="text-titanium block">İLKO SİTESİ / ÇANKAYA</strong>
+            Prof. Dr. Ahmet Taner Kışlalı Mah. 2812. Cad. No:43 Çankaya / Ankara
+          </p>
+          <div>
+            <a href="tel:+905322384039" class="font-bold text-champagne text-base hover:underline block mt-0.5">+90 532 238 40 39</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500">
+        <p>&copy; 2026 ALİ CÖMERT - TrueMax Gayrimenkul Bünyesinde. Tüm hakları saklıdır. NDA mahremiyet ilkelerine tam uyumluluk.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
