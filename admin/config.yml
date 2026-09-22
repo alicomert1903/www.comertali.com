@@ -1,14 +1,14 @@
 # comertali.com — Decap CMS yapılandırması
 #
-# Aktifleşmesi için Netlify panelinden yapılması gerekenler:
-#   1) Site bu projeyi barındıran bir GitHub reposuna bağlanmalı (Site settings → Build & deploy)
-#   2) Identity açılmalı (Site settings → Identity → Enable Identity)
-#   3) Git Gateway açılmalı (Identity → Services → Git Gateway)
-#   4) Kendinize bir Identity kullanıcı daveti gönderilmeli (Identity → Invite users)
-# Bu adımlar tamamlanmadan /admin sayfası giriş ekranını gösterir ama içeri girilemez.
+# Giriş yöntemi: doğrudan GitHub OAuth (Netlify'ın site kendisinde barındığı
+# için otomatik sağladığı OAuth sağlayıcısı ile, ekstra kurulum gerekmez).
+# /admin sayfasında "Login with GitHub" ile reponuza (alicomert1903/www.comertali.com)
+# yazma izni olan GitHub hesabınızla giriş yapılır. Repo private kalabilir;
+# Identity/Git Gateway'e ihtiyaç yoktur.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: alicomert1903/www.comertali.com
   branch: main
 
 media_folder: "assets/images/uploads"

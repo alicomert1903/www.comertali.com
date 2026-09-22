@@ -1464,19 +1464,5 @@
   <script src="assets/js/vcard.js?v=20260712_1"></script>
   <script src="assets/js/main.js?v=20260712_1"></script>
 
-  <!-- Netlify Identity: /admin (Decap CMS) davet/giriş bağlantılarının ana sayfadan
-       doğru şekilde işlenmesi için gereklidir. CMS aktive edilene kadar sessizce durur. -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>
