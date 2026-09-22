@@ -334,6 +334,10 @@
           <i class="fas fa-layer-group text-xs mr-2 text-champagne"></i>
           <span>Portföy</span>
         </a>
+        <a href="araclar.html" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0">
+          <i class="fas fa-calculator text-xs mr-2 text-champagne"></i>
+          <span>Hesaplayıcılar</span>
+        </a>
       </nav>
 
       <!-- Right Action Area (Desktop) -->
@@ -408,9 +412,20 @@
   <section id="hero" class="relative pt-28 pb-16 sm:pt-36 sm:pb-28 overflow-hidden">
     <div class="absolute top-1/4 left-10 w-96 h-96 bg-champagne/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
     <div class="absolute bottom-10 right-10 w-[32rem] h-[32rem] bg-blue-600/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
-    
+
     <!-- Mobilde pr-16 container ile sağ sabit ikonların metinleri kapatması engellendi -->
     <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8">
+
+      <!-- Canlı Piyasa Şeridi (USD / EUR / Gram Altın) — API'den veri gelene kadar gizli -->
+      <div id="fxTicker" class="hidden bg-navy-dark/80 border border-slate-800/60 rounded-2xl text-titanium-muted mb-6 sm:mb-8">
+        <div class="px-4 sm:px-6 py-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px] sm:text-xs">
+          <span class="flex items-center"><i class="fas fa-dollar-sign text-champagne mr-1.5"></i>USD <span id="fxUsd" class="text-titanium font-semibold ml-1"></span></span>
+          <span class="flex items-center"><i class="fas fa-euro-sign text-champagne mr-1.5"></i>EUR <span id="fxEur" class="text-titanium font-semibold ml-1"></span></span>
+          <span class="flex items-center"><i class="fas fa-coins text-champagne mr-1.5"></i>Gram Altın <span id="fxGold" class="text-titanium font-semibold ml-1"></span></span>
+          <span id="fxUpdated" class="text-slate-500"></span>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 items-center">
         
         <!-- Left Side: Tagline, Scope & CTA Buttons -->
@@ -1087,6 +1102,63 @@
     </div>
   </section>
 
+  <!-- ==========================================================================
+       FAYDALI LİNKLER & ARAÇLAR
+       ========================================================================== -->
+  <section id="useful-links" class="py-20 sm:py-24 bg-navy relative overflow-hidden">
+    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8">
+
+      <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16 reveal-on-scroll">
+        <span class="text-xs uppercase tracking-widest text-champagne font-bold block mb-2 font-cinzel">Kaynaklar</span>
+        <h2 class="font-cinzel text-2xl sm:text-5xl font-bold text-titanium tracking-tight">
+          Faydalı Linkler & Araçlar
+        </h2>
+        <p class="text-xs sm:text-base text-titanium-muted mt-3 sm:mt-4 leading-relaxed font-sans">
+          Açık piyasa ilanlarımıza doğrudan ulaşın; tapu harcı, değer artış kazancı vergisi ve hisseli tapu paylaşımı gibi hesaplarınızı saniyeler içinde yapın.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-on-scroll">
+
+        <a href="https://ofisim.sahibinden.com/ilanlarim?storeUserId=105231825" target="_blank" rel="noopener" class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 flex flex-col group">
+          <div class="w-14 h-14 rounded-2xl bg-[#ffe800] text-navy-dark flex items-center justify-center font-cinzel font-black text-2xl mb-5 shadow-xl group-hover:scale-110 transition-transform duration-300">S</div>
+          <h3 class="font-cinzel text-lg font-bold text-titanium mb-2">sahibinden.com İlanlarım</h3>
+          <p class="text-xs text-titanium-muted leading-relaxed font-sans flex-grow">
+            Açık piyasadaki tüm ilanlarımı sahibinden.com üzerindeki mağaza profilimden inceleyin.
+          </p>
+          <span class="mt-5 inline-flex items-center text-xs font-bold text-champagne group-hover:underline">
+            İlanları Görüntüle <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+          </span>
+        </a>
+
+        <a href="https://truemaxgayrimenkul.com/portfoyler/?danismanId=36926eb9-ff7b-4d20-bf77-3541844b7a3c" target="_blank" rel="noopener" class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 flex flex-col group">
+          <img src="./truemax_logo.png" onerror="this.onerror=null; this.src='./logo.png';" alt="TrueMax Gayrimenkul" class="w-14 h-14 rounded-2xl object-contain bg-navy-dark p-2 mb-5 shadow-xl group-hover:scale-110 transition-transform duration-300" />
+          <h3 class="font-cinzel text-lg font-bold text-titanium mb-2">TrueMax Özel Portföyüm</h3>
+          <p class="text-xs text-titanium-muted leading-relaxed font-sans flex-grow">
+            TrueMax Gayrimenkul bünyesindeki kişisel danışmanlık portföyümü doğrudan inceleyin.
+          </p>
+          <span class="mt-5 inline-flex items-center text-xs font-bold text-champagne group-hover:underline">
+            Portföyü Görüntüle <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+          </span>
+        </a>
+
+        <a href="araclar.html" class="glass-panel-gold rounded-3xl p-6 sm:p-8 border border-champagne/50 hover:border-champagne transition-all duration-300 flex flex-col group">
+          <div class="w-14 h-14 rounded-2xl bg-champagne/15 border border-champagne text-champagne flex items-center justify-center text-2xl mb-5 shadow-xl group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-titanium mb-2">Tapu & Vergi Hesaplayıcıları</h3>
+          <p class="text-xs text-titanium-muted leading-relaxed font-sans flex-grow">
+            Tapu harcı, değer artış kazancı vergisi ve hisseli tapu paylaşımını hemen hesaplayın.
+          </p>
+          <span class="mt-5 inline-flex items-center text-xs font-bold text-champagne group-hover:underline">
+            Hesaplayıcıları Aç <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
   <!-- Sıkça Sorulan Sorular (S.S.S. Accordion) -->
   <section id="faq" class="py-20 sm:py-24 bg-navy-light/30 border-t border-slate-800/60">
     <div class="max-w-4xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8">
@@ -1311,6 +1383,7 @@
             <li><a href="#gatekeeping" class="hover:text-champagne transition-colors" data-i18n="footer_l3">Ankara Geneli Lüks Konut</a></li>
             <li><a href="intelligence.html" class="hover:text-champagne transition-colors" data-i18n="footer_l4">Ankara Intelligence Center</a></li>
             <li><a href="https://truemaxgayrimenkul.com" target="_blank" rel="noopener" class="text-champagne hover:underline flex items-center"><span data-i18n="footer_l5">TrueMax Açık İlanlar</span> <i class="fas fa-external-link-alt ml-1.5 text-[9px]"></i></a></li>
+            <li><a href="araclar.html" class="hover:text-champagne transition-colors">Tapu & Vergi Hesaplayıcıları</a></li>
           </ul>
         </div>
 

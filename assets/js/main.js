@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initCheckboxValidation();
   initQrWelcomeScenario();
   initPortfolioCMS();
+  initFxTicker();
   initGA4Events(); // GDOS Analytics — must run last (after all elements are bound)
 });
 
@@ -639,5 +640,38 @@ function initPortfolioCMS() {
     })
     .catch(() => {
       // content/portfolio.json henüz yok veya erişilemedi — statik içerik kalır.
+    });
+}
+
+/* ==========================================================================
+   13. CANLI PİYASA ŞERİDİ: USD / EUR / Gram Altın (Truncgil Finans API)
+   API'ye ulaşılamazsa şerit gizli kalır, sayfa bozulmaz.
+   ========================================================================== */
+function initFxTicker() {
+  const ticker = document.getElementById("fxTicker");
+  if (!ticker) return;
+
+  const fmt = n => n.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  fetch("https://finans.truncgil.com/v4/today.json")
+    .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then(data => {
+      const usd = data.USD?.Selling;
+      const eur = data.EUR?.Selling;
+      const gold = data.GRA?.Selling;
+      if (!usd || !eur || !gold) return;
+
+      document.getElementById("fxUsd").textContent = fmt(usd) + " TL";
+      document.getElementById("fxEur").textContent = fmt(eur) + " TL";
+      document.getElementById("fxGold").textContent = fmt(gold) + " TL";
+
+      const saat = typeof data.Update_Date === "string" ? data.Update_Date.split(" ")[1]?.slice(0, 5) : "";
+      document.getElementById("fxUpdated").textContent = saat ? `Güncelleme: ${saat}` : "";
+
+      ticker.classList.remove("hidden");
+      ticker.classList.add("flex");
+    })
+    .catch(() => {
+      // Kur verisine ulaşılamadı — şerit gizli kalır.
     });
 }

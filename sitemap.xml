@@ -27,6 +27,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/"/>
   </url>
 
+  <url>
+    <loc>https://comertali.com/araclar.html</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://comertali.com/intelligence.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!--
     ===================================================================
     FUTURE KNOWLEDGE PLATFORM URLS — Add as pages go live
