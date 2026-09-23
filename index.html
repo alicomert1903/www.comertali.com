@@ -860,6 +860,37 @@
   </section>
 
   <!-- ==========================================================================
+       MÜLK DEĞERLENDİRME CTA
+       ========================================================================== -->
+  <section id="valuation-cta" class="py-16 sm:py-20 bg-navy-light/30 border-y border-slate-800/60 reveal-on-scroll">
+    <div class="max-w-5xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8">
+      <div class="glass-panel-gold rounded-3xl p-6 sm:p-10 border border-champagne/40 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 text-center md:text-left">
+          <div class="w-16 h-16 rounded-2xl bg-champagne/15 border border-champagne text-champagne flex items-center justify-center text-2xl flex-shrink-0">
+            <i class="fas fa-house-chimney-window"></i>
+          </div>
+          <div>
+            <span class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-champagne block font-cinzel">Ücretsiz & Yükümlülüksüz</span>
+            <h3 class="font-cinzel text-lg sm:text-2xl font-bold text-titanium mt-1">
+              Mülkünüzün Güncel Değerini Öğrenin
+            </h3>
+            <p class="text-xs text-titanium-muted mt-1 font-sans">
+              Bölge verisine dayalı ön değerlendirme için birkaç detay paylaşın, size özel dönüş yapalım.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-shrink-0 w-full md:w-auto">
+          <button type="button" onclick="window.openValuationModal && window.openValuationModal()" class="w-full md:w-auto px-8 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-xs sm:text-sm shadow-xl hover:brightness-105 transition-all duration-300 flex items-center justify-center font-cinzel tracking-wider">
+            <i class="fas fa-calculator mr-3 text-[11px] sm:text-xs"></i>
+            <span>Ücretsiz Değerleme Talep Et</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
        HİYERARŞİ 4: ÖZEL PORTFÖY BAŞVURU FORMU (NETLIFY FORMS)
        ========================================================================== -->
   <section id="gatekeeping" class="py-20 sm:py-24 relative overflow-hidden bg-navy-light/40 border-y border-slate-800/80">
@@ -1566,6 +1597,93 @@
         <i class="fas fa-shield-alt text-champagne mr-1.5"></i>
         <span>SPK Lisanslı & %100 Yasal Güvence &bull; İlko Sitesi / Ankara</span>
       </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 5: MÜLK DEĞERLENDİRME TALEBİ (NETLIFY FORMS)
+       ========================================================================== -->
+  <div id="valuationModal" class="fixed inset-0 z-50 hidden bg-navy-dark/90 backdrop-blur-xl items-center justify-center p-4" onclick="if (event.target === this) window.closeValuationModal()">
+    <div class="glass-panel-gold rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl border border-champagne/40 font-sans">
+      <button onclick="window.closeValuationModal()" class="fixed sm:absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-slate-800/95 text-titanium flex items-center justify-center hover:text-champagne transition-colors z-20 shadow-xl" aria-label="Kapat">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="text-center pb-6 border-b border-slate-700/60">
+        <div class="w-14 h-14 rounded-2xl bg-champagne/15 border border-champagne text-champagne flex items-center justify-center text-xl mx-auto mb-3">
+          <i class="fas fa-house-chimney-window"></i>
+        </div>
+        <h3 class="font-cinzel text-xl sm:text-2xl font-bold text-titanium">Ücretsiz Mülk Değerlendirme</h3>
+        <p class="text-xs text-titanium-muted mt-2">Bilgilerinizi paylaşın, bölge verisine dayalı ön değerlendirme için size dönüş yapalım.</p>
+      </div>
+
+      <form id="valuationForm" name="mulk-degerleme" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-4 pt-6">
+        <input type="hidden" name="form-name" value="mulk-degerleme">
+        <p class="hidden"><label>Bunu doldurmayın: <input name="bot-field"></label></p>
+
+        <div>
+          <label for="valAdSoyad" class="block text-xs font-bold text-titanium uppercase tracking-wider mb-1.5 font-cinzel">Ad Soyad *</label>
+          <input type="text" id="valAdSoyad" name="ad_soyad" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-navy-dark/90 border border-slate-700 text-titanium rounded-xl px-4 py-3 text-xs sm:text-sm focus:border-champagne transition-all" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="valTelefon" class="block text-xs font-bold text-titanium uppercase tracking-wider mb-1.5 font-cinzel">Telefon *</label>
+            <input type="tel" id="valTelefon" name="telefon" required placeholder="05XX XXX XX XX" class="w-full bg-navy-dark/90 border border-slate-700 text-titanium rounded-xl px-4 py-3 text-xs sm:text-sm focus:border-champagne transition-all" />
+          </div>
+          <div>
+            <label for="valEmail" class="block text-xs font-bold text-titanium uppercase tracking-wider mb-1.5 font-cinzel">E-posta</label>
+            <input type="email" id="valEmail" name="email" placeholder="ornek@eposta.com" class="w-full bg-navy-dark/90 border border-slate-700 text-titanium rounded-xl px-4 py-3 text-xs sm:text-sm focus:border-champagne transition-all" />
+          </div>
+        </div>
+
+        <div>
+          <label for="valMulkTipi" class="block text-xs font-bold text-titanium uppercase tracking-wider mb-1.5 font-cinzel">Mülk Tipi *</label>
+          <select id="valMulkTipi" name="mulk_tipi" required class="w-full bg-navy-dark/90 border border-slate-700 text-titanium rounded-xl px-4 py-3 text-xs sm:text-sm focus:border-champagne transition-all">
+            <option value="" disabled selected>Seçiniz...</option>
+            <option>Daire</option>
+            <option>Villa / Müstakil Ev</option>
+            <option>Arsa</option>
+            <option>İşyeri / Ticari</option>
+            <option>Diğer</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="valDetay" class="block text-xs font-bold text-titanium uppercase tracking-wider mb-1.5 font-cinzel">Konum & Mülk Detayı *</label>
+          <textarea id="valDetay" name="mulk_detayi" required rows="3" placeholder="Örn: Çankaya, Oran, 4+1, 220 m², 5 yaşında..." class="w-full bg-navy-dark/90 border border-slate-700 text-titanium rounded-xl px-4 py-3 text-xs sm:text-sm focus:border-champagne transition-all resize-none"></textarea>
+        </div>
+
+        <div class="flex items-start space-x-3 pt-2">
+          <input type="checkbox" id="valKvkkCheck" name="kvkk_onay" required class="mt-1 w-4 h-4 rounded bg-navy-dark border-slate-700 text-champagne focus:ring-champagne cursor-pointer flex-shrink-0" />
+          <label for="valKvkkCheck" class="text-xs text-titanium-muted leading-relaxed select-none">
+            <button type="button" onclick="window.openLegalModal('KVKK Aydınlatma Metni', null)" class="text-champagne font-bold hover:underline inline focus:outline-none">KVKK Aydınlatma Metni'ni</button> okudum ve onaylıyorum. <span class="text-champagne font-bold">*</span>
+          </label>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-champagne to-champagne-dark text-navy-dark font-bold text-sm shadow-xl hover:brightness-105 transition-all font-cinzel tracking-wide">
+          Değerlendirme Talebimi Gönder
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 6: MÜLK DEĞERLENDİRME BAŞARI ONAYI
+       ========================================================================== -->
+  <div id="valuationSuccessModal" class="fixed inset-0 z-50 hidden bg-navy-dark/95 backdrop-blur-2xl items-center justify-center p-4">
+    <div class="glass-panel-gold rounded-3xl max-w-md w-full p-8 text-center relative shadow-2xl border border-champagne/60 animate-fade-in font-sans">
+      <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-champagne to-amber-700 mx-auto flex items-center justify-center text-navy-dark text-3xl font-bold shadow-2xl mb-6">
+        <i class="fas fa-check"></i>
+      </div>
+      <span class="text-xs uppercase tracking-widest text-champagne font-bold block font-cinzel">Talebiniz Alındı</span>
+      <h3 class="font-cinzel text-2xl font-bold text-titanium mt-2">Değerlendirme Talebiniz İletildi</h3>
+      <p class="text-sm sm:text-base text-titanium-muted mt-4 leading-relaxed font-sans">
+        Paylaştığınız bilgiler doğrultusunda bölge verisine dayalı ön değerlendirmemizi hazırlayıp en kısa sürede sizinle iletişime geçeceğiz.
+      </p>
+      <button onclick="window.closeValuationSuccessModal()" class="mt-6 w-full py-3.5 rounded-xl bg-gradient-to-r from-champagne to-champagne-dark text-navy-dark font-bold text-sm shadow-xl hover:brightness-105 transition-all font-cinzel tracking-wide">
+        Sitede Keşfe Devam Et
+      </button>
     </div>
   </div>
 
