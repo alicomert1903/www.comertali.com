@@ -33,3 +33,7 @@ class VisionVideoPlayer {
 }
 
 window.videoPlayer = new VisionVideoPlayer();
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") window.videoPlayer.closeModal();
+});
