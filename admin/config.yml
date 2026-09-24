@@ -34,3 +34,21 @@ collections:
               - { label: "Başlık", name: "title", widget: "string" }
               - { label: "Açıklama", name: "description", widget: "text" }
               - { label: "Arka Plan Görseli", name: "image", widget: "image" }
+
+  - name: "videolar"
+    label: "Video Galerisi"
+    description: "Ana sayfadaki Video Galerisi bölümü. YouTube'a yüklediğiniz videonun linkini yapıştırmanız yeterli, kapak görseli otomatik çekilir. Liste boşsa bölüm sitede görünmez."
+    files:
+      - file: "content/videos.json"
+        label: "YouTube Videoları"
+        name: "videos"
+        fields:
+          - label: "Videolar"
+            name: "videos"
+            widget: "list"
+            min: 0
+            summary: "{{title}}"
+            fields:
+              - { label: "Başlık", name: "title", widget: "string" }
+              - { label: "YouTube Video Linki", name: "youtube_url", widget: "string", hint: "Örn: https://www.youtube.com/watch?v=XXXXXXXXXXX veya https://youtu.be/XXXXXXXXXXX" }
+              - { label: "Kısa Açıklama (opsiyonel)", name: "description", widget: "text", required: false }

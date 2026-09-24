@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initQrWelcomeScenario();
   initPortfolioCMS();
   initFxTicker();
+  initVideoGallery();
   initGA4Events(); // GDOS Analytics — must run last (after all elements are bound)
 });
 
@@ -767,3 +768,78 @@ function initFxTicker() {
       // Kur verisine ulaşılamadı — şerit gizli kalır.
     });
 }
+
+/* ==========================================================================
+   14. VİDEO GALERİSİ: content/videos.json (Decap CMS'ten yönetilir)
+   Liste boşsa veya dosyaya erişilemezse bölüm gizli kalır.
+   ========================================================================== */
+function extractYouTubeId(url) {
+  if (typeof url !== "string") return null;
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : null;
+}
+
+function initVideoGallery() {
+  const section = document.getElementById("video-gallery");
+  const grid = document.getElementById("videoGalleryGrid");
+  if (!section || !grid) return;
+
+  fetch("content/videos.json")
+    .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then(data => {
+      const videos = (data.videos || []).filter(v => extractYouTubeId(v.youtube_url));
+      if (!videos.length) return;
+
+      grid.innerHTML = videos.map(video => {
+        const id = extractYouTubeId(video.youtube_url);
+        const title = (video.title || "Video").replace(/"/g, "&quot;");
+        const desc = video.description || "";
+        return `
+          <button type="button" onclick="window.openYoutubeModal('${id}')" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 text-left group">
+            <div class="relative aspect-video bg-navy-dark overflow-hidden">
+              <img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <div class="absolute inset-0 bg-navy-dark/30 group-hover:bg-navy-dark/10 transition-colors flex items-center justify-center">
+                <span class="w-14 h-14 rounded-full bg-champagne/90 text-navy-dark flex items-center justify-center text-xl shadow-xl group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-play ml-0.5"></i>
+                </span>
+              </div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium">${title}</h3>
+              ${desc ? `<p class="text-xs text-titanium-muted mt-1.5 leading-relaxed font-sans">${desc}</p>` : ""}
+            </div>
+          </button>
+        `;
+      }).join("");
+
+      section.classList.remove("hidden");
+    })
+    .catch(() => {
+      // content/videos.json henüz yok veya erişilemedi — bölüm gizli kalır.
+    });
+}
+
+window.openYoutubeModal = function(videoId) {
+  const modal = document.getElementById("youtubeModal");
+  const frame = document.getElementById("youtubeModalFrame");
+  if (!modal || !frame) return;
+  frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+  document.body.style.overflow = "hidden";
+};
+
+window.closeYoutubeModal = function() {
+  const modal = document.getElementById("youtubeModal");
+  const frame = document.getElementById("youtubeModalFrame");
+  if (modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+  if (frame) frame.src = "";
+};
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") window.closeYoutubeModal();
+});
