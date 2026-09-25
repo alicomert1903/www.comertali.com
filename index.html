@@ -10,6 +10,9 @@
 
   <!-- Canonical & Open Graph -->
   <link rel="canonical" href="https://comertali.com/" />
+  <link rel="alternate" hreflang="tr" href="https://comertali.com/" />
+  <link rel="alternate" hreflang="en" href="https://comertali.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://comertali.com/" />
   <meta property="og:title" content="Ali Cömert | Ankara Gayrimenkul Stratejisti — TrueMax Danışmanlık" />
   <meta property="og:description" content="Ankara'nın gayrimenkul piyasasını analitik derinlikle yorumlayan Ali Cömert ile bölge bazlı yatırım stratejisi, portföy rehberliği ve vatandaşlık danışmanlığı." />
   <meta property="og:type" content="website" />
@@ -307,17 +310,23 @@
           </div>
         </a>
 
-        <!-- Mobile Compact Action / Desktop Right Actions -->
-        <div class="flex items-center space-x-1.5 sm:space-x-2.5 lg:hidden flex-shrink-0">
-          <a href="#gatekeeping" class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-xs shadow-lg font-cinzel tracking-wide">
-            <i class="fas fa-lock text-[11px] mr-1.5"></i>
-            <span data-i18n="btn_access_short">Erişim</span>
+        <div class="flex items-center space-x-1.5 sm:space-x-2.5 flex-shrink-0">
+          <!-- Language Switcher -->
+          <a href="en/index.html" hreflang="en" aria-label="Switch to English" class="flex items-center justify-center w-8 h-8 sm:w-auto sm:h-8 sm:px-2.5 xl:px-3 rounded-lg bg-navy-dark border border-slate-700 text-titanium text-[11px] font-bold hover:border-champagne/60 hover:text-champagne transition-all duration-300 flex-shrink-0">
+            <i class="fas fa-globe sm:mr-1.5 text-[10px]"></i><span class="hidden sm:inline">EN</span>
           </a>
+          <!-- Mobile Compact Action -->
+          <div class="flex items-center space-x-1.5 sm:space-x-2.5 lg:hidden flex-shrink-0">
+            <a href="#gatekeeping" class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-xs shadow-lg font-cinzel tracking-wide">
+              <i class="fas fa-lock text-[11px] mr-1.5"></i>
+              <span data-i18n="btn_access_short">Erişim</span>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- Navigation Links: Always visible horizontal strip on mobile & center on desktop (No Hamburger) -->
-      <nav class="flex flex-row items-center overflow-x-auto whitespace-nowrap space-x-6 sm:space-x-8 lg:space-x-2 text-xs sm:text-sm font-semibold lg:tracking-normal tracking-wide py-1.5 pt-2 border-t border-slate-800/60 lg:border-t-0 no-scrollbar lg:flex-1 lg:min-w-0">
+      <nav class="flex flex-row items-center overflow-x-auto whitespace-nowrap space-x-6 sm:space-x-8 lg:space-x-1 text-xs sm:text-sm font-semibold lg:tracking-normal tracking-wide py-1.5 pt-2 border-t border-slate-800/60 lg:border-t-0 no-scrollbar lg:flex-1 lg:min-w-0">
         <a href="#roadmap" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0">
           <i class="fas fa-passport text-xs mr-2 text-champagne"></i>
           <span data-i18n="nav_citizenship">Vatandaşlık</span>
@@ -341,16 +350,16 @@
       </nav>
 
       <!-- Right Action Area (Desktop) -->
-      <div class="hidden lg:flex items-center space-x-2 xl:space-x-3.5 flex-shrink-0">
+      <div class="hidden lg:flex items-center space-x-1.5 xl:space-x-3.5 flex-shrink-0">
         <!-- Phone Contact Badge -->
         <a href="tel:+905322384039" class="inline-flex items-center justify-center px-2.5 xl:px-4 py-2 rounded-xl bg-navy-dark border border-slate-700 text-titanium font-semibold text-xs hover:border-champagne/60 hover:text-champagne transition-all duration-300">
-          <i class="fas fa-phone-alt mr-1.5 xl:mr-2 text-champagne"></i>
-          <span>+90 532 238 40 39</span>
+          <i class="fas fa-phone-alt xl:mr-2 text-champagne"></i>
+          <span class="hidden xl:inline">+90 532 238 40 39</span>
         </a>
 
         <!-- CTA Button (Özel Portföy) -->
-        <a href="#gatekeeping" class="inline-flex items-center justify-center px-3.5 xl:px-5 py-2.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-sm shadow-xl hover:shadow-champagne/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-cinzel tracking-wide whitespace-nowrap">
-          <i class="fas fa-lock-open mr-1.5 xl:mr-2 text-xs"></i>
+        <a href="#gatekeeping" class="inline-flex items-center justify-center px-3 xl:px-5 py-2.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-xs xl:text-sm shadow-xl hover:shadow-champagne/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-cinzel tracking-wide whitespace-nowrap">
+          <i class="fas fa-lock-open mr-1 xl:mr-2 text-xs"></i>
           <span data-i18n="btn_access_long">Özel Portföye Erişin</span>
         </a>
       </div>
@@ -1719,9 +1728,9 @@
   </div>
 
   <!-- Main JavaScript Engine -->
-  <script src="assets/js/video-player.js?v=20260722_1"></script>
-  <script src="assets/js/vcard.js?v=20260712_1"></script>
-  <script src="assets/js/main.js?v=20260712_1"></script>
+  <script src="assets/js/video-player.js?v=20260925_1"></script>
+  <script src="assets/js/vcard.js?v=20260925_1"></script>
+  <script src="assets/js/main.js?v=20260925_1"></script>
 
 </body>
 </html>

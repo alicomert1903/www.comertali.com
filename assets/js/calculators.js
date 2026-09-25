@@ -6,7 +6,8 @@
  */
 
 function fmtTL(n) {
-  return n.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " TL";
+  const lang = (document.documentElement.lang || "tr").startsWith("en") ? "en-US" : "tr-TR";
+  return n.toLocaleString(lang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " TL";
 }
 
 document.addEventListener("DOMContentLoaded", () => {

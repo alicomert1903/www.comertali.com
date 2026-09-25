@@ -76,3 +76,6 @@ collections:
       - { label: "Kapak Görseli", name: "cover_image", widget: "image", required: false }
       - { label: "Yayın Tarihi", name: "date", widget: "datetime" }
       - { label: "Yazı İçeriği", name: "body", widget: "markdown" }
+      - { label: "Title (EN) — opsiyonel, doldurulursa en/blog/ sayfası da otomatik oluşturulur", name: "title_en", widget: "string", required: false }
+      - { label: "Excerpt (EN) — opsiyonel", name: "excerpt_en", widget: "text", required: false }
+      - { label: "Body (EN) — opsiyonel", name: "body_en", widget: "markdown", required: false }

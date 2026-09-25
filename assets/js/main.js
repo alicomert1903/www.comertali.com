@@ -4,6 +4,10 @@
  * GA4 Event Tracking: initGA4Events() — replace G-XXXXXXXXXX in index.html with real Measurement ID.
  */
 
+// Sayfanın <html lang="..."> özniteliğinden okunur; form doğrulama ve toast
+// mesajlarının İngilizce (en/*.html) sürümlerde doğru dilde çıkması için.
+window.currentLang = document.documentElement.lang || "tr";
+
 document.addEventListener("DOMContentLoaded", () => {
   initLanguageIntelligence();
   initScrollAnimations();
@@ -714,7 +718,7 @@ function initPortfolioCMS() {
   const cards = document.querySelectorAll("#portfolioCardsGrid .portfolio-card");
   if (!cards.length) return;
 
-  fetch("content/portfolio.json")
+  fetch("/content/portfolio.json")
     .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
     .then(data => {
       (data.cards || []).forEach((cardData, i) => {
@@ -784,7 +788,7 @@ function initVideoGallery() {
   const grid = document.getElementById("videoGalleryGrid");
   if (!section || !grid) return;
 
-  fetch("content/videos.json")
+  fetch("/content/videos.json")
     .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
     .then(data => {
       const videos = (data.videos || []).filter(v => extractYouTubeId(v.youtube_url));

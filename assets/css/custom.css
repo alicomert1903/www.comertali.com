@@ -51,8 +51,11 @@
 /* Header nav: masaüstünde 5 linkin sığması için ikon boşluğunu sıkılaştır. */
 @media (min-width: 1024px) {
   header nav a i {
-    margin-right: 0.3rem !important;
+    margin-right: 0.2rem !important;
   }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  header nav a i { display: none; }
 }
 
 /* GTranslate & Character Encoding Fix (Prevent İ/I uppercase/lowercase translation bugs) */

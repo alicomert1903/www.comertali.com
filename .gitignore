@@ -5,3 +5,4 @@ node_modules/
 
 # scripts/build-blog.js tarafından her deploy'da yeniden üretilir, commit'lenmez
 /blog/
+/en/blog/
