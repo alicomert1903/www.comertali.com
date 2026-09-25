@@ -14,6 +14,40 @@
   --champagne-dark: #AA8C2C;
 }
 
+/* Blog yazı gövdesi: marked.js'in ürettiği düz HTML'e (class'sız h2/p/ul/a)
+   tasarım dilimize uygun stil kazandırır. */
+.prose-blog h2 {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  color: var(--titanium);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-blog h3 {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  color: var(--champagne);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose-blog p { margin-bottom: 1rem; }
+.prose-blog strong { color: var(--titanium); font-weight: 600; }
+.prose-blog a { color: var(--champagne); text-decoration: underline; }
+.prose-blog ul, .prose-blog ol { margin: 1rem 0 1rem 1.25rem; }
+.prose-blog ul { list-style: disc; }
+.prose-blog ol { list-style: decimal; }
+.prose-blog li { margin-bottom: 0.4rem; }
+.prose-blog blockquote {
+  border-left: 3px solid var(--champagne);
+  padding-left: 1rem;
+  color: var(--titanium-muted);
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+.prose-blog img { border-radius: 1rem; margin: 1.5rem 0; }
+
 /* Header nav: masaüstünde 5 linkin sığması için ikon boşluğunu sıkılaştır. */
 @media (min-width: 1024px) {
   header nav a i {

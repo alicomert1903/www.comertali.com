@@ -52,3 +52,27 @@ collections:
               - { label: "Başlık", name: "title", widget: "string" }
               - { label: "YouTube Video Linki", name: "youtube_url", widget: "string", hint: "Örn: https://www.youtube.com/watch?v=XXXXXXXXXXX veya https://youtu.be/XXXXXXXXXXX" }
               - { label: "Kısa Açıklama (opsiyonel)", name: "description", widget: "text", required: false }
+
+  - name: "blog"
+    label: "Blog / Bölgesel Analiz"
+    description: "Her yazı kaydedildiğinde site otomatik yeniden derlenir ve yazı kendi sayfasında yayınlanır (birkaç dakika sürebilir)."
+    folder: "content/posts"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Başlık", name: "title", widget: "string" }
+      - label: "Kategori"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Bölge Analizi", value: "bolge_analizi" }
+          - { label: "Yatırım Rehberi", value: "yatirim_rehberi" }
+          - { label: "Piyasa Raporu", value: "piyasa_raporu" }
+          - { label: "Vatandaşlık", value: "vatandaslik" }
+          - { label: "Genel", value: "genel" }
+        default: "genel"
+      - { label: "Kısa Özet (kart ve arama motoru açıklaması için)", name: "excerpt", widget: "text" }
+      - { label: "Kapak Görseli", name: "cover_image", widget: "image", required: false }
+      - { label: "Yayın Tarihi", name: "date", widget: "datetime" }
+      - { label: "Yazı İçeriği", name: "body", widget: "markdown" }

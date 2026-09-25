@@ -1,5 +1,11 @@
 [build]
   publish = "."
+  command = "node scripts/build-blog.js"
+
+# Blog: content/posts/*.json içindeki her yazıdan blog/<slug>.html üretir,
+# blog/index.html ve intelligence.html'deki "Son Yazılar" bölümünü günceller.
+# Node bağımlılığı (marked) için package.json + package-lock.json commit'li
+# olmalı; Netlify build komutundan önce otomatik "npm install" çalıştırır.
 
 # Decap CMS (/admin) — bu site bir GitHub reposuna bağlandıktan sonra
 # Netlify panelinden Identity + Git Gateway açılması yeterlidir, ek build

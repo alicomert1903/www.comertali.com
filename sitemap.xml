@@ -41,6 +41,18 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://comertali.com/blog/</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog yazıları — scripts/build-blog.js tarafından otomatik güncellenir -->
+  <!-- BLOG_URLS_START -->
+
+  <!-- BLOG_URLS_END -->
+
   <!--
     ===================================================================
     FUTURE KNOWLEDGE PLATFORM URLS — Add as pages go live
