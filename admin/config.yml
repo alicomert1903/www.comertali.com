@@ -34,6 +34,9 @@ collections:
               - { label: "Başlık", name: "title", widget: "string" }
               - { label: "Açıklama", name: "description", widget: "text" }
               - { label: "Arka Plan Görseli", name: "image", widget: "image" }
+              - { label: "Üst Etiket (EN) — opsiyonel, doldurulursa İngilizce sitede kullanılır", name: "badge_en", widget: "string", required: false }
+              - { label: "Başlık (EN) — opsiyonel", name: "title_en", widget: "string", required: false }
+              - { label: "Açıklama (EN) — opsiyonel", name: "description_en", widget: "text", required: false }
 
   - name: "videolar"
     label: "Video Galerisi"

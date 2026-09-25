@@ -4,19 +4,28 @@
       "badge": "Çankaya · Diplomatik Kuşak",
       "title": "Konut & Malikâne",
       "description": "Çankaya'nın elçilik ve kurumsal bölgelerinde, sabit kira talebi ve yüksek değer istikrarıyla öne çıkan konut portföyü. Bölge ortalaması üzerinde kira çarpanı. Detaylı bilgi için iletişime geçin...",
-      "image": "/assets/images/luxury_residence_ankara.png"
+      "image": "/assets/images/luxury_residence_ankara.png",
+      "badge_en": "Çankaya · Diplomatic Belt",
+      "title_en": "Residences & Mansions",
+      "description_en": "A residential portfolio in Çankaya's embassy and institutional districts, distinguished by stable rental demand and high value stability — above-average rental multiplier for the area."
     },
     {
       "badge": "Oran — Koru — Çayyolu · Getiri",
       "title": "Yatırım Portföyü",
       "description": "Ankara'nın en yüksek kira çarpanına sahip üç mahallesinde, döviz bazlı kira getirisi hedefleyen yatırım odaklı konut portföyü.",
-      "image": "/assets/images/luxury_residence_ankara.png"
+      "image": "/assets/images/luxury_residence_ankara.png",
+      "badge_en": "Oran — Koru — Çayyolu · Yield",
+      "title_en": "Investment Portfolio",
+      "description_en": "An investment-focused residential portfolio across Ankara's three highest rental-multiplier neighborhoods, targeting FX-based rental yield."
     },
     {
       "badge": "Tüm Türkiye · Vatandaşlık",
       "title": "Vatandaşlık Portföyü",
       "description": "400.000 USD üzeri, SPK lisanslı ekspertiz ve avukat güvencesiyle Türk vatandaşlığına tam uyumlu varlıklar. Hukuki uygunluk ön denetimiyle başvuru güvenliği.",
-      "image": "/assets/images/luxury_residence_ankara.png"
+      "image": "/assets/images/luxury_residence_ankara.png",
+      "badge_en": "All of Turkey · Citizenship",
+      "title_en": "Citizenship Portfolio",
+      "description_en": "Assets priced above $400,000, fully compliant with Turkish citizenship requirements, backed by SPK-licensed appraisal and legal counsel — application security through legal pre-screening."
     }
   ]
 }

@@ -531,21 +531,60 @@ window.openLegalModal = function(title, content) {
   const modal = document.getElementById("legalHtmlModal");
   const titleEl = document.getElementById("legalModalTitle");
   const contentEl = document.getElementById("legalModalContent");
+  const isEn = window.currentLang === "en";
 
-  let finalContent = content;
-  if (!finalContent && title) {
-    if (title.includes("KVKK")) {
-      finalContent = `<p class="leading-relaxed">6698 sayılı Kişisel Verilerin Korunması Kanunu ('KVKK') kapsamında; tarafıma iletmiş olduğunuz ad, soyad, iletişim numarası, e-posta adresi ve yatırım hedefi (bütçe, zamanlama, lokasyon) bilgileriniz veri sorumlusu sıfatıyla Ali Cömert tarafından işlenmektedir. Bu veriler; nitelikli gayrimenkul eşleştirmelerinin yapılması, tarafınıza sunulacak özel (off-market) portföylerin güvenliğinin sağlanması, vatandaşlık (Citizenship) süreçlerinin yasal takibi ve iletişim faaliyetlerinin yürütülmesi amaçlarıyla sınırlı olarak kullanılmaktadır. Verileriniz, yasal zorunluluklar veya vatandaşlık işlemleri kapsamında yetkili kamu kurumları ve hukuki iş ortaklarımız haricinde hiçbir üçüncü şahısla paylaşılmayacaktır. Formu onaylayarak, verilerinizin bu kapsamda işlenmesine açık rıza göstermektesiniz.</p>`;
-    } else if (title.includes("NDA") || title.includes("Gizlilik")) {
-      finalContent = `<p class="leading-relaxed">İşbu form aracılığıyla 'Özel Portföy' erişimi talep eden yatırımcı, kendisine Ali Cömert tarafından sunulacak olan tüm gayrimenkul bilgilerinin (mülk konumları, mal sahibi kimlikleri, kat planları, finansal analizler, tapu kayıtları) 'Ticari Sır' niteliğinde olduğunu gayrikabili rücu kabul ve taahhüt eder. Yatırımcı, elde ettiği bu verileri kopyalayamaz, ekran görüntüsü alamaz, üçüncü kişi veya rakip firmalarla paylaşamaz ve mülk sahiplerine veya aracılarına Ali Cömert'in yazılı izni olmadan ulaşamaz. Bu gizlilik ihlalinden doğacak her türlü maddi/manevi zararın tazmini yatırımcının sorumluluğundadır. Formu onaylayarak bu gizlilik şartlarını kabul etmiş sayılırsınız.</p>`;
-    } else if (title.includes("Çerez") || title.includes("Cookie")) {
-      finalContent = `<p class="leading-relaxed">comertali.com platformunda, güvenli ve kesintisiz bir kullanıcı deneyimi sunmak amacıyla çerezler kullanılmaktadır. Sitemizde; form güvenliğini sağlayan ve yasal onay mekanizmalarını hafızada tutan 'Zorunlu Çerezler' ile site trafiğini anonim olarak ölçen 'Analitik Çerezler' aktiftir. Tarayıcı ayarlarınızdan çerezleri reddetmeniz durumunda sitenin temel fonksiyonları çalışmayabilir. Siteyi kullanmaya devam ederek çerez kullanımını kabul etmiş olursunuz.</p>`;
-    }
+  // Çağıran taraf hangi dilde link metni geçerse geçsin (TR ya da EN sayfa
+  // aynı anahtar kelimelerle çağırır), tipi tespit edip sayfanın diline göre
+  // başlık ve içerik gösteriyoruz.
+  let type = null;
+  if (title) {
+    if (title.includes("KVKK")) type = "kvkk";
+    else if (title.includes("NDA") || title.includes("Gizlilik")) type = "nda";
+    else if (title.includes("Çerez") || title.includes("Cookie")) type = "cookie";
   }
 
-  if (titleEl) titleEl.textContent = title;
+  const LEGAL_TEXT = {
+    kvkk: {
+      tr: {
+        title: "KVKK Aydınlatma Metni",
+        body: `<p class="leading-relaxed">6698 sayılı Kişisel Verilerin Korunması Kanunu ('KVKK') kapsamında; tarafıma iletmiş olduğunuz ad, soyad, iletişim numarası, e-posta adresi ve yatırım hedefi (bütçe, zamanlama, lokasyon) bilgileriniz veri sorumlusu sıfatıyla Ali Cömert tarafından işlenmektedir. Bu veriler; nitelikli gayrimenkul eşleştirmelerinin yapılması, tarafınıza sunulacak özel (off-market) portföylerin güvenliğinin sağlanması, vatandaşlık (Citizenship) süreçlerinin yasal takibi ve iletişim faaliyetlerinin yürütülmesi amaçlarıyla sınırlı olarak kullanılmaktadır. Verileriniz, yasal zorunluluklar veya vatandaşlık işlemleri kapsamında yetkili kamu kurumları ve hukuki iş ortaklarımız haricinde hiçbir üçüncü şahısla paylaşılmayacaktır. Formu onaylayarak, verilerinizin bu kapsamda işlenmesine açık rıza göstermektesiniz.</p>`
+      },
+      en: {
+        title: "Data Protection Notice (KVKK)",
+        body: `<p class="leading-relaxed">Under Turkish Law No. 6698 on the Protection of Personal Data ('KVKK'), the personal data you provide — including your name, contact number, email address and investment objectives (budget, timing, location) — is processed by Ali Cömert as the data controller. This data is used solely for qualified real estate matching, securing the off-market portfolios presented to you, the legal follow-up of citizenship processes, and related communication activities. Your data will not be shared with any third party other than authorized public institutions and legal partners required by law or citizenship procedures. By submitting this form, you explicitly consent to the processing of your data for these purposes.</p>`
+      }
+    },
+    nda: {
+      tr: {
+        title: "Gizlilik Sözleşmesi (NDA)",
+        body: `<p class="leading-relaxed">İşbu form aracılığıyla 'Özel Portföy' erişimi talep eden yatırımcı, kendisine Ali Cömert tarafından sunulacak olan tüm gayrimenkul bilgilerinin (mülk konumları, mal sahibi kimlikleri, kat planları, finansal analizler, tapu kayıtları) 'Ticari Sır' niteliğinde olduğunu gayrikabili rücu kabul ve taahhüt eder. Yatırımcı, elde ettiği bu verileri kopyalayamaz, ekran görüntüsü alamaz, üçüncü kişi veya rakip firmalarla paylaşamaz ve mülk sahiplerine veya aracılarına Ali Cömert'in yazılı izni olmadan ulaşamaz. Bu gizlilik ihlalinden doğacak her türlü maddi/manevi zararın tazmini yatırımcının sorumluluğundadır. Formu onaylayarak bu gizlilik şartlarını kabul etmiş sayılırsınız.</p>`
+      },
+      en: {
+        title: "Non-Disclosure Agreement (NDA)",
+        body: `<p class="leading-relaxed">By submitting this form to request access to the 'Private Portfolio', the investor irrevocably acknowledges and undertakes that all real estate information provided by Ali Cömert (property locations, owner identities, floor plans, financial analyses, title deed records) constitutes a 'Trade Secret'. The investor may not copy, screenshot, or share this data with third parties or competing firms, and may not contact property owners or their representatives without Ali Cömert's written permission. The investor is liable for any material or moral damages arising from a breach of this confidentiality. By submitting the form, you are deemed to have accepted these confidentiality terms.</p>`
+      }
+    },
+    cookie: {
+      tr: {
+        title: "Çerez Politikası",
+        body: `<p class="leading-relaxed">comertali.com platformunda, güvenli ve kesintisiz bir kullanıcı deneyimi sunmak amacıyla çerezler kullanılmaktadır. Sitemizde; form güvenliğini sağlayan ve yasal onay mekanizmalarını hafızada tutan 'Zorunlu Çerezler' ile site trafiğini anonim olarak ölçen 'Analitik Çerezler' aktiftir. Tarayıcı ayarlarınızdan çerezleri reddetmeniz durumunda sitenin temel fonksiyonları çalışmayabilir. Siteyi kullanmaya devam ederek çerez kullanımını kabul etmiş olursunuz.</p>`
+      },
+      en: {
+        title: "Cookie Policy",
+        body: `<p class="leading-relaxed">comertali.com uses cookies to provide a secure and uninterrupted user experience. The site runs 'Essential Cookies', which secure form submissions and remember legal consent choices, and 'Analytics Cookies', which anonymously measure site traffic. If you disable cookies in your browser settings, some core site functions may not work. By continuing to use the site, you consent to the use of cookies.</p>`
+      }
+    }
+  };
+
+  const entry = type ? LEGAL_TEXT[type][isEn ? "en" : "tr"] : null;
+  const finalTitle = entry ? entry.title : title;
+  const finalContent = content || (entry ? entry.body : null);
+
+  if (titleEl) titleEl.textContent = finalTitle;
   if (contentEl) {
-    contentEl.innerHTML = finalContent || `<p>Ali CÖMERT Özel Gayrimenkul & Vatandaşlık Danışmanlığı bünyesinde paylaşılan tüm stratejik veriler, yüksek mahremiyet (NDA) ve KVKK standartlarında korunur.</p>`;
+    contentEl.innerHTML = finalContent || (isEn
+      ? `<p>All strategic data shared within Ali CÖMERT Private Real Estate & Citizenship Advisory is protected to the highest privacy (NDA) and KVKK standards.</p>`
+      : `<p>Ali CÖMERT Özel Gayrimenkul & Vatandaşlık Danışmanlığı bünyesinde paylaşılan tüm stratejik veriler, yüksek mahremiyet (NDA) ve KVKK standartlarında korunur.</p>`);
   }
 
   if (modal) {
@@ -718,19 +757,25 @@ function initPortfolioCMS() {
   const cards = document.querySelectorAll("#portfolioCardsGrid .portfolio-card");
   if (!cards.length) return;
 
+  const isEn = window.currentLang === "en";
+
   fetch("/content/portfolio.json")
     .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
     .then(data => {
       (data.cards || []).forEach((cardData, i) => {
         const card = cards[i];
         if (!card) return;
-        Object.keys(cardData).forEach(field => {
+        ["badge", "title", "description", "image"].forEach(field => {
           const el = card.querySelector(`[data-field="${field}"]`);
           if (!el) return;
+          // EN sayfada _en alanı varsa onu kullan; yoksa statik İngilizce
+          // varsayılan metin olduğu gibi kalsın (TR içerikle değişmesin).
+          const value = isEn && field !== "image" ? cardData[`${field}_en`] : cardData[field];
+          if (!value) return;
           if (el.tagName === "IMG") {
-            el.src = cardData[field];
+            el.src = value;
           } else {
-            el.textContent = cardData[field];
+            el.textContent = value;
           }
         });
       });
