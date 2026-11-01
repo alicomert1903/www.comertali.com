@@ -1,12 +1,12 @@
 /**
- * ALİ CÖMERT — Blog / Bölgesel Analiz Statik Sayfa Üretici
+ * ALİ CÖMERT — Blog / Rehber Statik Sayfa Üretici
  * content/posts/*.json içindeki her yazı için blog/<slug>.html üretir,
- * blog/index.html arşiv sayfasını ve intelligence.html'deki "Son Yazılar"
- * bölümünü günceller, sitemap.xml'e yazı URL'lerini ekler.
+ * blog/index.html arşiv sayfasını; intelligence.html'deki "Son Yazılar" ve
+ * ana sayfadaki "Rehberler" bölümlerini günceller, sitemap.xml'e URL'leri ekler.
  *
- * Bir yazının title_en + body_en alanları doluysa, aynı yazı için
- * en/blog/<slug>.html de üretilir (en/intelligence.html ve sitemap.xml'e
- * de EN URL'i eklenir). Bu alanlar boşsa o yazının İngilizcesi
+ * Bir yazının title_en + body_en alanları doluysa aynı yazı için
+ * en/blog/<slug_en || slug>.html de üretilir (en/intelligence.html, en/index.html
+ * ve sitemap.xml'e de EN URL'i eklenir). Bu alanlar boşsa o yazının İngilizcesi
  * sessizce atlanır — TR sayfası her durumda üretilir.
  *
  * Netlify her deploy'da bunu "node scripts/build-blog.js" ile çalıştırır.
@@ -23,6 +23,7 @@ const POSTS_DIR = path.join(ROOT, "content", "posts");
 const BLOG_DIR = path.join(ROOT, "blog");
 const EN_BLOG_DIR = path.join(ROOT, "en", "blog");
 const SITE_URL = "https://comertali.com";
+const GA_ID = "G-9N16G04E0K";
 
 const CATEGORY_LABELS_TR = {
   bolge_analizi: "Bölge Analizi",
@@ -43,29 +44,51 @@ const CATEGORY_LABELS_EN = {
 const UI = {
   tr: {
     readMore: "Devamını Oku",
-    allPosts: "Tüm Yazıları Gör",
+    allPosts: "Tüm Rehberleri Gör",
     noPosts: "Henüz yayınlanmış yazı yok — yakında burada olacak.",
     consultTitle: "Bu konuda birebir danışmanlık ister misiniz?",
-    consultSub: "Bölgesel analiz ve yatırım fırsatları için doğrudan iletişime geçin.",
+    consultSub: "Bölgesel analiz, uygun portföy ve vatandaşlık süreci için doğrudan iletişime geçin.",
     requestAccess: "Özel Portföye Erişin",
-    backToAll: "Tüm Yazılara Dön",
-    blogTitle: "Bölgesel Analiz & Blog | Ali Cömert",
-    blogDescription: "Ankara gayrimenkul piyasası, vatandaşlık süreçleri ve yatırım rehberleri üzerine yazılar.",
-    knowledgeBase: "GDOS Knowledge Base",
-    blogHeading: "Bölgesel Analiz & Blog"
+    backToAll: "Tüm Rehberlere Dön",
+    blogTitle: "Rehberler: Vatandaşlık, Yatırım ve Ankara Bölge Analizi | Ali Cömert",
+    blogDescription: "Yatırım yoluyla Türk vatandaşlığı, tapu masrafları, kira hukuku ve Ankara bölge analizi üzerine kaynaklı rehberler.",
+    knowledgeBase: "Rehberler",
+    blogHeading: "Vatandaşlık ve Yatırım Rehberleri",
+    home: "Ana Sayfa",
+    contents: "İçindekiler",
+    minRead: "dk okuma",
+    updated: "Son güncelleme",
+    moreGuides: "Diğer Rehberler",
+    aboutAuthor: "Yazar",
+    authorRole: "Ankara Gayrimenkul Danışmanı · TrueMax Gayrimenkul",
+    authorBio: "Ankara'da yatırımcılar için bölge analizi, yatırım getirisi ve yatırım yoluyla vatandaşlık portföy danışmanlığı yapıyor.",
+    homeGuidesKicker: "Rehberler",
+    homeGuidesTitle: "Vatandaşlık ve Yatırım Rehberleri",
+    homeGuidesSub: "Güncel mevzuat, süreçler ve Ankara yatırım rehberleri — kaynaklarıyla birlikte."
   },
   en: {
     readMore: "Read More",
-    allPosts: "See All Articles",
+    allPosts: "See All Guides",
     noPosts: "No articles published yet — check back soon.",
     consultTitle: "Would you like one-on-one advisory on this topic?",
-    consultSub: "Reach out directly for regional analysis and investment opportunities.",
+    consultSub: "Reach out directly for regional analysis, suitable portfolio and the citizenship process.",
     requestAccess: "Request Private Access",
-    backToAll: "Back to All Articles",
-    blogTitle: "Regional Analysis & Blog | Ali Cömert",
-    blogDescription: "Articles on the Ankara real estate market, citizenship processes and investment guides.",
-    knowledgeBase: "GDOS Knowledge Base",
-    blogHeading: "Regional Analysis & Blog"
+    backToAll: "Back to All Guides",
+    blogTitle: "Guides: Citizenship by Investment, Property & Ankara Analysis | Ali Cömert",
+    blogDescription: "Sourced guides on Turkish citizenship by investment, property purchase costs, rental law and Ankara district analysis.",
+    knowledgeBase: "Guides",
+    blogHeading: "Citizenship & Investment Guides",
+    home: "Home",
+    contents: "Contents",
+    minRead: "min read",
+    updated: "Last updated",
+    moreGuides: "More Guides",
+    aboutAuthor: "Author",
+    authorRole: "Ankara Real Estate Advisor · TrueMax Real Estate",
+    authorBio: "Advises investors in Ankara on district analysis, investment returns and citizenship-by-investment property portfolios.",
+    homeGuidesKicker: "Guides",
+    homeGuidesTitle: "Citizenship & Investment Guides",
+    homeGuidesSub: "Up-to-date rules, processes and Ankara investment guides — with sources."
   }
 };
 
@@ -84,6 +107,14 @@ function loadPosts() {
 
 function hasEnglish(post) {
   return Boolean(post.title_en && post.body_en);
+}
+
+function slugFor(post, lang) {
+  return lang === "en" ? (post.slug_en || post.slug) : post.slug;
+}
+
+function urlPath(post, lang) {
+  return lang === "en" ? `/en/blog/${slugFor(post, "en")}.html` : `/blog/${post.slug}.html`;
 }
 
 function postTitle(post, lang) {
@@ -107,6 +138,11 @@ function fmtDate(iso, lang) {
     : d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
 }
 
+function isoDate(iso) {
+  const d = new Date(iso || 0);
+  return isNaN(d) ? "" : d.toISOString().slice(0, 10);
+}
+
 function categoryLabel(key, lang) {
   const map = lang === "en" ? CATEGORY_LABELS_EN : CATEGORY_LABELS_TR;
   return map[key] || key || (lang === "en" ? "General" : "Genel");
@@ -120,25 +156,64 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function slugify(text) {
+  return String(text)
+    .replace(/<[^>]+>/g, "")
+    .replace(/&[a-z#0-9]+;/gi, " ")
+    .toLowerCase()
+    .replace(/ı/g, "i").replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s").replace(/ö/g, "o").replace(/ç/g, "c").replace(/İ/g, "i")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 70);
+}
+
+/** marked çıktısındaki <h2>'lere id ekler ve içindekiler listesini döndürür. */
+function addHeadingIds(html) {
+  const toc = [];
+  const used = new Set();
+  const out = html.replace(/<h2>([\s\S]*?)<\/h2>/g, (m, inner) => {
+    let id = slugify(inner) || "bolum";
+    while (used.has(id)) id += "-2";
+    used.add(id);
+    toc.push({ id, text: inner.replace(/<[^>]+>/g, "") });
+    return `<h2 id="${id}">${inner}</h2>`;
+  });
+  return { html: out, toc };
+}
+
+function readingMinutes(md) {
+  const words = String(md || "").split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
+}
+
 /**
  * assetsBase: gerçek site köküne ulaşmak için önek (assets/, truemax_logo.png vb.)
  * TR blog/<slug>.html için "../", EN en/blog/<slug>.html için "../../".
  */
-function renderHead(title, description, ogImage, canonicalPath, assetsBase, hreflangBlock) {
-  const defaultOg = canonicalPath.startsWith("/en/") ? "/og-image-en.jpg" : "/og-image.jpg";
+function renderHead(title, description, ogImage, canonicalPath, assetsBase, hreflangBlock, extraMeta) {
+  const isEn = canonicalPath.startsWith("/en/");
+  const defaultOg = isEn ? "/og-image-en.jpg" : "/og-image.jpg";
   const og = ogImage || defaultOg;
   const ogUrl = og.startsWith("http") ? og : SITE_URL + og;
   return `  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0A1128" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
   <link rel="canonical" href="${SITE_URL}${canonicalPath}" />
   ${hreflangBlock || ""}
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(description)}" />
-  <meta property="og:type" content="article" />
+  <meta property="og:type" content="${extraMeta ? "article" : "website"}" />
   <meta property="og:url" content="${SITE_URL}${canonicalPath}" />
+  <meta property="og:site_name" content="comertali.com" />
+  <meta property="og:locale" content="${isEn ? "en_US" : "tr_TR"}" />
   <meta property="og:image" content="${ogUrl}" />
+  ${extraMeta || ""}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
@@ -168,7 +243,17 @@ function renderHead(title, description, ogImage, canonicalPath, assetsBase, href
       }
     }
   </script>
-  <link rel="stylesheet" href="${assetsBase}assets/css/custom.css" />`;
+  <link rel="stylesheet" href="${assetsBase}assets/css/custom.css?v=20261101_1" />
+  <!-- Google Analytics 4 (${GA_ID}) — reklam kişiselleştirme sinyalleri kapalı -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    gtag('js', new Date());
+    gtag('config', '${GA_ID}', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  </script>
+`;
 }
 
 /**
@@ -216,27 +301,27 @@ function renderHeader(lang, siteBase, assetsBase) {
   </header>`;
 }
 
-function renderFooter(lang, siteBase, assetsBase) {
+function renderFooter(lang, siteBase) {
   const t = lang === "en"
     ? {
-        tagline: "Ankara Real Estate Strategist | TrueMax Real Estate",
+        tagline: "Ankara Real Estate Advisor | TrueMax Real Estate",
         name: "Ali Cömert — TrueMax Real Estate",
         quickAccess: "Quick Links",
         home: "Home",
         ankara: "Ankara Analysis",
         calculators: "Title Deed & Tax Calculators",
-        allPosts: "All Articles",
+        allPosts: "All Guides",
         contact: "Contact",
         rights: "&copy; 2026 ALİ CÖMERT - Part of TrueMax Real Estate. All rights reserved."
       }
     : {
-        tagline: "Ankara Gayrimenkul Stratejisti | TrueMax Gayrimenkul",
+        tagline: "Ankara Gayrimenkul Danışmanı | TrueMax Gayrimenkul",
         name: "Ali Cömert — TrueMax Gayrimenkul",
         quickAccess: "Hızlı Erişim",
         home: "Ana Sayfa",
         ankara: "Ankara Analizi",
         calculators: "Tapu & Vergi Hesaplayıcıları",
-        allPosts: "Tüm Yazılar",
+        allPosts: "Tüm Rehberler",
         contact: "İletişim",
         rights: "&copy; 2026 ALİ CÖMERT - TrueMax Gayrimenkul Bünyesinde. Tüm hakları saklıdır."
       };
@@ -274,43 +359,62 @@ function renderFooter(lang, siteBase, assetsBase) {
         <p>${t.rights}</p>
       </div>
     </div>
-  </footer>
-  <script src="https://cdn.tailwindcss.com"></script>`;
+  </footer>`;
 }
 
 function articleSchema(post, lang, canonicalPath) {
-  const schema = {
+  const isEn = lang === "en";
+  const homeUrl = isEn ? `${SITE_URL}/en/` : `${SITE_URL}/`;
+  const t = UI[lang];
+  const image = post.cover_image
+    ? (post.cover_image.startsWith("http") ? post.cover_image : SITE_URL + post.cover_image)
+    : SITE_URL + (isEn ? "/og-image-en.jpg" : "/og-image.jpg");
+  const article = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": postTitle(post, lang),
     "description": postExcerpt(post, lang) || postTitle(post, lang),
+    "inLanguage": lang,
     "datePublished": post.date || "",
-    "author": { "@type": "Person", "name": "Ali Cömert" },
-    "publisher": { "@type": "Organization", "name": "TrueMax Gayrimenkul" },
-    "mainEntityOfPage": SITE_URL + canonicalPath
+    "dateModified": post.updated || post.date || "",
+    "image": [image],
+    "author": { "@type": "Person", "@id": `${homeUrl}#person`, "name": "Ali Cömert", "url": homeUrl },
+    "publisher": {
+      "@type": "Organization",
+      "name": isEn ? "TrueMax Real Estate" : "TrueMax Gayrimenkul",
+      "url": "https://truemaxgayrimenkul.com",
+      "logo": { "@type": "ImageObject", "url": SITE_URL + "/truemax_logo.png" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": SITE_URL + canonicalPath }
   };
-  if (post.cover_image) {
-    schema.image = post.cover_image.startsWith("http") ? post.cover_image : SITE_URL + post.cover_image;
-  }
-  return `<script type="application/ld+json">${JSON.stringify(schema)}</script>`;
+  const crumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": t.home, "item": homeUrl },
+      { "@type": "ListItem", "position": 2, "name": t.knowledgeBase, "item": SITE_URL + (isEn ? "/en/blog/" : "/blog/") },
+      { "@type": "ListItem", "position": 3, "name": postTitle(post, lang), "item": SITE_URL + canonicalPath }
+    ]
+  };
+  return `<script type="application/ld+json">${JSON.stringify(article)}</script>
+  <script type="application/ld+json">${JSON.stringify(crumbs)}</script>`;
 }
 
 /**
- * rootPrefix: çağıran sayfadan gerçek site köküne ulaşmak için önek (görseller için).
- * blogPath: kökten yazının blog dizinine giden yol ("blog/" ya da "en/blog/").
+ * rootPrefix: çağıran sayfadan gerçek site köküne ulaşmak için önek (görseller ve bağlantılar için).
  */
-function renderPostCard(post, lang, rootPrefix, blogPath) {
+function renderPostCard(post, lang, rootPrefix) {
   const title = postTitle(post, lang);
   const excerpt = postExcerpt(post, lang);
   const t = UI[lang];
   const img = post.cover_image
     ? `<img src="${rootPrefix}${post.cover_image.replace(/^\//, "")}" alt="${escapeHtml(title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />`
-    : `<div class="w-full h-full bg-navy-dark flex items-center justify-center text-champagne/40 text-3xl"><i class="fas fa-newspaper"></i></div>`;
+    : `<div class="w-full h-full bg-gradient-to-br from-navy-light to-navy-dark flex items-center justify-center text-champagne/50 text-4xl"><i class="fas ${post.category === "vatandaslik" ? "fa-passport" : "fa-newspaper"}"></i></div>`;
   return `
-        <a href="${rootPrefix}${blogPath}${post.slug}.html" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 flex flex-col group">
+        <a href="${rootPrefix}${urlPath(post, lang).replace(/^\//, "")}" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 flex flex-col group">
           <div class="relative aspect-video bg-navy-dark overflow-hidden">${img}</div>
           <div class="p-5 flex flex-col flex-grow">
-            <span class="text-[10px] uppercase tracking-widest text-champagne font-bold font-cinzel mb-2">${escapeHtml(categoryLabel(post.category, lang))} &middot; ${fmtDate(post.date, lang)}</span>
+            <span class="text-[10px] uppercase tracking-widest text-champagne font-bold font-cinzel mb-2">${escapeHtml(categoryLabel(post.category, lang))} &middot; ${fmtDate(post.updated || post.date, lang)}</span>
             <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium leading-snug">${escapeHtml(title)}</h3>
             <p class="text-xs text-titanium-muted mt-2 leading-relaxed font-sans flex-grow">${escapeHtml(excerpt)}</p>
             <span class="mt-4 inline-flex items-center text-xs font-bold text-champagne">${t.readMore} <i class="fas fa-arrow-right ml-2 text-[10px]"></i></span>
@@ -318,44 +422,100 @@ function renderPostCard(post, lang, rootPrefix, blogPath) {
         </a>`;
 }
 
-function renderPostPage(post, lang) {
+function renderAuthorBox(lang, assetsBase, siteBase) {
+  const t = UI[lang];
+  return `
+      <aside class="mt-12 glass-panel rounded-3xl p-5 sm:p-6 border border-slate-700/60 flex items-start gap-4 sm:gap-5">
+        <img src="${assetsBase}ali-comert-ankara-stratejist.jpg" alt="Ali Cömert" width="64" height="64" loading="lazy" decoding="async" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover object-top border border-champagne/50 flex-shrink-0" />
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-champagne font-bold font-cinzel">${t.aboutAuthor}</span>
+          <h3 class="font-cinzel text-base sm:text-lg font-bold text-titanium leading-tight"><a href="${siteBase}index.html" class="hover:text-champagne transition-colors">Ali Cömert</a></h3>
+          <p class="text-[11px] text-champagne/80 mt-0.5">${t.authorRole}</p>
+          <p class="text-xs text-titanium-muted mt-2 leading-relaxed">${t.authorBio}</p>
+          <p class="mt-2.5 flex items-center gap-3 text-sm">
+            <a href="https://www.linkedin.com/in/ali-cömert-27b083380" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-titanium-muted hover:text-champagne transition-colors"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/alicomert.realestate" target="_blank" rel="noopener" aria-label="Instagram" class="text-titanium-muted hover:text-champagne transition-colors"><i class="fab fa-instagram"></i></a>
+          </p>
+        </div>
+      </aside>`;
+}
+
+function renderPostPage(post, lang, allPosts) {
   const t = UI[lang];
   const isEn = lang === "en";
-  const canonicalPath = isEn ? `/en/blog/${post.slug}.html` : `/blog/${post.slug}.html`;
-  const trCanonical = `/blog/${post.slug}.html`;
-  const enCanonical = `/en/blog/${post.slug}.html`;
-  const title = `${postTitle(post, lang)} | Ali Cömert`;
+  const canonicalPath = urlPath(post, lang);
+  const title = (isEn ? post.seo_title_en : post.seo_title) || `${postTitle(post, lang)} | Ali Cömert`;
   const description = postExcerpt(post, lang) || postTitle(post, lang);
-  const bodyHtml = marked.parse(postBody(post, lang));
+  const md = postBody(post, lang);
+  const { html: bodyHtml, toc } = addHeadingIds(marked.parse(md));
   const assetsBase = isEn ? "../../" : "../";
   const siteBase = "../";
+  const published = post.date || "";
+  const modified = post.updated || post.date || "";
 
   const hreflangBlock = hasEnglish(post)
-    ? `<link rel="alternate" hreflang="tr" href="${SITE_URL}${trCanonical}" />
-  <link rel="alternate" hreflang="en" href="${SITE_URL}${enCanonical}" />
-  <link rel="alternate" hreflang="x-default" href="${SITE_URL}${trCanonical}" />`
-    : `<link rel="alternate" hreflang="tr" href="${SITE_URL}${trCanonical}" />
-  <link rel="alternate" hreflang="x-default" href="${SITE_URL}${trCanonical}" />`;
+    ? `<link rel="alternate" hreflang="tr" href="${SITE_URL}${urlPath(post, "tr")}" />
+  <link rel="alternate" hreflang="en" href="${SITE_URL}${urlPath(post, "en")}" />
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}${urlPath(post, "tr")}" />`
+    : `<link rel="alternate" hreflang="tr" href="${SITE_URL}${urlPath(post, "tr")}" />
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}${urlPath(post, "tr")}" />`;
+
+  const extraMeta = `<meta property="article:published_time" content="${published}" />
+  <meta property="article:modified_time" content="${modified}" />
+  <meta property="article:author" content="Ali Cömert" />`;
 
   const coverBlock = post.cover_image
     ? `<div class="rounded-3xl overflow-hidden border border-slate-800 shadow-2xl mb-10"><img src="${assetsBase}${post.cover_image.replace(/^\//, "")}" alt="${escapeHtml(postTitle(post, lang))}" class="w-full h-auto object-cover" /></div>`
     : "";
 
+  const tocBlock = toc.length >= 3
+    ? `<nav aria-label="${t.contents}" class="mb-10 glass-panel rounded-2xl p-5 border border-slate-700/60">
+        <p class="font-cinzel text-sm font-bold text-titanium mb-3">${t.contents}</p>
+        <ol class="text-xs sm:text-sm text-titanium-muted space-y-1.5 list-decimal list-inside">
+          ${toc.map(h => `<li><a href="#${h.id}" class="hover:text-champagne transition-colors">${escapeHtml(h.text)}</a></li>`).join("\n          ")}
+        </ol>
+      </nav>`
+    : "";
+
+  const related = allPosts
+    .filter(p => p.slug !== post.slug && (isEn ? hasEnglish(p) : true))
+    .slice(0, 3);
+  const relatedBlock = related.length
+    ? `
+      <section class="mt-14">
+        <h2 class="font-cinzel text-lg sm:text-xl font-bold text-titanium mb-5">${t.moreGuides}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">${related.map(p => renderPostCard(p, lang, assetsBase)).join("\n")}</div>
+      </section>`
+    : "";
+
   return `<!DOCTYPE html>
 <html lang="${lang}" class="scroll-smooth">
 <head>
-${renderHead(title, description, post.cover_image, canonicalPath, assetsBase, hreflangBlock)}
+${renderHead(title, description, post.cover_image, canonicalPath, assetsBase, hreflangBlock, extraMeta)}
   ${articleSchema(post, lang, canonicalPath)}
 </head>
 <body class="bg-navy text-titanium antialiased selection:bg-champagne selection:text-navy-dark">
 ${renderHeader(lang, siteBase, assetsBase)}
   <main class="pt-28 sm:pt-36 pb-20">
     <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 reveal-on-scroll">
-        <span class="text-xs uppercase tracking-widest text-champagne font-bold font-cinzel">${escapeHtml(categoryLabel(post.category, lang))} &middot; ${fmtDate(post.date, lang)}</span>
+      <nav aria-label="breadcrumb" class="text-[11px] text-titanium-muted mb-5">
+        <a href="${siteBase}index.html" class="hover:text-champagne transition-colors">${t.home}</a>
+        <span class="mx-1.5">/</span>
+        <a href="index.html" class="hover:text-champagne transition-colors">${t.knowledgeBase}</a>
+      </nav>
+      <div class="mb-8">
+        <span class="text-xs uppercase tracking-widest text-champagne font-bold font-cinzel">${escapeHtml(categoryLabel(post.category, lang))}</span>
         <h1 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight mt-3 leading-tight">${escapeHtml(postTitle(post, lang))}</h1>
+        <p class="mt-4 text-xs text-titanium-muted">
+          <span>Ali Cömert</span>
+          <span class="mx-1.5">&middot;</span>
+          <time datetime="${isoDate(modified)}">${t.updated}: ${fmtDate(modified, lang)}</time>
+          <span class="mx-1.5">&middot;</span>
+          <span>${readingMinutes(md)} ${t.minRead}</span>
+        </p>
       </div>
       ${coverBlock}
+      ${tocBlock}
       <div class="prose-blog text-sm sm:text-base text-titanium-muted leading-relaxed font-sans space-y-5">
         ${bodyHtml}
       </div>
@@ -366,12 +526,14 @@ ${renderHeader(lang, siteBase, assetsBase)}
           ${t.requestAccess} <i class="fas fa-arrow-right ml-3 text-xs"></i>
         </a>
       </div>
+${renderAuthorBox(lang, assetsBase, siteBase)}
+${relatedBlock}
       <div class="mt-8">
         <a href="index.html" class="text-xs text-champagne hover:underline"><i class="fas fa-arrow-left mr-1.5"></i>${t.backToAll}</a>
       </div>
     </article>
   </main>
-${renderFooter(lang, siteBase, assetsBase)}
+${renderFooter(lang, siteBase)}
 </body>
 </html>
 `;
@@ -382,16 +544,13 @@ function renderBlogIndex(posts, lang) {
   const isEn = lang === "en";
   const assetsBase = isEn ? "../../" : "../";
   const siteBase = "../";
-  const blogPath = isEn ? "en/blog/" : "blog/";
   const canonicalPath = isEn ? "/en/blog/" : "/blog/";
-  const trCanonical = "/blog/";
-  const enCanonical = "/en/blog/";
 
-  const hreflangBlock = `<link rel="alternate" hreflang="tr" href="${SITE_URL}${trCanonical}" />
-  <link rel="alternate" hreflang="en" href="${SITE_URL}${enCanonical}" />
-  <link rel="alternate" hreflang="x-default" href="${SITE_URL}${trCanonical}" />`;
+  const hreflangBlock = `<link rel="alternate" hreflang="tr" href="${SITE_URL}/blog/" />
+  <link rel="alternate" hreflang="en" href="${SITE_URL}/en/blog/" />
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/blog/" />`;
 
-  const cards = posts.map(p => renderPostCard(p, lang, assetsBase, blogPath)).join("\n");
+  const cards = posts.map(p => renderPostCard(p, lang, assetsBase)).join("\n");
 
   return `<!DOCTYPE html>
 <html lang="${lang}" class="scroll-smooth">
@@ -402,47 +561,67 @@ ${renderHead(t.blogTitle, t.blogDescription, null, canonicalPath, assetsBase, hr
 ${renderHeader(lang, siteBase, assetsBase)}
   <main class="pt-28 sm:pt-36 pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16 reveal-on-scroll">
+      <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
         <span class="text-xs uppercase tracking-widest text-champagne font-bold block mb-2 font-cinzel">${t.knowledgeBase}</span>
         <h1 class="font-cinzel text-2xl sm:text-5xl font-bold text-titanium tracking-tight">${t.blogHeading}</h1>
       </div>
       ${posts.length
-        ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 reveal-on-scroll">${cards}</div>`
+        ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">${cards}</div>`
         : `<p class="text-center text-titanium-muted text-sm">${t.noPosts}</p>`}
     </div>
   </main>
-${renderFooter(lang, siteBase, assetsBase)}
+${renderFooter(lang, siteBase)}
 </body>
 </html>
 `;
+}
+
+function injectBetween(filePath, startMarker, endMarker, content) {
+  if (!fs.existsSync(filePath)) return;
+  let html = fs.readFileSync(filePath, "utf8");
+  if (!html.includes(startMarker) || !html.includes(endMarker)) return;
+  const block = `${startMarker}${content}${endMarker}`;
+  html = html.replace(new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`), () => block);
+  fs.writeFileSync(filePath, html, "utf8");
 }
 
 function updateIntelligencePage(posts, lang) {
   const filePath = lang === "en"
     ? path.join(ROOT, "en", "intelligence.html")
     : path.join(ROOT, "intelligence.html");
-  if (!fs.existsSync(filePath)) return;
-  let html = fs.readFileSync(filePath, "utf8");
-
-  const startMarker = "<!-- BLOG_POSTS_INJECT_START -->";
-  const endMarker = "<!-- BLOG_POSTS_INJECT_END -->";
-  if (!html.includes(startMarker) || !html.includes(endMarker)) return;
-
   const t = UI[lang];
-  const blogPath = lang === "en" ? "en/blog/" : "blog/";
-  // intelligence.html (TR) kökte, en/intelligence.html kendi dil kökünde (en/) oturur;
-  // kart görselleri gerçek site köküne göre konumlanır (cover_image dile göre değişmez).
-  const cardRootPrefix = lang === "en" ? "../" : "";
-
+  // intelligence.html (TR) kökte, en/intelligence.html kendi dil kökünde (en/) oturur.
+  const rootPrefix = lang === "en" ? "../" : "";
   const latest = posts.slice(0, 3);
   const injected = latest.length
-    ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 reveal-on-scroll">${latest.map(p => renderPostCard(p, lang, cardRootPrefix, blogPath)).join("\n")}</div>
+    ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">${latest.map(p => renderPostCard(p, lang, rootPrefix)).join("\n")}</div>
         <div class="text-center mt-10"><a href="blog/index.html" class="inline-flex items-center text-champagne font-bold text-sm hover:underline">${t.allPosts} <i class="fas fa-arrow-right ml-2 text-xs"></i></a></div>`
     : `<p class="text-center text-titanium-muted text-sm">${t.noPosts}</p>`;
+  injectBetween(filePath, "<!-- BLOG_POSTS_INJECT_START -->", "<!-- BLOG_POSTS_INJECT_END -->", injected);
+}
 
-  const block = `${startMarker}${injected}${endMarker}`;
-  html = html.replace(new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`), block);
-  fs.writeFileSync(filePath, html, "utf8");
+/** Ana sayfadaki "Rehberler" bölümü: yazı varsa tüm bölüm, yoksa hiçbir şey. */
+function updateHomeGuides(posts, lang) {
+  const filePath = lang === "en" ? path.join(ROOT, "en", "index.html") : path.join(ROOT, "index.html");
+  const t = UI[lang];
+  const rootPrefix = lang === "en" ? "../" : "";
+  const latest = posts.slice(0, 3);
+  const section = latest.length
+    ? `
+  <section id="rehberler" class="py-20 sm:py-24 bg-navy relative border-y border-slate-800/80">
+    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-14 reveal-on-scroll">
+        <span class="text-xs uppercase tracking-widest text-champagne font-bold block mb-2 font-cinzel">${t.homeGuidesKicker}</span>
+        <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight">${t.homeGuidesTitle}</h2>
+        <p class="text-xs sm:text-base text-titanium-muted mt-3 sm:mt-4 leading-relaxed font-sans">${t.homeGuidesSub}</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 reveal-on-scroll">${latest.map(p => renderPostCard(p, lang, rootPrefix)).join("\n")}</div>
+      <div class="text-center mt-10"><a href="blog/index.html" class="inline-flex items-center text-champagne font-bold text-sm hover:underline">${t.allPosts} <i class="fas fa-arrow-right ml-2 text-xs"></i></a></div>
+    </div>
+  </section>
+  `
+    : "";
+  injectBetween(filePath, "<!-- HOME_GUIDES_START -->", "<!-- HOME_GUIDES_END -->", section);
 }
 
 function updateSitemap(posts, enPosts) {
@@ -450,30 +629,39 @@ function updateSitemap(posts, enPosts) {
   if (!fs.existsSync(filePath)) return;
   let xml = fs.readFileSync(filePath, "utf8");
 
+  const alternates = p => {
+    const tr = SITE_URL + urlPath(p, "tr");
+    const lines = [`    <xhtml:link rel="alternate" hreflang="tr" href="${tr}"/>`];
+    if (hasEnglish(p)) lines.push(`    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL + urlPath(p, "en")}"/>`);
+    lines.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${tr}"/>`);
+    return lines.join("\n");
+  };
+  const lastmod = p => isoDate(p.updated || p.date);
+
   const trStart = "<!-- BLOG_URLS_START -->";
   const trEnd = "<!-- BLOG_URLS_END -->";
   if (xml.includes(trStart)) {
     const entries = posts.map(p => `  <url>
-    <loc>${SITE_URL}/blog/${p.slug}.html</loc>
-    <lastmod>${(p.date || "").slice(0, 10)}</lastmod>
+    <loc>${SITE_URL + urlPath(p, "tr")}</loc>
+    <lastmod>${lastmod(p)}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+${alternates(p)}
   </url>`).join("\n");
-    const block = `${trStart}\n${entries}\n  ${trEnd}`;
-    xml = xml.replace(new RegExp(`${trStart}[\\s\\S]*?${trEnd}`), block);
+    xml = xml.replace(new RegExp(`${trStart}[\\s\\S]*?${trEnd}`), () => `${trStart}\n${entries}\n  ${trEnd}`);
   }
 
   const enStart = "<!-- EN_BLOG_URLS_START -->";
   const enEnd = "<!-- EN_BLOG_URLS_END -->";
   if (xml.includes(enStart)) {
     const entries = enPosts.map(p => `  <url>
-    <loc>${SITE_URL}/en/blog/${p.slug}.html</loc>
-    <lastmod>${(p.date || "").slice(0, 10)}</lastmod>
+    <loc>${SITE_URL + urlPath(p, "en")}</loc>
+    <lastmod>${lastmod(p)}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+${alternates(p)}
   </url>`).join("\n");
-    const block = `${enStart}\n${entries}\n  ${enEnd}`;
-    xml = xml.replace(new RegExp(`${enStart}[\\s\\S]*?${enEnd}`), block);
+    xml = xml.replace(new RegExp(`${enStart}[\\s\\S]*?${enEnd}`), () => `${enStart}\n${entries}\n  ${enEnd}`);
   }
 
   fs.writeFileSync(filePath, xml, "utf8");
@@ -483,22 +671,29 @@ function main() {
   const posts = loadPosts().filter(p => p.title);
   const enPosts = posts.filter(hasEnglish);
 
+  // Silinen yazıların eski sayfaları kalmasın: üretilen dizinleri her derlemede sıfırla.
+  for (const dir of [BLOG_DIR, EN_BLOG_DIR]) {
+    if (fs.existsSync(dir)) for (const f of fs.readdirSync(dir)) if (f.endsWith(".html")) fs.unlinkSync(path.join(dir, f));
+  }
+
   fs.mkdirSync(BLOG_DIR, { recursive: true });
   for (const post of posts) {
-    fs.writeFileSync(path.join(BLOG_DIR, `${post.slug}.html`), renderPostPage(post, "tr"), "utf8");
+    fs.writeFileSync(path.join(BLOG_DIR, `${post.slug}.html`), renderPostPage(post, "tr", posts), "utf8");
   }
   fs.writeFileSync(path.join(BLOG_DIR, "index.html"), renderBlogIndex(posts, "tr"), "utf8");
 
   if (enPosts.length) {
     fs.mkdirSync(EN_BLOG_DIR, { recursive: true });
     for (const post of enPosts) {
-      fs.writeFileSync(path.join(EN_BLOG_DIR, `${post.slug}.html`), renderPostPage(post, "en"), "utf8");
+      fs.writeFileSync(path.join(EN_BLOG_DIR, `${slugFor(post, "en")}.html`), renderPostPage(post, "en", enPosts), "utf8");
     }
     fs.writeFileSync(path.join(EN_BLOG_DIR, "index.html"), renderBlogIndex(enPosts, "en"), "utf8");
   }
 
   updateIntelligencePage(posts, "tr");
   updateIntelligencePage(enPosts, "en");
+  updateHomeGuides(posts, "tr");
+  updateHomeGuides(enPosts, "en");
   updateSitemap(posts, enPosts);
 
   console.log(`[build-blog] ${posts.length} TR yazı, ${enPosts.length} EN yazı işlendi.`);

@@ -83,7 +83,11 @@ collections:
       - { label: "Kısa Özet (kart ve arama motoru açıklaması için)", name: "excerpt", widget: "text" }
       - { label: "Kapak Görseli", name: "cover_image", widget: "image", required: false }
       - { label: "Yayın Tarihi", name: "date", widget: "datetime" }
+      - { label: "Son Güncelleme Tarihi (opsiyonel; mevzuat değişince güncelleyin)", name: "updated", widget: "datetime", required: false }
       - { label: "Yazı İçeriği", name: "body", widget: "markdown" }
+      - { label: "Arama sonucu başlığı (opsiyonel, ~60 karakter)", name: "seo_title", widget: "string", required: false }
+      - { label: "İngilizce adres (URL) — opsiyonel, örn. turkish-citizenship-by-investment-2026", name: "slug_en", widget: "string", required: false }
       - { label: "Title (EN) — opsiyonel, doldurulursa en/blog/ sayfası da otomatik oluşturulur", name: "title_en", widget: "string", required: false }
       - { label: "Excerpt (EN) — opsiyonel", name: "excerpt_en", widget: "text", required: false }
       - { label: "Body (EN) — opsiyonel", name: "body_en", widget: "markdown", required: false }
+      - { label: "Search title (EN) — opsiyonel, ~60 karakter", name: "seo_title_en", widget: "string", required: false }

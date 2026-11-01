@@ -47,6 +47,12 @@
   margin: 1.5rem 0;
 }
 .prose-blog img { border-radius: 1rem; margin: 1.5rem 0; }
+.prose-blog h2, .prose-blog h3 { scroll-margin-top: 7rem; }
+.prose-blog hr { border: 0; border-top: 1px solid rgba(148, 163, 184, 0.25); margin: 2rem 0; }
+.prose-blog table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9em; }
+.prose-blog th, .prose-blog td { border: 1px solid rgba(148, 163, 184, 0.25); padding: 0.55rem 0.75rem; text-align: left; vertical-align: top; }
+.prose-blog th { color: var(--titanium); background: rgba(18, 30, 66, 0.7); }
+.prose-blog em { color: var(--titanium); }
 
 /* Header nav: masaüstünde 5 linkin sığması için ikon boşluğunu sıkılaştır. */
 @media (min-width: 1024px) {

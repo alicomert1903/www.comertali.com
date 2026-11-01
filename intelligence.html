@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0A1128" />
   <title>Ankara Gayrimenkul Piyasası ve Bölge Analizleri | Ali Cömert</title>
   <meta name="description" content="Ankara gayrimenkul piyasası için veri odaklı izleme terminali. Bölge analizleri, kentsel dönüşüm takibi ve yatırım rehberleri." />
   <link rel="canonical" href="https://comertali.com/intelligence.html" />
@@ -52,7 +57,16 @@
   </script>
   
   <!-- Custom Design System CSS -->
-  <link rel="stylesheet" href="assets/css/custom.css" />
+  <link rel="stylesheet" href="assets/css/custom.css?v=20261101_1" />
+  <!-- Google Analytics 4 (G-9N16G04E0K) — reklam kişiselleştirme sinyalleri kapalı -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9N16G04E0K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    gtag('js', new Date());
+    gtag('config', 'G-9N16G04E0K', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  </script>
 </head>
 <body class="bg-navy text-titanium antialiased selection:bg-champagne selection:text-navy-dark">
 
@@ -180,7 +194,17 @@
           <span class="text-xs tracking-widest text-champagne font-bold block mb-2 font-cinzel">Güncel</span>
           <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight mb-4">Son Yazılar</h2>
         </div>
-        <!-- BLOG_POSTS_INJECT_START --><p class="text-center text-titanium-muted text-sm">Henüz yayınlanmış yazı yok — yakında burada olacak.</p><!-- BLOG_POSTS_INJECT_END -->
+        <!-- BLOG_POSTS_INJECT_START --><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <a href="blog/yatirim-yoluyla-turk-vatandasligi-2026.html" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 flex flex-col group">
+          <div class="relative aspect-video bg-navy-dark overflow-hidden"><div class="w-full h-full bg-gradient-to-br from-navy-light to-navy-dark flex items-center justify-center text-champagne/50 text-4xl"><i class="fas fa-passport"></i></div></div>
+          <div class="p-5 flex flex-col flex-grow">
+            <span class="text-[10px] uppercase tracking-widest text-champagne font-bold font-cinzel mb-2">Vatandaşlık &middot; 1 Kasım 2026</span>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium leading-snug">Yatırım Yoluyla Türk Vatandaşlığı 2026: Gayrimenkul Şartları ve Güncel Süreç</h3>
+            <p class="text-xs text-titanium-muted mt-2 leading-relaxed font-sans flex-grow">400.000 dolarlık gayrimenkulle Türk vatandaşlığı: 2026 şartları, 28 Eylül 2026'da değişen değerleme kuralı, adım adım süreç ve Ankara'da dikkat edilecekler.</p>
+            <span class="mt-4 inline-flex items-center text-xs font-bold text-champagne">Devamını Oku <i class="fas fa-arrow-right ml-2 text-[10px]"></i></span>
+          </div>
+        </a></div>
+        <div class="text-center mt-10"><a href="blog/index.html" class="inline-flex items-center text-champagne font-bold text-sm hover:underline">Tüm Rehberleri Gör <i class="fas fa-arrow-right ml-2 text-xs"></i></a></div><!-- BLOG_POSTS_INJECT_END -->
       </div>
     </section>
 

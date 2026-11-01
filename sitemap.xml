@@ -91,12 +91,28 @@
 
   <!-- Blog yazıları (TR) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- BLOG_URLS_START -->
-
+  <url>
+    <loc>https://comertali.com/blog/yatirim-yoluyla-turk-vatandasligi-2026.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/yatirim-yoluyla-turk-vatandasligi-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkish-citizenship-by-real-estate-investment-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/yatirim-yoluyla-turk-vatandasligi-2026.html"/>
+  </url>
   <!-- BLOG_URLS_END -->
 
   <!-- Blog yazıları (EN) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- EN_BLOG_URLS_START -->
-
+  <url>
+    <loc>https://comertali.com/en/blog/turkish-citizenship-by-real-estate-investment-2026.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/yatirim-yoluyla-turk-vatandasligi-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkish-citizenship-by-real-estate-investment-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/yatirim-yoluyla-turk-vatandasligi-2026.html"/>
+  </url>
   <!-- EN_BLOG_URLS_END -->
 
   <!--

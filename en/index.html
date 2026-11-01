@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0A1128" />
   <title>Ankara Real Estate Advisor Ali Cömert | TrueMax Real Estate</title>
   <meta name="description" content="Ankara real estate advisor Ali Cömert: investment property analysis, district rental yields and citizenship-by-investment advisory. TrueMax Real Estate." />
   <meta name="keywords" content="Ali Cömert, Ankara Real Estate Strategist, TrueMax Real Estate, Ankara Investment Analysis, Citizenship Portfolio, Citizenship by Investment Turkey, Ankara Regional Analysis, Real Estate Advisory Ankara" />
@@ -58,20 +63,30 @@
   </script>
 
   <!-- Custom Design System CSS -->
-  <link rel="stylesheet" href="../assets/css/custom.css" />
+  <link rel="stylesheet" href="../assets/css/custom.css?v=20261101_1" />
 
-  <!-- ANALYTICS: GA4 — shared Measurement ID with the Turkish site -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- Google Analytics 4 (G-9N16G04E0K) — reklam kişiselleştirme sinyalleri kapalı -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9N16G04E0K"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', {
-      page_title: document.title,
-      page_location: window.location.href,
-      send_page_view: true
-    });
+    gtag('config', 'G-9N16G04E0K', { allow_google_signals: false, allow_ad_personalization_signals: false });
   </script>
+  <!-- Schema 0: WebSite (Google'da site adı) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://comertali.com/en/#website",
+    "url": "https://comertali.com/en/",
+    "name": "Ali Cömert",
+    "alternateName": ["comertali.com", "Ali Cömert Gayrimenkul", "Ali Comert"],
+    "inLanguage": "en"
+  }
+  </script>
+
 
   <!-- Schema 1: RealEstateAgent (LocalBusiness) -->
   <script type="application/ld+json">
@@ -515,6 +530,7 @@
         <p class="text-xs sm:text-base text-titanium-muted mt-3 sm:mt-4 leading-relaxed font-sans">
           Our 5-step analytical, legally-secured process model reduces bureaucratic friction to zero for foreign and domestic investors across Turkey. Click each step to view details.
         </p>
+        <p class="mt-4 text-xs sm:text-sm"><a href="blog/turkish-citizenship-by-real-estate-investment-2026.html" class="text-champagne font-semibold hover:underline">Read our guide to the current requirements and the 28 September 2026 valuation change <i class="fas fa-arrow-right ml-1 text-[10px]"></i></a></p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -610,6 +626,30 @@
 
     </div>
   </section>
+
+  <!-- HOME_GUIDES_START -->
+  <section id="rehberler" class="py-20 sm:py-24 bg-navy relative border-y border-slate-800/80">
+    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-14 reveal-on-scroll">
+        <span class="text-xs uppercase tracking-widest text-champagne font-bold block mb-2 font-cinzel">Guides</span>
+        <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight">Citizenship & Investment Guides</h2>
+        <p class="text-xs sm:text-base text-titanium-muted mt-3 sm:mt-4 leading-relaxed font-sans">Up-to-date rules, processes and Ankara investment guides — with sources.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 reveal-on-scroll">
+        <a href="../en/blog/turkish-citizenship-by-real-estate-investment-2026.html" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 flex flex-col group">
+          <div class="relative aspect-video bg-navy-dark overflow-hidden"><div class="w-full h-full bg-gradient-to-br from-navy-light to-navy-dark flex items-center justify-center text-champagne/50 text-4xl"><i class="fas fa-passport"></i></div></div>
+          <div class="p-5 flex flex-col flex-grow">
+            <span class="text-[10px] uppercase tracking-widest text-champagne font-bold font-cinzel mb-2">Citizenship &middot; November 1, 2026</span>
+            <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium leading-snug">Turkish Citizenship by Real Estate Investment 2026: Requirements and Current Process</h3>
+            <p class="text-xs text-titanium-muted mt-2 leading-relaxed font-sans flex-grow">Turkish citizenship with USD 400,000 of property: 2026 requirements, the 28 Sept 2026 valuation change, step-by-step process and what to check in Ankara.</p>
+            <span class="mt-4 inline-flex items-center text-xs font-bold text-champagne">Read More <i class="fas fa-arrow-right ml-2 text-[10px]"></i></span>
+          </div>
+        </a></div>
+      <div class="text-center mt-10"><a href="blog/index.html" class="inline-flex items-center text-champagne font-bold text-sm hover:underline">See All Guides <i class="fas fa-arrow-right ml-2 text-xs"></i></a></div>
+    </div>
+  </section>
+  <!-- HOME_GUIDES_END -->
+
 
   <!-- ==========================================================================
        VIDEO GALLERY — managed via CMS (content/videos.json), hidden while empty
