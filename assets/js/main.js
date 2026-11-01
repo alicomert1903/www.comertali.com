@@ -818,7 +818,9 @@ function initFxTicker() {
       const kapali = isEn ? " · markets closed, last quotes" : " · piyasa kapalı, son değerler";
       const el = document.getElementById("fxUpdated");
       el.textContent = `${label}: ${saat} (TSİ)${hafta_sonu ? kapali : ""}`;
-      el.title = isEn ? "Source: Truncgil Finans. Indicative rates, not investment advice." : "Kaynak: Truncgil Finans. Gösterge niteliğindedir, yatırım tavsiyesi değildir.";
+      const not = isEn ? "Source: Truncgil Finans. Indicative rates, not investment advice." : "Kaynak: Truncgil Finans. Gösterge niteliğindedir, yatırım tavsiyesi değildir.";
+      ticker.title = not;
+      el.title = not;
 
       ticker.classList.remove("hidden");
       ticker.classList.add("flex");
