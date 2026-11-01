@@ -125,6 +125,9 @@ function escapeHtml(str) {
  * TR blog/<slug>.html için "../", EN en/blog/<slug>.html için "../../".
  */
 function renderHead(title, description, ogImage, canonicalPath, assetsBase, hreflangBlock) {
+  const defaultOg = canonicalPath.startsWith("/en/") ? "/og-image-en.jpg" : "/og-image.jpg";
+  const og = ogImage || defaultOg;
+  const ogUrl = og.startsWith("http") ? og : SITE_URL + og;
   return `  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${escapeHtml(title)}</title>
@@ -135,7 +138,11 @@ function renderHead(title, description, ogImage, canonicalPath, assetsBase, href
   <meta property="og:description" content="${escapeHtml(description)}" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="${SITE_URL}${canonicalPath}" />
-  ${ogImage ? `<meta property="og:image" content="${ogImage.startsWith("http") ? ogImage : SITE_URL + ogImage}" />` : ""}
+  <meta property="og:image" content="${ogUrl}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escapeHtml(title)}" />
+  <meta name="twitter:description" content="${escapeHtml(description)}" />
+  <meta name="twitter:image" content="${ogUrl}" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
