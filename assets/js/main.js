@@ -878,14 +878,27 @@ function initVideoGallery() {
         const badge = isIg
           ? `<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-navy-dark/85 border border-champagne/40 text-[10px] font-bold text-champagne flex items-center"><i class="fab fa-instagram mr-1.5"></i>Reel</span>`
           : "";
+        // Telifli müzik nedeniyle Instagram'ın sitede oynatmaya izin vermediği Reel'ler
+        // (videos.json'da external: true): oynatıcı modalı yerine doğrudan Instagram yeni sekmede açılır.
+        const isExternal = isIg && Boolean(video.external);
+        const cardClass = "glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 text-left group block";
+        const openTag = isExternal
+          ? `<a href="${escapeAttr(video.url || video.youtube_url)}" target="_blank" rel="noopener" class="${cardClass}">`
+          : `<button type="button" onclick="${onclick}" class="${cardClass}">`;
+        const closeTag = isExternal ? "</a>" : "</button>";
+        const icon = isExternal ? "fa-arrow-up-right-from-square text-lg" : "fa-play ml-0.5";
+        const externalPill = isExternal
+          ? `<span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-navy-dark/85 border border-champagne/40 text-[10px] font-bold text-titanium">${isEn ? "Watch on Instagram" : "Instagram'da izle"}</span>`
+          : "";
         return `
-          <button type="button" onclick="${onclick}" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 text-left group">
+          ${openTag}
             <div class="relative aspect-video bg-navy-dark overflow-hidden">
               ${thumbHtml}
               ${badge}
+              ${externalPill}
               <div class="absolute inset-0 bg-navy-dark/30 group-hover:bg-navy-dark/10 transition-colors flex items-center justify-center">
                 <span class="w-14 h-14 rounded-full bg-champagne/90 text-navy-dark flex items-center justify-center text-xl shadow-xl group-hover:scale-110 transition-transform duration-300">
-                  <i class="fas fa-play ml-0.5"></i>
+                  <i class="fas ${icon}"></i>
                 </span>
               </div>
             </div>
@@ -893,7 +906,7 @@ function initVideoGallery() {
               <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium">${title}</h3>
               ${desc ? `<p class="text-xs text-titanium-muted mt-1.5 leading-relaxed font-sans">${desc}</p>` : ""}
             </div>
-          </button>
+          ${closeTag}
         `;
       }).join("");
 

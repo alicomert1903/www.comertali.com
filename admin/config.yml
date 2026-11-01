@@ -59,6 +59,7 @@ collections:
               - { label: "Açıklama (EN) — opsiyonel", name: "description_en", widget: "text", required: false }
               - { label: "Kapak Görseli (Instagram için)", name: "thumbnail", widget: "image", required: false, hint: "YouTube videolarında gerekmez; Instagram Reel'lerinde otomatik eklenir." }
               - { label: "Yayın Tarihi (sıralama için)", name: "date", widget: "datetime", required: false }
+              - { label: "Sitede oynatılamıyor (Instagram'da aç)", name: "external", widget: "boolean", default: false, required: false, hint: "Instagram, telifli müzik kullanan bazı Reel'lerin başka sitelerde oynatılmasına izin vermez. Bunu açarsanız kart tıklanınca Instagram yeni sekmede açılır." }
 
   - name: "blog"
     label: "Blog / Bölgesel Analiz"
