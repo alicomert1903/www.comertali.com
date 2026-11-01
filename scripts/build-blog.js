@@ -167,6 +167,63 @@ function slugify(text) {
     .slice(0, 70);
 }
 
+/** content/videos.json'daki Reel kayıtlarını ID'ye göre eşler (başlık/kapak için). */
+function loadReels() {
+  try {
+    const d = JSON.parse(fs.readFileSync(path.join(ROOT, "content", "videos.json"), "utf8"));
+    const map = {};
+    for (const v of d.videos || []) {
+      const m = String(v.url || "").match(/reel\/([A-Za-z0-9_-]+)/);
+      if (m) map[m[1]] = v;
+    }
+    return map;
+  } catch (e) {
+    return {};
+  }
+}
+
+/**
+ * Yazı içinde:
+ *   [[reel:ID]]      -> tıklanınca Instagram oynatıcısı yüklenen kart (tıklanmadan Meta'ya istek gitmez)
+ *   [[reellink:ID]]  -> sitede oynatılamayan Reel'ler için Instagram'a bağlantı
+ */
+function renderShortcodes(md, lang, assetsBase) {
+  const reels = loadReels();
+  const isEn = lang === "en";
+  const caption = id => {
+    const v = reels[id] || {};
+    return escapeHtml((isEn ? v.title_en : v.title) || "Instagram Reel");
+  };
+  return md
+    .replace(/\[\[reel:([A-Za-z0-9_-]+)\]\]/g, (m, id) => {
+      const v = reels[id] || {};
+      const thumb = v.thumbnail ? assetsBase + v.thumbnail.replace(/^\//, "") : "";
+      const img = thumb
+        ? `<img src="${thumb}" alt="${caption(id)}" loading="lazy" decoding="async" style="margin:0;border-radius:0" class="w-full h-full object-cover" />`
+        : "";
+      const aria = isEn ? "Play the Reel" : "Reel videosunu oynat";
+      const open = isEn ? "Open on Instagram" : "Instagram'da aç";
+      return `\n<figure class="ig-embed mx-auto max-w-xs my-8"><button type="button" class="ig-embed-btn group relative block w-full rounded-3xl overflow-hidden border border-slate-700/60 bg-navy-dark" style="aspect-ratio:9/13" data-reel="${id}" aria-label="${aria}">${img}<span class="absolute inset-0 flex items-center justify-center bg-navy-dark/30 group-hover:bg-navy-dark/10 transition-colors"><span class="w-14 h-14 rounded-full bg-champagne/90 text-navy-dark flex items-center justify-center text-xl shadow-xl"><i class="fas fa-play ml-0.5"></i></span></span></button><figcaption class="mt-2 text-[11px] text-center text-titanium-muted">${caption(id)} &middot; Instagram Reel &middot; <a href="https://www.instagram.com/reel/${id}/" target="_blank" rel="noopener">${open}</a></figcaption></figure>\n`;
+    })
+    .replace(/\[\[reellink:([A-Za-z0-9_-]+)\]\]/g, (m, id) =>
+      `\n<p><a href="https://www.instagram.com/reel/${id}/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> ${isEn ? "Watch the video on Instagram" : "Videoyu Instagram'da izleyin"}</a></p>\n`);
+}
+
+const IG_SCRIPT = `<script>
+  document.querySelectorAll('.ig-embed-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.instagram.com/reel/' + b.dataset.reel + '/embed/';
+      f.className = 'w-full rounded-3xl border border-slate-700/60';
+      f.style.height = 'min(75vh, 720px)';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      f.setAttribute('allowfullscreen', '');
+      f.title = b.getAttribute('aria-label') || 'Instagram Reel';
+      b.replaceWith(f);
+    });
+  });
+</script>`;
+
 /** marked çıktısındaki <h2>'lere id ekler ve içindekiler listesini döndürür. */
 function addHeadingIds(html) {
   const toc = [];
@@ -447,7 +504,7 @@ function renderPostPage(post, lang, allPosts) {
   const title = (isEn ? post.seo_title_en : post.seo_title) || `${postTitle(post, lang)} | Ali Cömert`;
   const description = postExcerpt(post, lang) || postTitle(post, lang);
   const md = postBody(post, lang);
-  const { html: bodyHtml, toc } = addHeadingIds(marked.parse(md));
+  const { html: bodyHtml, toc } = addHeadingIds(marked.parse(renderShortcodes(md, lang, isEn ? "../../" : "../")));
   const assetsBase = isEn ? "../../" : "../";
   const siteBase = "../";
   const published = post.date || "";
@@ -519,6 +576,7 @@ ${renderHeader(lang, siteBase, assetsBase)}
       <div class="prose-blog text-sm sm:text-base text-titanium-muted leading-relaxed font-sans space-y-5">
         ${bodyHtml}
       </div>
+      ${/\[\[reel:/.test(md) ? IG_SCRIPT : ""}
       <div class="mt-14 glass-panel-gold rounded-3xl p-6 sm:p-8 border border-champagne/40 text-center">
         <h3 class="font-cinzel text-lg sm:text-xl font-bold text-titanium mb-2">${t.consultTitle}</h3>
         <p class="text-xs sm:text-sm text-titanium-muted mb-5">${t.consultSub}</p>
@@ -605,7 +663,7 @@ function updateHomeGuides(posts, lang) {
   const filePath = lang === "en" ? path.join(ROOT, "en", "index.html") : path.join(ROOT, "index.html");
   const t = UI[lang];
   const rootPrefix = lang === "en" ? "../" : "";
-  const latest = posts.slice(0, 3);
+  const latest = posts.slice(0, 6);
   const section = latest.length
     ? `
   <section id="rehberler" class="py-20 sm:py-24 bg-navy relative border-y border-slate-800/80">

@@ -92,6 +92,42 @@
   <!-- Blog yazıları (TR) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- BLOG_URLS_START -->
   <url>
+    <loc>https://comertali.com/blog/ankara-yatirimlik-konut-bolge-secimi-8-kriter.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/ankara-yatirimlik-konut-bolge-secimi-8-kriter.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/ankara-investment-property-district-selection-8-criteria.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/ankara-yatirimlik-konut-bolge-secimi-8-kriter.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/blog/tapu-masraflari-2026-harc-damga-vergisi-komisyon.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/tapu-masraflari-2026-harc-damga-vergisi-komisyon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-title-deed-costs-2026-fees-stamp-duty-commission.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/tapu-masraflari-2026-harc-damga-vergisi-komisyon.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/blog/ilk-evim-konut-kredisi-2026-cikti-mi-bddk-oranlari.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/ilk-evim-konut-kredisi-2026-cikti-mi-bddk-oranlari.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-first-home-mortgage-2026-bddk-loan-ratios.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/ilk-evim-konut-kredisi-2026-cikti-mi-bddk-oranlari.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/blog/kira-tespitinde-5-yil-kurali-yargitay-karari-2026.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/kira-tespitinde-5-yil-kurali-yargitay-karari-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-rent-determination-5-year-rule-court-of-cassation-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/kira-tespitinde-5-yil-kurali-yargitay-karari-2026.html"/>
+  </url>
+  <url>
     <loc>https://comertali.com/blog/yatirim-yoluyla-turk-vatandasligi-2026.html</loc>
     <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -104,6 +140,42 @@
 
   <!-- Blog yazıları (EN) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- EN_BLOG_URLS_START -->
+  <url>
+    <loc>https://comertali.com/en/blog/ankara-investment-property-district-selection-8-criteria.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/ankara-yatirimlik-konut-bolge-secimi-8-kriter.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/ankara-investment-property-district-selection-8-criteria.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/ankara-yatirimlik-konut-bolge-secimi-8-kriter.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/blog/turkey-title-deed-costs-2026-fees-stamp-duty-commission.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/tapu-masraflari-2026-harc-damga-vergisi-komisyon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-title-deed-costs-2026-fees-stamp-duty-commission.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/tapu-masraflari-2026-harc-damga-vergisi-komisyon.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/blog/turkey-first-home-mortgage-2026-bddk-loan-ratios.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/ilk-evim-konut-kredisi-2026-cikti-mi-bddk-oranlari.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-first-home-mortgage-2026-bddk-loan-ratios.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/ilk-evim-konut-kredisi-2026-cikti-mi-bddk-oranlari.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/blog/turkey-rent-determination-5-year-rule-court-of-cassation-2026.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/kira-tespitinde-5-yil-kurali-yargitay-karari-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-rent-determination-5-year-rule-court-of-cassation-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/kira-tespitinde-5-yil-kurali-yargitay-karari-2026.html"/>
+  </url>
   <url>
     <loc>https://comertali.com/en/blog/turkish-citizenship-by-real-estate-investment-2026.html</loc>
     <lastmod>2026-11-01</lastmod>
