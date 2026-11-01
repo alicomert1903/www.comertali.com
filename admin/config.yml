@@ -78,6 +78,8 @@ collections:
           - { label: "Yatırım Rehberi", value: "yatirim_rehberi" }
           - { label: "Piyasa Raporu", value: "piyasa_raporu" }
           - { label: "Vatandaşlık", value: "vatandaslik" }
+          - { label: "Konut Kredisi ve Masraflar", value: "kredi_masraflar" }
+          - { label: "Kira ve Hukuk", value: "hukuk" }
           - { label: "Genel", value: "genel" }
         default: "genel"
       - { label: "Kısa Özet (kart ve arama motoru açıklaması için)", name: "excerpt", widget: "text" }

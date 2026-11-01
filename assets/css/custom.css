@@ -272,3 +272,8 @@ select:focus, input:focus, textarea:focus {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Üst menü: tek satır düzeninde (≥1280px) menünün sığması için ikonları gizle */
+@media (min-width: 1280px) {
+  header nav a > i.fas { display: none !important; }
+}

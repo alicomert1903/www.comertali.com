@@ -30,6 +30,8 @@ const CATEGORY_LABELS_TR = {
   yatirim_rehberi: "Yatırım Rehberi",
   piyasa_raporu: "Piyasa Raporu",
   vatandaslik: "Vatandaşlık",
+  kredi_masraflar: "Konut Kredisi ve Masraflar",
+  hukuk: "Kira ve Hukuk",
   genel: "Genel"
 };
 
@@ -38,57 +40,59 @@ const CATEGORY_LABELS_EN = {
   yatirim_rehberi: "Investment Guide",
   piyasa_raporu: "Market Report",
   vatandaslik: "Citizenship",
+  kredi_masraflar: "Mortgage & Costs",
+  hukuk: "Rent & Law",
   genel: "General"
 };
 
 const UI = {
   tr: {
     readMore: "Devamını Oku",
-    allPosts: "Tüm Rehberleri Gör",
+    allPosts: "Tüm Makaleleri Gör",
     noPosts: "Henüz yayınlanmış yazı yok — yakında burada olacak.",
     consultTitle: "Bu konuda birebir danışmanlık ister misiniz?",
     consultSub: "Bölgesel analiz, uygun portföy ve vatandaşlık süreci için doğrudan iletişime geçin.",
     requestAccess: "Özel Portföye Erişin",
-    backToAll: "Tüm Rehberlere Dön",
-    blogTitle: "Rehberler: Vatandaşlık, Yatırım ve Ankara Bölge Analizi | Ali Cömert",
-    blogDescription: "Yatırım yoluyla Türk vatandaşlığı, tapu masrafları, kira hukuku ve Ankara bölge analizi üzerine kaynaklı rehberler.",
-    knowledgeBase: "Rehberler",
-    blogHeading: "Vatandaşlık ve Yatırım Rehberleri",
+    backToAll: "Tüm Makalelere Dön",
+    blogTitle: "Makaleler: Vatandaşlık, Konut Kredisi, Tapu ve Ankara Yatırımı | Ali Cömert",
+    blogDescription: "Yatırım yoluyla Türk vatandaşlığı, konut kredisi, tapu masrafları, kira hukuku ve Ankara bölge analizi üzerine kaynaklı makaleler.",
+    knowledgeBase: "Bilgi Merkezi",
+    blogHeading: "Makaleler ve Güncel Bilgiler",
     home: "Ana Sayfa",
     contents: "İçindekiler",
     minRead: "dk okuma",
     updated: "Son güncelleme",
-    moreGuides: "Diğer Rehberler",
+    moreGuides: "Diğer Makaleler",
     aboutAuthor: "Yazar",
     authorRole: "Ankara Gayrimenkul Danışmanı · TrueMax Gayrimenkul",
     authorBio: "Ankara'da yatırımcılar için bölge analizi, yatırım getirisi ve yatırım yoluyla vatandaşlık portföy danışmanlığı yapıyor.",
-    homeGuidesKicker: "Rehberler",
-    homeGuidesTitle: "Vatandaşlık ve Yatırım Rehberleri",
-    homeGuidesSub: "Güncel mevzuat, süreçler ve Ankara yatırım rehberleri — kaynaklarıyla birlikte."
+    homeGuidesKicker: "Bilgi Merkezi",
+    homeGuidesTitle: "Makaleler ve Güncel Bilgiler",
+    homeGuidesSub: "Vatandaşlık, konut kredisi, tapu masrafları, kira hukuku ve Ankara bölge analizleri — resmî kaynaklarıyla birlikte."
   },
   en: {
     readMore: "Read More",
-    allPosts: "See All Guides",
+    allPosts: "See All Articles",
     noPosts: "No articles published yet — check back soon.",
     consultTitle: "Would you like one-on-one advisory on this topic?",
     consultSub: "Reach out directly for regional analysis, suitable portfolio and the citizenship process.",
     requestAccess: "Request Private Access",
-    backToAll: "Back to All Guides",
-    blogTitle: "Guides: Citizenship by Investment, Property & Ankara Analysis | Ali Cömert",
-    blogDescription: "Sourced guides on Turkish citizenship by investment, property purchase costs, rental law and Ankara district analysis.",
-    knowledgeBase: "Guides",
-    blogHeading: "Citizenship & Investment Guides",
+    backToAll: "Back to All Articles",
+    blogTitle: "Articles: Citizenship, Mortgages, Title Deed Costs & Ankara Property | Ali Cömert",
+    blogDescription: "Sourced articles on Turkish citizenship by investment, mortgages, property purchase costs, rental law and Ankara district analysis.",
+    knowledgeBase: "Knowledge Center",
+    blogHeading: "Articles & Updates",
     home: "Home",
     contents: "Contents",
     minRead: "min read",
     updated: "Last updated",
-    moreGuides: "More Guides",
+    moreGuides: "More Articles",
     aboutAuthor: "Author",
     authorRole: "Ankara Real Estate Advisor · TrueMax Real Estate",
     authorBio: "Advises investors in Ankara on district analysis, investment returns and citizenship-by-investment property portfolios.",
-    homeGuidesKicker: "Guides",
-    homeGuidesTitle: "Citizenship & Investment Guides",
-    homeGuidesSub: "Up-to-date rules, processes and Ankara investment guides — with sources."
+    homeGuidesKicker: "Knowledge Center",
+    homeGuidesTitle: "Articles & Updates",
+    homeGuidesSub: "Citizenship, mortgages, title deed costs, rental law and Ankara district analysis, with official sources."
   }
 };
 
@@ -156,8 +160,15 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function decodeEntities(text) {
+  return String(text)
+    .replace(/&#([0-9]+);/g, (m, n) => String.fromCharCode(Number(n)))
+    .replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+}
+
 function slugify(text) {
   return String(text)
+    .replace(/İ/g, "i")
     .replace(/<[^>]+>/g, "")
     .replace(/&[a-z#0-9]+;/gi, " ")
     .toLowerCase()
@@ -232,7 +243,7 @@ function addHeadingIds(html) {
     let id = slugify(inner) || "bolum";
     while (used.has(id)) id += "-2";
     used.add(id);
-    toc.push({ id, text: inner.replace(/<[^>]+>/g, "") });
+    toc.push({ id, text: decodeEntities(inner.replace(/<[^>]+>/g, "")) });
     return `<h2 id="${id}">${inner}</h2>`;
   });
   return { html: out, toc };
@@ -249,15 +260,15 @@ function readingMinutes(md) {
  */
 function renderHead(title, description, ogImage, canonicalPath, assetsBase, hreflangBlock, extraMeta) {
   const isEn = canonicalPath.startsWith("/en/");
-  const defaultOg = isEn ? "/og-image-en.jpg" : "/og-image.jpg";
+  const defaultOg = isEn ? "/og-image-en.jpg?v=2" : "/og-image.jpg?v=2";
   const og = ogImage || defaultOg;
   const ogUrl = og.startsWith("http") ? og : SITE_URL + og;
   return `  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png?v=2" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
   <meta name="theme-color" content="#0A1128" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
@@ -300,7 +311,7 @@ function renderHead(title, description, ogImage, canonicalPath, assetsBase, href
       }
     }
   </script>
-  <link rel="stylesheet" href="${assetsBase}assets/css/custom.css?v=20261101_1" />
+  <link rel="stylesheet" href="${assetsBase}assets/css/custom.css?v=20261101_4" />
   <!-- Google Analytics 4 (${GA_ID}) — reklam kişiselleştirme sinyalleri kapalı -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
   <script>
@@ -320,33 +331,34 @@ function renderHead(title, description, ogImage, canonicalPath, assetsBase, href
  */
 function renderHeader(lang, siteBase, assetsBase) {
   const t = lang === "en"
-    ? { brand: "Part of TrueMax Real Estate", access: "Access", citizenship: "Citizenship", ankara: "Ankara Analysis", faq: "FAQ", portfolio: "Portfolio", calculators: "Calculators", phone: "+90 532 238 40 39", cta: "Request Private Access" }
-    : { brand: "TrueMax Gayrimenkul Bünyesinde", access: "Erişim", citizenship: "Vatandaşlık", ankara: "Ankara Analizi", faq: "S.S.S.", portfolio: "Portföy", calculators: "Hesaplayıcılar", phone: "+90 532 238 40 39", cta: "Özel Portföye Erişin" };
+    ? { brand: "Ankara Real Estate Strategist", articles: "Articles", access: "Access", citizenship: "Citizenship", ankara: "Ankara Analysis", faq: "FAQ", portfolio: "Portfolio", calculators: "Calculators", phone: "+90 532 238 40 39", cta: "Request Private Access" }
+    : { brand: "Ankara Gayrimenkul Stratejisti", articles: "Makaleler", access: "Erişim", citizenship: "Vatandaşlık", ankara: "Ankara Analizi", faq: "S.S.S.", portfolio: "Portföy", calculators: "Hesaplayıcılar", phone: "+90 532 238 40 39", cta: "Özel Portföye Erişin" };
 
   return `  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-700/40 transition-all duration-300">
-    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 lg:gap-6">
-      <div class="flex items-center justify-between w-full lg:w-auto gap-3">
+    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-2.5 xl:gap-6">
+      <div class="flex items-center justify-between w-full xl:w-auto gap-3">
         <a href="${siteBase}index.html" class="flex items-center space-x-2 sm:space-x-3.5 group flex-shrink-0">
-          <img src="${assetsBase}truemax_logo.png" onerror="this.onerror=null; this.src='${assetsBase}logo.png';" alt="TrueMax" class="h-8 sm:h-11 w-auto object-contain drop-shadow transition-transform duration-300 group-hover:scale-105" />
+          <img src="${assetsBase}assets/images/ali-comert-logo-128.png" width="44" height="44" alt="Ali Cömert — Real Estate Strategist" class="h-9 sm:h-11 w-auto rounded-full ring-1 ring-champagne/40 drop-shadow transition-transform duration-300 group-hover:scale-105" />
           <div>
             <span class="font-cinzel text-base sm:text-2xl font-bold tracking-wider text-titanium block leading-none">ALİ CÖMERT</span>
             <span class="text-[9px] sm:text-[10px] tracking-widest text-champagne uppercase font-semibold mt-1 block">${t.brand}</span>
           </div>
         </a>
-        <div class="flex items-center space-x-1.5 sm:space-x-2.5 lg:hidden flex-shrink-0">
+        <div class="flex items-center space-x-1.5 sm:space-x-2.5 xl:hidden flex-shrink-0">
           <a href="${siteBase}index.html#gatekeeping" class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-xs shadow-lg font-cinzel tracking-wide">
             <i class="fas fa-lock text-[11px] mr-1.5"></i><span>${t.access}</span>
           </a>
         </div>
       </div>
-      <nav class="flex flex-row items-center overflow-x-auto whitespace-nowrap space-x-6 sm:space-x-8 lg:space-x-2 text-xs sm:text-sm font-semibold lg:tracking-normal tracking-wide py-1.5 pt-2 border-t border-slate-800/60 lg:border-t-0 no-scrollbar lg:flex-1 lg:min-w-0">
+      <nav class="flex flex-row items-center overflow-x-auto whitespace-nowrap space-x-6 sm:space-x-8 xl:space-x-2 text-xs sm:text-sm font-semibold xl:tracking-normal tracking-wide py-1.5 pt-2 border-t border-slate-800/60 xl:border-t-0 no-scrollbar xl:flex-1 xl:min-w-0">
         <a href="${siteBase}index.html#roadmap" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-passport text-xs mr-2 text-champagne"></i><span>${t.citizenship}</span></a>
-        <a href="${siteBase}intelligence.html" class="text-champagne flex items-center py-1 flex-shrink-0 border-b border-champagne pb-0.5"><i class="fas fa-chart-line text-xs mr-2 text-champagne"></i><span>${t.ankara}</span></a>
+        <a href="${siteBase}intelligence.html" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-chart-line text-xs mr-2 text-champagne"></i><span>${t.ankara}</span></a>
+        <a href="index.html" class="text-champagne flex items-center py-1 flex-shrink-0 border-b border-champagne pb-0.5"><i class="fas fa-newspaper text-xs mr-2 text-champagne"></i><span>${t.articles}</span></a>
         <a href="${siteBase}index.html#faq" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-question-circle text-xs mr-2 text-champagne"></i><span>${t.faq}</span></a>
         <a href="${siteBase}index.html#portfolio-showcase" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-layer-group text-xs mr-2 text-champagne"></i><span>${t.portfolio}</span></a>
         <a href="${siteBase}araclar.html" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-calculator text-xs mr-2 text-champagne"></i><span>${t.calculators}</span></a>
       </nav>
-      <div class="hidden lg:flex items-center space-x-2 xl:space-x-3.5 flex-shrink-0">
+      <div class="hidden xl:flex items-center space-x-2 xl:space-x-3.5 flex-shrink-0">
         <a href="tel:+905322384039" class="inline-flex items-center justify-center px-2.5 xl:px-4 py-2 rounded-xl bg-navy-dark border border-slate-700 text-titanium font-semibold text-xs hover:border-champagne/60 hover:text-champagne transition-all duration-300">
           <i class="fas fa-phone-alt mr-1.5 xl:mr-2 text-champagne"></i><span>${t.phone}</span>
         </a>
@@ -367,7 +379,7 @@ function renderFooter(lang, siteBase) {
         home: "Home",
         ankara: "Ankara Analysis",
         calculators: "Title Deed & Tax Calculators",
-        allPosts: "All Guides",
+        allPosts: "All Articles",
         contact: "Contact",
         rights: "&copy; 2026 ALİ CÖMERT - Part of TrueMax Real Estate. All rights reserved."
       }
@@ -378,7 +390,7 @@ function renderFooter(lang, siteBase) {
         home: "Ana Sayfa",
         ankara: "Ankara Analizi",
         calculators: "Tapu & Vergi Hesaplayıcıları",
-        allPosts: "Tüm Rehberler",
+        allPosts: "Tüm Makaleler",
         contact: "İletişim",
         rights: "&copy; 2026 ALİ CÖMERT - TrueMax Gayrimenkul Bünyesinde. Tüm hakları saklıdır."
       };
@@ -425,7 +437,7 @@ function articleSchema(post, lang, canonicalPath) {
   const t = UI[lang];
   const image = post.cover_image
     ? (post.cover_image.startsWith("http") ? post.cover_image : SITE_URL + post.cover_image)
-    : SITE_URL + (isEn ? "/og-image-en.jpg" : "/og-image.jpg");
+    : SITE_URL + (isEn ? "/og-image-en.jpg?v=2" : "/og-image.jpg?v=2");
   const article = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -440,7 +452,7 @@ function articleSchema(post, lang, canonicalPath) {
       "@type": "Organization",
       "name": isEn ? "TrueMax Real Estate" : "TrueMax Gayrimenkul",
       "url": "https://truemaxgayrimenkul.com",
-      "logo": { "@type": "ImageObject", "url": SITE_URL + "/truemax_logo.png" }
+      "logo": { "@type": "ImageObject", "url": SITE_URL + "/assets/images/ali-comert-logo-256.png" }
     },
     "mainEntityOfPage": { "@type": "WebPage", "@id": SITE_URL + canonicalPath }
   };
@@ -608,7 +620,15 @@ function renderBlogIndex(posts, lang) {
   <link rel="alternate" hreflang="en" href="${SITE_URL}/en/blog/" />
   <link rel="alternate" hreflang="x-default" href="${SITE_URL}/blog/" />`;
 
-  const cards = posts.map(p => renderPostCard(p, lang, assetsBase)).join("\n");
+  const cards = posts.map(p => renderPostCard(p, lang, assetsBase).replace("<a ", `<a data-cat="${p.category}" `)).join("\n");
+  const cats = [...new Set(posts.map(p => p.category))];
+  const chip = "px-3.5 py-1.5 rounded-full border border-slate-700 text-xs font-semibold text-titanium-muted hover:border-champagne/60 hover:text-champagne transition-colors";
+  const chips = cats.length > 1
+    ? `<div id="cat-filter" class="flex flex-wrap justify-center gap-2 mb-10 sm:mb-12"><button type="button" data-filter="all" class="${chip} border-champagne text-champagne">${isEn ? "All" : "Tümü"}</button>${cats.map(c => `<button type="button" data-filter="${c}" class="${chip}">${escapeHtml(categoryLabel(c, lang))}</button>`).join("")}</div>`
+    : "";
+  const filterScript = cats.length > 1
+    ? `<script>(function(){var bar=document.getElementById("cat-filter");if(!bar)return;bar.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var f=b.getAttribute("data-filter");bar.querySelectorAll("button").forEach(function(x){x.classList.toggle("border-champagne",x===b);x.classList.toggle("text-champagne",x===b);});document.querySelectorAll("a[data-cat]").forEach(function(a){a.style.display=(f==="all"||a.getAttribute("data-cat")===f)?"":"none";});});})();</script>`
+    : "";
 
   return `<!DOCTYPE html>
 <html lang="${lang}" class="scroll-smooth">
@@ -623,12 +643,14 @@ ${renderHeader(lang, siteBase, assetsBase)}
         <span class="text-xs uppercase tracking-widest text-champagne font-bold block mb-2 font-cinzel">${t.knowledgeBase}</span>
         <h1 class="font-cinzel text-2xl sm:text-5xl font-bold text-titanium tracking-tight">${t.blogHeading}</h1>
       </div>
+      ${chips}
       ${posts.length
         ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">${cards}</div>`
         : `<p class="text-center text-titanium-muted text-sm">${t.noPosts}</p>`}
     </div>
   </main>
 ${renderFooter(lang, siteBase)}
+  ${filterScript}
 </body>
 </html>
 `;
