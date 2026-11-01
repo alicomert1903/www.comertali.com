@@ -40,7 +40,7 @@ collections:
 
   - name: "videolar"
     label: "Video Galerisi"
-    description: "Ana sayfadaki Video Galerisi bölümü. YouTube'a yüklediğiniz videonun linkini yapıştırmanız yeterli, kapak görseli otomatik çekilir. Liste boşsa bölüm sitede görünmez."
+    description: "Ana sayfadaki Video Galerisi bölümü (en yeni 6 video gösterilir). YouTube linki yapıştırırsanız kapak görseli otomatik çekilir. Instagram Reel'leri her Pazar akşamı otomatik eklenir; istemediğiniz birini buradan silebilirsiniz, tekrar eklenmez. Liste boşsa bölüm sitede görünmez."
     files:
       - file: "content/videos.json"
         label: "YouTube Videoları"
@@ -53,8 +53,12 @@ collections:
             summary: "{{title}}"
             fields:
               - { label: "Başlık", name: "title", widget: "string" }
-              - { label: "YouTube Video Linki", name: "youtube_url", widget: "string", hint: "Örn: https://www.youtube.com/watch?v=XXXXXXXXXXX veya https://youtu.be/XXXXXXXXXXX" }
+              - { label: "Video Linki (YouTube veya Instagram Reel)", name: "url", widget: "string", hint: "Örn: https://www.youtube.com/watch?v=XXXXXXXXXXX, https://youtu.be/XXXXXXXXXXX veya https://www.instagram.com/reel/XXXXXXXXXXX/" }
               - { label: "Kısa Açıklama (opsiyonel)", name: "description", widget: "text", required: false }
+              - { label: "Başlık (EN) — opsiyonel, İngilizce sitede kullanılır", name: "title_en", widget: "string", required: false }
+              - { label: "Açıklama (EN) — opsiyonel", name: "description_en", widget: "text", required: false }
+              - { label: "Kapak Görseli (Instagram için)", name: "thumbnail", widget: "image", required: false, hint: "YouTube videolarında gerekmez; Instagram Reel'lerinde otomatik eklenir." }
+              - { label: "Yayın Tarihi (sıralama için)", name: "date", widget: "datetime", required: false }
 
   - name: "blog"
     label: "Blog / Bölgesel Analiz"

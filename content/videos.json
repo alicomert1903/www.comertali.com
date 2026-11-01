@@ -1,3 +1,50 @@
 {
-  "videos": []
+  "videos": [
+    {
+      "title": "%1,20'lik İlk Evim Kredisi Çıktı mı?",
+      "url": "https://www.instagram.com/reel/DfKMi-DsaOv/",
+      "description": "Konut kredisi desteği teklifleri Meclis'te; 31 Ekim 2026 itibarıyla hiçbiri yasalaşmadı.",
+      "title_en": "Has the 1.20% \"First Home\" Loan Arrived?",
+      "description_en": "Housing loan support proposals are in Parliament; as of October 31, 2026, none has become law.",
+      "thumbnail": "/assets/images/reels/DfKMi-DsaOv.jpg",
+      "date": "2026-10-31T12:55:05+03:00"
+    },
+    {
+      "title": "Kira Tespitinde 5 Yıl Şartı Kalktı mı?",
+      "url": "https://www.instagram.com/reel/Ded8eutsMO7/",
+      "description": "Yargıtay'ın değerlendirmesi, beş yıllık yasal sürenin tamamen ortadan kalktığı anlamına gelmiyor.",
+      "title_en": "Has the 5-Year Rule for Rent Determination Been Lifted?",
+      "description_en": "The Court of Cassation's assessment does not mean the five-year statutory period has been abolished entirely.",
+      "thumbnail": "/assets/images/reels/Ded8eutsMO7.jpg",
+      "date": "2026-10-14T08:25:19+03:00"
+    },
+    {
+      "title": "Tapu Masrafları ve Damga Vergisi",
+      "url": "https://www.instagram.com/reel/Ddq6ffAsWjn/",
+      "title_en": "Title Deed Costs and Stamp Duty",
+      "thumbnail": "/assets/images/reels/Ddq6ffAsWjn.jpg",
+      "date": "2026-09-24T13:15:02+03:00"
+    },
+    {
+      "title": "Ankara Gayrimenkul · 13 Eylül 2026",
+      "url": "https://www.instagram.com/reel/DdOGOr_sdVx/",
+      "title_en": "Ankara Real Estate · September 13, 2026",
+      "thumbnail": "/assets/images/reels/DdOGOr_sdVx.jpg",
+      "date": "2026-09-13T08:12:20+03:00"
+    },
+    {
+      "title": "Ankara Gayrimenkul · 5 Eylül 2026",
+      "url": "https://www.instagram.com/reel/Dc6rByMsb9y/",
+      "title_en": "Ankara Real Estate · September 5, 2026",
+      "thumbnail": "/assets/images/reels/Dc6rByMsb9y.jpg",
+      "date": "2026-09-05T19:08:25+03:00"
+    },
+    {
+      "title": "Ankara Gayrimenkul · 1 Eylül 2026",
+      "url": "https://www.instagram.com/reel/Dcvba8Msi_F/",
+      "title_en": "Ankara Real Estate · September 1, 2026",
+      "thumbnail": "/assets/images/reels/Dcvba8Msi_F.jpg",
+      "date": "2026-09-01T11:00:54+03:00"
+    }
+  ]
 }

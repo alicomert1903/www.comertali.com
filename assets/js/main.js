@@ -828,25 +828,61 @@ function extractYouTubeId(url) {
   return match ? match[1] : null;
 }
 
+function extractInstagramId(url) {
+  if (typeof url !== "string") return null;
+  const match = url.match(/instagram\.com\/(?:reels?|p|tv)\/([A-Za-z0-9_-]+)/);
+  return match ? match[1] : null;
+}
+
+const GALLERY_MAX_ITEMS = 6;
+
 function initVideoGallery() {
   const section = document.getElementById("video-gallery");
   const grid = document.getElementById("videoGalleryGrid");
   if (!section || !grid) return;
 
+  const isEn = window.currentLang === "en";
+  const escapeAttr = s => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+
   fetch("/content/videos.json")
     .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
     .then(data => {
-      const videos = (data.videos || []).filter(v => extractYouTubeId(v.youtube_url));
+      const videos = (data.videos || [])
+        .map(v => {
+          const url = v.url || v.youtube_url;
+          const ytId = extractYouTubeId(url);
+          const igId = ytId ? null : extractInstagramId(url);
+          return { ...v, ytId, igId };
+        })
+        .filter(v => v.ytId || v.igId)
+        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
+        .slice(0, GALLERY_MAX_ITEMS);
       if (!videos.length) return;
 
       grid.innerHTML = videos.map(video => {
-        const id = extractYouTubeId(video.youtube_url);
-        const title = (video.title || "Video").replace(/"/g, "&quot;");
-        const desc = video.description || "";
+        const isIg = Boolean(video.igId);
+        // EN sayfada _en alanı yoksa TR metni göstermek yerine nötr bir başlık kullanıyoruz.
+        const rawTitle = isEn ? (video.title_en || (isIg ? "Instagram Reel" : "Video")) : (video.title || "Video");
+        const rawDesc = isEn ? (video.description_en || "") : (video.description || "");
+        const title = escapeAttr(rawTitle);
+        const desc = escapeAttr(rawDesc);
+        const thumb = isIg
+          ? (video.thumbnail || "")
+          : `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`;
+        const onclick = isIg
+          ? `window.openInstagramModal('${video.igId}')`
+          : `window.openYoutubeModal('${video.ytId}')`;
+        const thumbHtml = thumb
+          ? `<img src="${escapeAttr(thumb)}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />`
+          : `<div class="w-full h-full flex items-center justify-center text-champagne/40 text-4xl"><i class="fab fa-instagram"></i></div>`;
+        const badge = isIg
+          ? `<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-navy-dark/85 border border-champagne/40 text-[10px] font-bold text-champagne flex items-center"><i class="fab fa-instagram mr-1.5"></i>Reel</span>`
+          : "";
         return `
-          <button type="button" onclick="window.openYoutubeModal('${id}')" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 text-left group">
+          <button type="button" onclick="${onclick}" class="glass-panel rounded-3xl overflow-hidden border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 text-left group">
             <div class="relative aspect-video bg-navy-dark overflow-hidden">
-              <img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              ${thumbHtml}
+              ${badge}
               <div class="absolute inset-0 bg-navy-dark/30 group-hover:bg-navy-dark/10 transition-colors flex items-center justify-center">
                 <span class="w-14 h-14 rounded-full bg-champagne/90 text-navy-dark flex items-center justify-center text-xl shadow-xl group-hover:scale-110 transition-transform duration-300">
                   <i class="fas fa-play ml-0.5"></i>
@@ -868,14 +904,32 @@ function initVideoGallery() {
     });
 }
 
-window.openYoutubeModal = function(videoId) {
+// Instagram oynatıcısı dikey (9:16) olduğu için kartı daraltıp yüksekliği ekrana göre veriyoruz;
+// iframe yalnızca tıklanınca yüklenir, böylece ziyaretçi tıklamadan Meta'ya istek gitmez.
+function openVideoModal(src, portrait) {
   const modal = document.getElementById("youtubeModal");
   const frame = document.getElementById("youtubeModalFrame");
+  const card = document.getElementById("youtubeModalCard");
+  const wrap = document.getElementById("youtubeModalWrap");
   if (!modal || !frame) return;
-  frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+  if (card && wrap) {
+    card.classList.toggle("max-w-3xl", !portrait);
+    card.classList.toggle("max-w-md", portrait);
+    wrap.classList.toggle("aspect-video", !portrait);
+    wrap.style.height = portrait ? "min(75vh, 720px)" : "";
+  }
+  frame.src = src;
   modal.classList.remove("hidden");
   modal.classList.add("flex");
   document.body.style.overflow = "hidden";
+}
+
+window.openYoutubeModal = function(videoId) {
+  openVideoModal(`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`, false);
+};
+
+window.openInstagramModal = function(reelId) {
+  openVideoModal(`https://www.instagram.com/reel/${reelId}/embed/`, true);
 };
 
 window.closeYoutubeModal = function() {
