@@ -807,8 +807,18 @@ function initFxTicker() {
       document.getElementById("fxEur").textContent = fmt(eur) + " TL";
       document.getElementById("fxGold").textContent = fmt(gold) + " TL";
 
-      const saat = typeof data.Update_Date === "string" ? data.Update_Date.split(" ")[1]?.slice(0, 5) : "";
-      document.getElementById("fxUpdated").textContent = saat ? `Güncelleme: ${saat}` : "";
+      // Sağlayıcının kendi zaman damgası güvenilir değil (saat dilimi/önbellek kaymaları görüldü);
+      // bu yüzden verinin bu cihazda ne zaman çekildiğini, İstanbul saatiyle gösteriyoruz.
+      const isEn = window.currentLang === "en";
+      const now = new Date();
+      const saat = now.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" });
+      const gun = new Intl.DateTimeFormat("en-US", { weekday: "short", timeZone: "Europe/Istanbul" }).format(now);
+      const hafta_sonu = gun === "Sat" || gun === "Sun";
+      const label = isEn ? "Last checked" : "Son kontrol";
+      const kapali = isEn ? " · markets closed, last quotes" : " · piyasa kapalı, son değerler";
+      const el = document.getElementById("fxUpdated");
+      el.textContent = `${label}: ${saat} (TSİ)${hafta_sonu ? kapali : ""}`;
+      el.title = isEn ? "Source: Truncgil Finans. Indicative rates, not investment advice." : "Kaynak: Truncgil Finans. Gösterge niteliğindedir, yatırım tavsiyesi değildir.";
 
       ticker.classList.remove("hidden");
       ticker.classList.add("flex");

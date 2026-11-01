@@ -16,6 +16,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { renderSiteHeader } = require("./header");
 const { marked } = require("marked");
 
 const ROOT = path.join(__dirname, "..");
@@ -311,7 +312,7 @@ function renderHead(title, description, ogImage, canonicalPath, assetsBase, href
       }
     }
   </script>
-  <link rel="stylesheet" href="${assetsBase}assets/css/custom.css?v=20261101_4" />
+  <link rel="stylesheet" href="${assetsBase}assets/css/custom.css?v=20261101_6" />
   <!-- Google Analytics 4 (${GA_ID}) — reklam kişiselleştirme sinyalleri kapalı -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
   <script>
@@ -329,45 +330,8 @@ function renderHead(title, description, ogImage, canonicalPath, assetsBase, href
  * (index.html/intelligence.html/araclar.html) — TR ve EN için "../".
  * assetsBase: gerçek site köküne ulaşmak için önek — TR "../", EN "../../".
  */
-function renderHeader(lang, siteBase, assetsBase) {
-  const t = lang === "en"
-    ? { brand: "Ankara Real Estate Strategist", articles: "Articles", access: "Access", citizenship: "Citizenship", ankara: "Ankara Analysis", faq: "FAQ", portfolio: "Portfolio", calculators: "Calculators", phone: "+90 532 238 40 39", cta: "Request Private Access" }
-    : { brand: "Ankara Gayrimenkul Stratejisti", articles: "Makaleler", access: "Erişim", citizenship: "Vatandaşlık", ankara: "Ankara Analizi", faq: "S.S.S.", portfolio: "Portföy", calculators: "Hesaplayıcılar", phone: "+90 532 238 40 39", cta: "Özel Portföye Erişin" };
-
-  return `  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-700/40 transition-all duration-300">
-    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-2.5 xl:gap-6">
-      <div class="flex items-center justify-between w-full xl:w-auto gap-3">
-        <a href="${siteBase}index.html" class="flex items-center space-x-2 sm:space-x-3.5 group flex-shrink-0">
-          <img src="${assetsBase}assets/images/ali-comert-logo-128.png" width="44" height="44" alt="Ali Cömert — Real Estate Strategist" class="h-9 sm:h-11 w-auto rounded-full ring-1 ring-champagne/40 drop-shadow transition-transform duration-300 group-hover:scale-105" />
-          <div>
-            <span class="font-cinzel text-base sm:text-2xl font-bold tracking-wider text-titanium block leading-none">ALİ CÖMERT</span>
-            <span class="text-[9px] sm:text-[10px] tracking-widest text-champagne uppercase font-semibold mt-1 block">${t.brand}</span>
-          </div>
-        </a>
-        <div class="flex items-center space-x-1.5 sm:space-x-2.5 xl:hidden flex-shrink-0">
-          <a href="${siteBase}index.html#gatekeeping" class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-xs shadow-lg font-cinzel tracking-wide">
-            <i class="fas fa-lock text-[11px] mr-1.5"></i><span>${t.access}</span>
-          </a>
-        </div>
-      </div>
-      <nav class="flex flex-row items-center overflow-x-auto whitespace-nowrap space-x-6 sm:space-x-8 xl:space-x-2 text-xs sm:text-sm font-semibold xl:tracking-normal tracking-wide py-1.5 pt-2 border-t border-slate-800/60 xl:border-t-0 no-scrollbar xl:flex-1 xl:min-w-0">
-        <a href="${siteBase}index.html#roadmap" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-passport text-xs mr-2 text-champagne"></i><span>${t.citizenship}</span></a>
-        <a href="${siteBase}intelligence.html" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-chart-line text-xs mr-2 text-champagne"></i><span>${t.ankara}</span></a>
-        <a href="index.html" class="text-champagne flex items-center py-1 flex-shrink-0 border-b border-champagne pb-0.5"><i class="fas fa-newspaper text-xs mr-2 text-champagne"></i><span>${t.articles}</span></a>
-        <a href="${siteBase}index.html#faq" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-question-circle text-xs mr-2 text-champagne"></i><span>${t.faq}</span></a>
-        <a href="${siteBase}index.html#portfolio-showcase" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-layer-group text-xs mr-2 text-champagne"></i><span>${t.portfolio}</span></a>
-        <a href="${siteBase}araclar.html" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0"><i class="fas fa-calculator text-xs mr-2 text-champagne"></i><span>${t.calculators}</span></a>
-      </nav>
-      <div class="hidden xl:flex items-center space-x-2 xl:space-x-3.5 flex-shrink-0">
-        <a href="tel:+905322384039" class="inline-flex items-center justify-center px-2.5 xl:px-4 py-2 rounded-xl bg-navy-dark border border-slate-700 text-titanium font-semibold text-xs hover:border-champagne/60 hover:text-champagne transition-all duration-300">
-          <i class="fas fa-phone-alt mr-1.5 xl:mr-2 text-champagne"></i><span>${t.phone}</span>
-        </a>
-        <a href="${siteBase}index.html#gatekeeping" class="inline-flex items-center justify-center px-3.5 xl:px-5 py-2.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-sm shadow-xl hover:shadow-champagne/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-cinzel tracking-wide whitespace-nowrap">
-          <i class="fas fa-lock-open mr-1.5 xl:mr-2 text-xs"></i><span>${t.cta}</span>
-        </a>
-      </div>
-    </div>
-  </header>`;
+function renderHeader(lang, siteBase, assetsBase, langHref) {
+  return renderSiteHeader({ lang, rootHref: siteBase, assetsBase, blogHref: "index.html", langHref, isHome: false, active: "articles" });
 }
 
 function renderFooter(lang, siteBase) {
@@ -564,7 +528,7 @@ ${renderHead(title, description, post.cover_image, canonicalPath, assetsBase, hr
   ${articleSchema(post, lang, canonicalPath)}
 </head>
 <body class="bg-navy text-titanium antialiased selection:bg-champagne selection:text-navy-dark">
-${renderHeader(lang, siteBase, assetsBase)}
+${renderHeader(lang, siteBase, assetsBase, isEn ? "../../blog/" + post.slug + ".html" : (hasEnglish(post) ? "../en/blog/" + slugFor(post, "en") + ".html" : "../en/blog/"))}
   <main class="pt-28 sm:pt-36 pb-20">
     <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <nav aria-label="breadcrumb" class="text-[11px] text-titanium-muted mb-5">
@@ -636,7 +600,7 @@ function renderBlogIndex(posts, lang) {
 ${renderHead(t.blogTitle, t.blogDescription, null, canonicalPath, assetsBase, hreflangBlock)}
 </head>
 <body class="bg-navy text-titanium antialiased selection:bg-champagne selection:text-navy-dark">
-${renderHeader(lang, siteBase, assetsBase)}
+${renderHeader(lang, siteBase, assetsBase, isEn ? "../../blog/" : "../en/blog/")}
   <main class="pt-28 sm:pt-36 pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">

@@ -52,7 +52,7 @@
   </script>
 
   <!-- Custom Design System CSS -->
-  <link rel="stylesheet" href="assets/css/custom.css?v=20261101_4" />
+  <link rel="stylesheet" href="assets/css/custom.css?v=20261101_6" />
 
   <script type="application/ld+json">
   {
@@ -93,69 +93,51 @@
   <!-- ==========================================================================
        HEADER (index.html ile birebir aynı yapı)
        ========================================================================== -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-700/40 transition-all duration-300">
-    <div class="max-w-7xl mx-auto pl-4 pr-16 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 lg:gap-6">
-
-      <div class="flex items-center justify-between w-full lg:w-auto gap-3">
-        <a href="index.html" class="flex items-center space-x-2 sm:space-x-3.5 group flex-shrink-0">
-          <img src="./truemax_logo.png" onerror="this.onerror=null; this.src='./logo.png';" alt="TrueMax Gayrimenkul" class="h-8 sm:h-11 w-auto object-contain drop-shadow transition-transform duration-300 group-hover:scale-105" />
-          <div>
-            <span class="font-cinzel text-base sm:text-2xl font-bold tracking-wider text-titanium block leading-none">ALİ CÖMERT</span>
-            <span class="text-[9px] sm:text-[10px] tracking-widest text-champagne uppercase font-semibold mt-1 block">TrueMax Gayrimenkul Bünyesinde</span>
-          </div>
-        </a>
-
-        <div class="flex items-center space-x-1.5 sm:space-x-2.5 flex-shrink-0">
-          <!-- Language Switcher -->
-          <a href="en/araclar.html" hreflang="en" aria-label="Switch to English" class="flex items-center justify-center w-8 h-8 sm:w-auto sm:h-8 sm:px-2.5 xl:px-3 rounded-lg bg-navy-dark border border-slate-700 text-titanium text-[11px] font-bold hover:border-champagne/60 hover:text-champagne transition-all duration-300 flex-shrink-0">
-            <i class="fas fa-globe sm:mr-1.5 text-[10px]"></i><span class="hidden sm:inline">EN</span>
-          </a>
-          <!-- Mobile Compact Action -->
-          <div class="flex items-center space-x-1.5 sm:space-x-2.5 lg:hidden flex-shrink-0">
-            <a href="index.html#gatekeeping" class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-xs shadow-lg font-cinzel tracking-wide">
-              <i class="fas fa-lock text-[11px] mr-1.5"></i>
-              <span>Erişim</span>
-            </a>
-          </div>
-        </div>
+  <header class="sh" id="siteHeader">
+    <div class="sh-inner">
+      <a href="index.html" class="sh-brand">
+        <img src="assets/images/ali-comert-logo-128.png" width="44" height="44" alt="Ali Cömert — Real Estate Strategist" />
+        <span class="sh-brand-text">
+          <span class="sh-name">ALİ CÖMERT</span>
+          <span class="sh-sub">Ankara Gayrimenkul Stratejisti</span>
+        </span>
+      </a>
+      <nav class="sh-nav" aria-label="Menü"><a href="index.html#roadmap">Vatandaşlık</a><a href="intelligence.html">Ankara Analizi</a><a href="blog/index.html">Makaleler</a><a href="index.html#faq">S.S.S.</a><a href="index.html#portfolio-showcase">Portföy</a><a href="araclar.html" class="is-active" aria-current="page">Hesaplayıcılar</a></nav>
+      <div class="sh-right">
+        <div class="sh-lang" role="group" aria-label="Dil seçimi">
+        <span aria-current="true">TR</span>
+        <a href="en/araclar.html" hreflang="en" aria-label="İngilizceye geç">EN</a>
       </div>
-
-      <nav class="flex flex-row items-center overflow-x-auto whitespace-nowrap space-x-6 sm:space-x-8 text-xs sm:text-sm font-semibold tracking-wide py-1.5 pt-2 border-t border-slate-800/60 lg:border-t-0 no-scrollbar lg:flex-1 lg:min-w-0">
-        <a href="index.html#roadmap" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0">
-          <i class="fas fa-passport text-xs mr-2 text-champagne"></i>
-          <span>Vatandaşlık</span>
+        <a href="tel:+905322384039" class="sh-contact" aria-label="Bize Ulaşın +90 532 238 40 39">
+          <span class="sh-contact-label">Bize Ulaşın</span>
+          <span class="sh-contact-num"><i class="fas fa-phone-alt"></i>+90 532 238 40 39</span>
         </a>
-        <a href="intelligence.html" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0">
-          <i class="fas fa-chart-line text-xs mr-2 text-champagne"></i>
-          <span>Ankara Analizi</span>
-        </a>
-        <a href="index.html#faq" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0">
-          <i class="fas fa-question-circle text-xs mr-2 text-champagne"></i>
-          <span>S.S.S.</span>
-        </a>
-        <a href="index.html#portfolio-showcase" class="text-titanium hover:text-champagne transition-colors flex items-center py-1 flex-shrink-0">
-          <i class="fas fa-layer-group text-xs mr-2 text-champagne"></i>
-          <span>Portföy</span>
-        </a>
-        <a href="araclar.html" class="text-champagne flex items-center py-1 flex-shrink-0 border-b border-champagne pb-0.5">
-          <i class="fas fa-calculator text-xs mr-2 text-champagne"></i>
-          <span>Hesaplayıcılar</span>
-        </a>
-      </nav>
-
-      <div class="hidden lg:flex items-center space-x-3.5 flex-shrink-0">
-        <a href="tel:+905322384039" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-navy-dark border border-slate-700 text-titanium font-semibold text-xs hover:border-champagne/60 hover:text-champagne transition-all duration-300">
-          <i class="fas fa-phone-alt mr-2 text-champagne"></i>
-          <span>+90 532 238 40 39</span>
-        </a>
-
-        <a href="index.html#gatekeeping" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-gradient-to-r from-champagne via-[#E6CA65] to-champagne-dark text-navy-dark font-bold text-sm shadow-xl hover:shadow-champagne/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-cinzel tracking-wide">
-          <i class="fas fa-lock-open mr-2 text-xs"></i>
-          <span>Özel Portföye Erişin</span>
-        </a>
+        <a href="tel:+905322384039" class="sh-call" aria-label="Bize Ulaşın +90 532 238 40 39"><i class="fas fa-phone-alt"></i></a>
+        <button type="button" class="sh-burger" aria-label="Menü" aria-expanded="false" aria-controls="shDrawer"><span></span><span></span><span></span></button>
       </div>
-
     </div>
+    <div class="sh-backdrop"></div>
+    <aside class="sh-drawer" id="shDrawer" aria-label="Menü">
+      <p class="sh-drawer-title">Sitede Gezin</p>
+      <a href="index.html"><i class="fas fa-house"></i><span>Ana Sayfa</span></a><a href="index.html#roadmap"><i class="fas fa-passport"></i><span>Yatırım Yoluyla Vatandaşlık</span></a><a href="intelligence.html"><i class="fas fa-chart-line"></i><span>Ankara Analizi</span></a><a href="blog/index.html"><i class="fas fa-newspaper"></i><span>Makaleler</span></a><a href="araclar.html"><i class="fas fa-calculator"></i><span>Hesaplayıcılar</span></a>
+      <p class="sh-drawer-title">Ana Sayfa Bölümleri</p>
+      <a href="index.html#video-gallery"><i class="fas fa-circle-play"></i><span>Video Galerisi</span></a><a href="index.html#portfolio-showcase"><i class="fas fa-layer-group"></i><span>Özel Portföy</span></a><a href="index.html#faq"><i class="fas fa-circle-question"></i><span>Sıkça Sorulan Sorular</span></a><a href="index.html#testimonials"><i class="fas fa-star"></i><span>Google Değerlendirmeleri</span></a><a href="index.html#gatekeeping"><i class="fas fa-lock-open"></i><span>Özel Portföye Erişim Talebi</span></a>
+      <div class="sh-drawer-cta">
+        <a href="tel:+905322384039" class="sh-drawer-btn sh-drawer-btn-gold"><i class="fas fa-phone-alt"></i><span>Bize Ulaşın<small>+90 532 238 40 39</small></span></a>
+        <a href="https://wa.me/905322384039" target="_blank" rel="noopener" class="sh-drawer-btn"><i class="fab fa-whatsapp"></i><span>WhatsApp'tan Yazın</span></a>
+      </div>
+    </aside>
+    <script>
+      (function () {
+        var h = document.getElementById("siteHeader");
+        var b = h.querySelector(".sh-burger");
+        function set(o) { h.classList.toggle("sh-open", o); document.documentElement.classList.toggle("sh-open-doc", o); b.setAttribute("aria-expanded", o ? "true" : "false"); document.body.style.overflow = o ? "hidden" : ""; }
+        b.addEventListener("click", function () { set(!h.classList.contains("sh-open")); });
+        h.querySelector(".sh-backdrop").addEventListener("click", function () { set(false); });
+        h.querySelectorAll(".sh-drawer a").forEach(function (a) { a.addEventListener("click", function () { set(false); }); });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+      })();
+    </script>
   </header>
 
   <!-- ==========================================================================
