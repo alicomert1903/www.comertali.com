@@ -92,6 +92,24 @@
   <!-- Blog yazıları (TR) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- BLOG_URLS_START -->
   <url>
+    <loc>https://comertali.com/blog/kasim-2026-kira-artis-orani-yuzde-31-23-tufe.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/kasim-2026-kira-artis-orani-yuzde-31-23-tufe.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/november-2026-rent-increase-rate-turkey-31-23-percent.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/kasim-2026-kira-artis-orani-yuzde-31-23-tufe.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/blog/evin-fotograflari-izinsiz-ilanda-kullanilirsa-ne-yapmali-eids.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/evin-fotograflari-izinsiz-ilanda-kullanilirsa-ne-yapmali-eids.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/unauthorized-use-of-home-photos-in-listing-eids-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/evin-fotograflari-izinsiz-ilanda-kullanilirsa-ne-yapmali-eids.html"/>
+  </url>
+  <url>
     <loc>https://comertali.com/blog/ankara-yatirimlik-konut-bolge-secimi-8-kriter.html</loc>
     <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -140,6 +158,24 @@
 
   <!-- Blog yazıları (EN) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- EN_BLOG_URLS_START -->
+  <url>
+    <loc>https://comertali.com/en/blog/november-2026-rent-increase-rate-turkey-31-23-percent.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/kasim-2026-kira-artis-orani-yuzde-31-23-tufe.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/november-2026-rent-increase-rate-turkey-31-23-percent.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/kasim-2026-kira-artis-orani-yuzde-31-23-tufe.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/blog/unauthorized-use-of-home-photos-in-listing-eids-2026.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/evin-fotograflari-izinsiz-ilanda-kullanilirsa-ne-yapmali-eids.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/unauthorized-use-of-home-photos-in-listing-eids-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/evin-fotograflari-izinsiz-ilanda-kullanilirsa-ne-yapmali-eids.html"/>
+  </url>
   <url>
     <loc>https://comertali.com/en/blog/ankara-investment-property-district-selection-8-criteria.html</loc>
     <lastmod>2026-11-01</lastmod>
