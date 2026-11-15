@@ -92,6 +92,15 @@
   <!-- Blog yazıları (TR) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- BLOG_URLS_START -->
   <url>
+    <loc>https://comertali.com/blog/emlak-vergisi-2-taksit-2026-son-gun-30-kasim.html</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/emlak-vergisi-2-taksit-2026-son-gun-30-kasim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-property-tax-second-installment-november-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/emlak-vergisi-2-taksit-2026-son-gun-30-kasim.html"/>
+  </url>
+  <url>
     <loc>https://comertali.com/blog/kasim-2026-kira-artis-orani-yuzde-31-23-tufe.html</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -158,6 +167,15 @@
 
   <!-- Blog yazıları (EN) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- EN_BLOG_URLS_START -->
+  <url>
+    <loc>https://comertali.com/en/blog/turkey-property-tax-second-installment-november-2026.html</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/emlak-vergisi-2-taksit-2026-son-gun-30-kasim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/turkey-property-tax-second-installment-november-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/emlak-vergisi-2-taksit-2026-son-gun-30-kasim.html"/>
+  </url>
   <url>
     <loc>https://comertali.com/en/blog/november-2026-rent-increase-rate-turkey-31-23-percent.html</loc>
     <lastmod>2026-11-09</lastmod>
