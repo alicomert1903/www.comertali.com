@@ -340,8 +340,12 @@ function renderHead(title, description, ogImage, canonicalPath, assetsBase, href
  * (index.html/intelligence.html/araclar.html) — TR ve EN için "../".
  * assetsBase: gerçek site köküne ulaşmak için önek — TR "../", EN "../../".
  */
-function renderHeader(lang, siteBase, assetsBase, langHref) {
-  return renderSiteHeader({ lang, rootHref: siteBase, assetsBase, blogHref: "index.html", langHref, isHome: false, active: "articles" });
+function renderHeader(lang, siteBase, assetsBase, langHref, extra = {}) {
+  return renderSiteHeader({
+    lang, rootHref: siteBase, assetsBase,
+    blogHref: extra.blogHref || "index.html", langHref, isHome: false,
+    active: extra.active !== undefined ? extra.active : "articles"
+  });
 }
 
 function renderFooter(lang, siteBase) {
@@ -721,6 +725,232 @@ ${alternates(p)}
   fs.writeFileSync(filePath, xml, "utf8");
 }
 
+
+/* ==========================================================================
+   Hizmet ve bölge sayfaları: content/pages/*.json -> /ankara/*.html ve /en/ankara/*.html
+   ========================================================================== */
+const PAGES_DIR = path.join(ROOT, "content", "pages");
+const AN_DIR = path.join(ROOT, "ankara");
+const EN_AN_DIR = path.join(ROOT, "en", "ankara");
+
+function loadPages() {
+  if (!fs.existsSync(PAGES_DIR)) return [];
+  return fs.readdirSync(PAGES_DIR).filter(f => f.endsWith(".json"))
+    .map(f => ({ ...JSON.parse(fs.readFileSync(path.join(PAGES_DIR, f), "utf8")), slug: f.replace(/\.json$/, "") }))
+    .filter(p => p.title && p.body)
+    .sort((a, b) => (a.order || 99) - (b.order || 99));
+}
+
+const pageHasEn = p => Boolean(p.title_en && p.body_en && p.slug_en);
+const pageUrl = (p, lang) => (lang === "en" ? `/en/ankara/${p.slug_en}.html` : `/ankara/${p.slug}.html`);
+const HUB = {
+  tr: { title: "Ankara Gayrimenkul Rehberi: Danışmanlık ve Bölgeler", h1: "Ankara Gayrimenkul Rehberi", crumb: "Ankara", services: "Danışmanlık", districts: "Bölgeler",
+        intro: "Ankara'da yatırımlık konut, bölge seçimi ve yatırım yoluyla vatandaşlık süreci için danışmanlık sayfaları ile bölge değerlendirmeleri. Bilgiler resmî kaynaklara dayanır; doğrulayamadığımız veriyi yazmayız.",
+        desc: "Ankara gayrimenkul danışmanlığı, yatırımlık konut ve bölge değerlendirmeleri: Çayyolu, Çukurambar ve daha fazlası. Ali Cömert, TrueMax Gayrimenkul." },
+  en: { title: "Ankara Real Estate Guide: Advisory and Districts", h1: "Ankara Real Estate Guide", crumb: "Ankara", services: "Advisory", districts: "Districts",
+        intro: "Advisory pages and district assessments for investment property, district choice and citizenship by investment in Ankara. Information rests on official sources; we do not publish data we cannot verify.",
+        desc: "Ankara real estate advisory, investment property and district assessments: Çayyolu, Çukurambar and more. Ali Cömert, TrueMax Real Estate." }
+};
+
+function pageSchema(page, lang, canonicalPath) {
+  const isEn = lang === "en";
+  const homeUrl = isEn ? `${SITE_URL}/en/` : `${SITE_URL}/`;
+  const name = isEn ? page.title_en : page.title;
+  const desc = trimDescription(isEn ? page.description_en : page.description);
+  const web = {
+    "@context": "https://schema.org", "@type": "WebPage", "name": name, "description": desc, "inLanguage": lang,
+    "url": SITE_URL + canonicalPath, "dateModified": page.updated || "",
+    "isPartOf": { "@type": "WebSite", "url": homeUrl },
+    "author": { "@type": "Person", "@id": `${homeUrl}#person`, "name": "Ali Cömert", "url": homeUrl }
+  };
+  const blocks = [web];
+  if (page.group === "service") {
+    blocks.push({
+      "@context": "https://schema.org", "@type": "Service", "name": name, "serviceType": page.service_type || name,
+      "areaServed": { "@type": "City", "name": "Ankara" },
+      "provider": { "@type": "RealEstateAgent", "name": isEn ? "Ali Cömert — TrueMax Real Estate" : "Ali Cömert — TrueMax Gayrimenkul", "url": homeUrl, "telephone": "+905322384039" }
+    });
+  } else if (page.group === "district") {
+    web.about = { "@type": "Place", "name": page.place || name, "containedInPlace": { "@type": "City", "name": "Ankara" } };
+  }
+  blocks.push({
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": UI[lang].home, "item": homeUrl },
+      { "@type": "ListItem", "position": 2, "name": HUB[lang].crumb, "item": SITE_URL + (isEn ? "/en/ankara/" : "/ankara/") },
+      { "@type": "ListItem", "position": 3, "name": name, "item": SITE_URL + canonicalPath }
+    ]
+  });
+  return blocks.map(b => `<script type="application/ld+json">${JSON.stringify(b)}</script>`).join("\n  ");
+}
+
+function renderPageCard(p, lang) {
+  const isEn = lang === "en";
+  const file = isEn ? p.slug_en : p.slug;
+  return `
+        <a href="${file}.html" class="glass-panel rounded-2xl p-5 border border-slate-700/60 hover:border-champagne/60 transition-all duration-300 flex flex-col group">
+          <h3 class="font-cinzel text-sm sm:text-base font-bold text-titanium leading-snug">${escapeHtml(isEn ? p.title_en : p.title)}</h3>
+          <p class="text-xs text-titanium-muted mt-2 leading-relaxed font-sans flex-grow">${escapeHtml(isEn ? p.description_en : p.description)}</p>
+          <span class="mt-4 inline-flex items-center text-xs font-bold text-champagne">${UI[lang].readMore} <i class="fas fa-arrow-right ml-2 text-[10px]"></i></span>
+        </a>`;
+}
+
+function renderLandingPage(page, lang, pages) {
+  const t = UI[lang];
+  const isEn = lang === "en";
+  const canonicalPath = pageUrl(page, lang);
+  const title = (isEn ? page.seo_title_en : page.seo_title) || `${isEn ? page.title_en : page.title} | Ali Cömert`;
+  const description = isEn ? page.description_en : page.description;
+  const md = isEn ? page.body_en : page.body;
+  const assetsBase = isEn ? "../../" : "../";
+  const siteBase = "../";
+  const { html: bodyHtml, toc } = addHeadingIds(marked.parse(renderShortcodes(md, lang, assetsBase)));
+  const hreflangBlock = pageHasEn(page)
+    ? `<link rel="alternate" hreflang="tr" href="${SITE_URL}${pageUrl(page, "tr")}" />
+  <link rel="alternate" hreflang="en" href="${SITE_URL}${pageUrl(page, "en")}" />
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}${pageUrl(page, "tr")}" />`
+    : `<link rel="alternate" hreflang="tr" href="${SITE_URL}${pageUrl(page, "tr")}" />
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}${pageUrl(page, "tr")}" />`;
+  const tocBlock = toc.length >= 4
+    ? `<nav aria-label="${t.contents}" class="mb-10 glass-panel rounded-2xl p-5 border border-slate-700/60">
+        <p class="font-cinzel text-sm font-bold text-titanium mb-3">${t.contents}</p>
+        <ol class="text-xs sm:text-sm text-titanium-muted space-y-1.5 list-decimal list-inside">
+          ${toc.map(h => `<li><a href="#${h.id}" class="hover:text-champagne transition-colors">${escapeHtml(h.text)}</a></li>`).join("\n          ")}
+        </ol>
+      </nav>`
+    : "";
+  const others = pages.filter(p => p.slug !== page.slug && (isEn ? pageHasEn(p) : true)).slice(0, 4);
+  const othersBlock = others.length
+    ? `
+      <section class="mt-14">
+        <h2 class="font-cinzel text-lg sm:text-xl font-bold text-titanium mb-5">${HUB[lang].h1}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">${others.map(p => renderPageCard(p, lang)).join("\n")}</div>
+      </section>`
+    : "";
+  const langHref = isEn ? `../../ankara/${page.slug}.html` : (pageHasEn(page) ? `../en/ankara/${page.slug_en}.html` : "../en/ankara/");
+  const modified = page.updated || "";
+
+  return `<!DOCTYPE html>
+<html lang="${lang}" class="scroll-smooth">
+<head>
+${renderHead(title, description, null, canonicalPath, assetsBase, hreflangBlock, "")}
+  ${pageSchema(page, lang, canonicalPath)}
+</head>
+<body class="bg-navy text-titanium antialiased selection:bg-champagne selection:text-navy-dark">
+${renderHeader(lang, siteBase, assetsBase, langHref, { blogHref: "../blog/index.html", active: "" })}
+  <main class="pt-28 sm:pt-36 pb-20">
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="breadcrumb" class="text-[11px] text-titanium-muted mb-5">
+        <a href="${siteBase}index.html" class="hover:text-champagne transition-colors">${t.home}</a>
+        <span class="mx-1.5">/</span>
+        <a href="index.html" class="hover:text-champagne transition-colors">${HUB[lang].crumb}</a>
+      </nav>
+      <div class="mb-8">
+        <span class="text-xs uppercase tracking-widest text-champagne font-bold font-cinzel">${escapeHtml(isEn ? page.kicker_en || "" : page.kicker || "")}</span>
+        <h1 class="font-cinzel text-2xl sm:text-4xl font-bold text-titanium tracking-tight mt-3 leading-tight">${escapeHtml(isEn ? page.title_en : page.title)}</h1>
+        <p class="mt-4 text-xs text-titanium-muted"><span>Ali Cömert</span><span class="mx-1.5">&middot;</span><time datetime="${isoDate(modified)}">${t.updated}: ${fmtDate(modified, lang)}</time></p>
+      </div>
+      ${tocBlock}
+      <div class="prose-blog text-sm sm:text-base text-titanium-muted leading-relaxed font-sans space-y-5">
+        ${bodyHtml}
+      </div>
+      <div class="mt-14 glass-panel-gold rounded-3xl p-6 sm:p-8 border border-champagne/40 text-center">
+        <h3 class="font-cinzel text-lg sm:text-xl font-bold text-titanium mb-2">${t.consultTitle}</h3>
+        <p class="text-xs sm:text-sm text-titanium-muted mb-5">${t.consultSub}</p>
+        <a href="tel:+905322384039" class="inline-flex items-center justify-center px-8 py-3.5 rounded-2xl bg-gradient-to-r from-champagne to-champagne-dark text-navy-dark font-bold text-sm shadow-xl hover:brightness-105 transition-all font-cinzel tracking-wide">
+          <i class="fas fa-phone-alt mr-3 text-xs"></i>${isEn ? "Call +90 532 238 40 39" : "Arayın: +90 532 238 40 39"}
+        </a>
+      </div>
+${renderAuthorBox(lang, assetsBase, siteBase)}
+${othersBlock}
+      <div class="mt-8">
+        <a href="index.html" class="text-xs text-champagne hover:underline"><i class="fas fa-arrow-left mr-1.5"></i>${HUB[lang].h1}</a>
+      </div>
+    </article>
+  </main>
+${renderFooter(lang, siteBase)}
+</body>
+</html>
+`;
+}
+
+function renderPagesHub(pages, lang) {
+  const isEn = lang === "en";
+  const H = HUB[lang];
+  const t = UI[lang];
+  const assetsBase = isEn ? "../../" : "../";
+  const siteBase = "../";
+  const canonicalPath = isEn ? "/en/ankara/" : "/ankara/";
+  const hreflangBlock = `<link rel="alternate" hreflang="tr" href="${SITE_URL}/ankara/" />
+  <link rel="alternate" hreflang="en" href="${SITE_URL}/en/ankara/" />
+  <link rel="alternate" hreflang="x-default" href="${SITE_URL}/ankara/" />`;
+  const group = g => pages.filter(p => p.group === g);
+  const section = (label, items) => items.length
+    ? `<h2 class="font-cinzel text-lg sm:text-2xl font-bold text-titanium mt-12 mb-5">${label}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">${items.map(p => renderPageCard(p, lang)).join("\n")}</div>`
+    : "";
+  return `<!DOCTYPE html>
+<html lang="${lang}" class="scroll-smooth">
+<head>
+${renderHead(H.title, H.desc, null, canonicalPath, assetsBase, hreflangBlock, "")}
+</head>
+<body class="bg-navy text-titanium antialiased selection:bg-champagne selection:text-navy-dark">
+${renderHeader(lang, siteBase, assetsBase, isEn ? "../../ankara/" : "../en/ankara/", { blogHref: "../blog/index.html", active: "" })}
+  <main class="pt-28 sm:pt-36 pb-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-4">
+        <span class="text-xs uppercase tracking-widest text-champagne font-bold block mb-2 font-cinzel">${H.crumb}</span>
+        <h1 class="font-cinzel text-2xl sm:text-5xl font-bold text-titanium tracking-tight">${H.h1}</h1>
+        <p class="text-xs sm:text-base text-titanium-muted mt-4 leading-relaxed font-sans">${H.intro}</p>
+      </div>
+      ${section(H.services, group("service"))}
+      ${section(H.districts, group("district"))}
+    </div>
+  </main>
+${renderFooter(lang, siteBase)}
+</body>
+</html>
+`;
+}
+
+function updatePagesSitemap(pages) {
+  const filePath = path.join(ROOT, "sitemap.xml");
+  if (!fs.existsSync(filePath)) return;
+  let xml = fs.readFileSync(filePath, "utf8");
+  const mod = p => isoDate(p.updated) || isoDate(new Date().toISOString());
+  const block = (lang, startM, endM, prio) => {
+    if (!xml.includes(startM)) return;
+    const list = lang === "en" ? pages.filter(pageHasEn) : pages;
+    const hubAlt = `    <xhtml:link rel="alternate" hreflang="tr" href="${SITE_URL}/ankara/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}/en/ankara/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/ankara/"/>`;
+    const hub = `  <url>
+    <loc>${SITE_URL}${lang === "en" ? "/en/ankara/" : "/ankara/"}</loc>
+    <lastmod>${mod(pages[0] || {})}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+${hubAlt}
+  </url>`;
+    const entries = list.map(p => {
+      const tr = SITE_URL + pageUrl(p, "tr");
+      const alts = [`    <xhtml:link rel="alternate" hreflang="tr" href="${tr}"/>`];
+      if (pageHasEn(p)) alts.push(`    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL + pageUrl(p, "en")}"/>`);
+      alts.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${tr}"/>`);
+      return `  <url>
+    <loc>${SITE_URL + pageUrl(p, lang)}</loc>
+    <lastmod>${mod(p)}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${prio}</priority>
+${alts.join("\n")}
+  </url>`;
+    });
+    xml = xml.replace(new RegExp(`${startM}[\\s\\S]*?${endM}`), () => `${startM}\n${[hub].concat(entries).join("\n")}\n  ${endM}`);
+  };
+  block("tr", "<!-- PAGES_URLS_START -->", "<!-- PAGES_URLS_END -->", "0.9");
+  block("en", "<!-- EN_PAGES_URLS_START -->", "<!-- EN_PAGES_URLS_END -->", "0.8");
+  fs.writeFileSync(filePath, xml, "utf8");
+}
+
 function main() {
   const posts = loadPosts().filter(p => p.title);
   const enPosts = posts.filter(hasEnglish);
@@ -744,13 +974,30 @@ function main() {
     fs.writeFileSync(path.join(EN_BLOG_DIR, "index.html"), renderBlogIndex(enPosts, "en"), "utf8");
   }
 
+  const pages = loadPages();
+  const enPages = pages.filter(pageHasEn);
+  for (const dir of [AN_DIR, EN_AN_DIR]) {
+    if (fs.existsSync(dir)) for (const f of fs.readdirSync(dir)) if (f.endsWith(".html")) fs.unlinkSync(path.join(dir, f));
+  }
+  if (pages.length) {
+    fs.mkdirSync(AN_DIR, { recursive: true });
+    for (const p of pages) fs.writeFileSync(path.join(AN_DIR, `${p.slug}.html`), renderLandingPage(p, "tr", pages), "utf8");
+    fs.writeFileSync(path.join(AN_DIR, "index.html"), renderPagesHub(pages, "tr"), "utf8");
+  }
+  if (enPages.length) {
+    fs.mkdirSync(EN_AN_DIR, { recursive: true });
+    for (const p of enPages) fs.writeFileSync(path.join(EN_AN_DIR, `${p.slug_en}.html`), renderLandingPage(p, "en", enPages), "utf8");
+    fs.writeFileSync(path.join(EN_AN_DIR, "index.html"), renderPagesHub(enPages, "en"), "utf8");
+  }
+  updatePagesSitemap(pages);
+
   updateIntelligencePage(posts, "tr");
   updateIntelligencePage(enPosts, "en");
   updateHomeGuides(posts, "tr");
   updateHomeGuides(enPosts, "en");
   updateSitemap(posts, enPosts);
 
-  console.log(`[build-blog] ${posts.length} TR yazı, ${enPosts.length} EN yazı işlendi.`);
+  console.log(`[build-blog] ${posts.length} TR yazı, ${enPosts.length} EN yazı, ${pages.length} TR / ${enPages.length} EN sayfa işlendi.`);
 }
 
 main();

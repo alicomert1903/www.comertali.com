@@ -93,3 +93,27 @@ collections:
       - { label: "Excerpt (EN) — opsiyonel", name: "excerpt_en", widget: "text", required: false }
       - { label: "Body (EN) — opsiyonel", name: "body_en", widget: "markdown", required: false }
       - { label: "Search title (EN) — opsiyonel, ~60 karakter", name: "seo_title_en", widget: "string", required: false }
+
+  - name: "sayfalar"
+    label: "Hizmet ve Bölge Sayfaları (/ankara)"
+    description: "Ankara gayrimenkul danışmanlığı ve bölge sayfaları. Kaydettiğinizde site otomatik yeniden derlenir. Her bölge sayfasına 'Ali'nin saha notu' bölümü ekleyebilirsiniz."
+    folder: "content/pages"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Başlık", name: "title", widget: "string" }
+      - { label: "Tür", name: "group", widget: "select", options: [{ label: "Hizmet", value: "service" }, { label: "Bölge", value: "district" }], default: "district" }
+      - { label: "Sıra (küçük sayı önce)", name: "order", widget: "number", default: 20 }
+      - { label: "Üst etiket (ör. Bölge)", name: "kicker", widget: "string", required: false }
+      - { label: "Bölge adı (yalnızca bölge sayfalarında)", name: "place", widget: "string", required: false }
+      - { label: "Arama sonucu başlığı (~55 karakter)", name: "seo_title", widget: "string", required: false }
+      - { label: "Arama sonucu açıklaması (~150 karakter)", name: "description", widget: "text" }
+      - { label: "Sayfa İçeriği", name: "body", widget: "markdown" }
+      - { label: "Son güncelleme", name: "updated", widget: "datetime", required: false }
+      - { label: "İngilizce adres (URL)", name: "slug_en", widget: "string", required: false }
+      - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+      - { label: "Kicker (EN)", name: "kicker_en", widget: "string", required: false }
+      - { label: "Search title (EN)", name: "seo_title_en", widget: "string", required: false }
+      - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
+      - { label: "Body (EN)", name: "body_en", widget: "markdown", required: false }

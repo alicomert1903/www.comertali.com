@@ -20,6 +20,9 @@ const T = {
   tr: {
     nav: { citizenship: "Vatandaşlık", ankara: "Ankara Analizi", articles: "Makaleler", faq: "S.S.S.", portfolio: "Portföy", tools: "Hesaplayıcılar" },
     contact: "Bize Ulaşın",
+    advisor: "Ankara Gayrimenkul Danışmanı",
+    districtsGuide: "Ankara Bölge Rehberi",
+    advisorFile: "gayrimenkul-danismani.html",
     menu: "Menü",
     explore: "Sitede Gezin",
     sections: "Ana Sayfa Bölümleri",
@@ -39,6 +42,9 @@ const T = {
   en: {
     nav: { citizenship: "Citizenship", ankara: "Ankara Analysis", articles: "Articles", faq: "FAQ", portfolio: "Portfolio", tools: "Calculators" },
     contact: "Contact Us",
+    advisor: "Ankara Real Estate Advisor",
+    districtsGuide: "Ankara District Guide",
+    advisorFile: "real-estate-advisor.html",
     menu: "Menu",
     explore: "Explore",
     sections: "Home Page Sections",
@@ -81,6 +87,8 @@ function renderSiteHeader(opts) {
     drawerLink(page("index.html"), "fa-house", t.home),
     drawerLink(sec("roadmap"), "fa-passport", t.citizenshipLong),
     drawerLink(page("intelligence.html"), "fa-chart-line", t.nav.ankara),
+    drawerLink(page("ankara/" + t.advisorFile), "fa-handshake", t.advisor),
+    drawerLink(page("ankara/index.html"), "fa-map-location-dot", t.districtsGuide),
     drawerLink(blogHref, "fa-newspaper", t.nav.articles),
     drawerLink(page("araclar.html"), "fa-calculator", t.nav.tools)
   ].join("");

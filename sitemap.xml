@@ -92,6 +92,15 @@
   <!-- Blog yazıları (TR) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- BLOG_URLS_START -->
   <url>
+    <loc>https://comertali.com/blog/yabancilar-nerede-konut-aliyor-istanbul-antalya-ankara-2026.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/yabancilar-nerede-konut-aliyor-istanbul-antalya-ankara-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/where-foreigners-buy-property-in-turkey-istanbul-antalya-ankara-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/yabancilar-nerede-konut-aliyor-istanbul-antalya-ankara-2026.html"/>
+  </url>
+  <url>
     <loc>https://comertali.com/blog/bddk-11604-kasim-2026-tek-evi-olana-ikinci-konut-kredisi.html</loc>
     <lastmod>2026-11-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -176,6 +185,15 @@
 
   <!-- Blog yazıları (EN) — scripts/build-blog.js tarafından otomatik güncellenir -->
   <!-- EN_BLOG_URLS_START -->
+  <url>
+    <loc>https://comertali.com/en/blog/where-foreigners-buy-property-in-turkey-istanbul-antalya-ankara-2026.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/blog/yabancilar-nerede-konut-aliyor-istanbul-antalya-ankara-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/blog/where-foreigners-buy-property-in-turkey-istanbul-antalya-ankara-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/blog/yabancilar-nerede-konut-aliyor-istanbul-antalya-ankara-2026.html"/>
+  </url>
   <url>
     <loc>https://comertali.com/en/blog/bddk-decision-11604-second-home-mortgage-single-owners.html</loc>
     <lastmod>2026-11-25</lastmod>
@@ -301,5 +319,101 @@
     <priority>0.8</priority>
   </url>
   -->
+
+  <!-- PAGES_URLS_START -->
+  <url>
+    <loc>https://comertali.com/ankara/</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/ankara/gayrimenkul-danismani.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/gayrimenkul-danismani.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/real-estate-advisor.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/gayrimenkul-danismani.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/ankara/yatirim-yoluyla-vatandaslik-danismanligi.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/yatirim-yoluyla-vatandaslik-danismanligi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/turkish-citizenship-by-investment-consultancy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/yatirim-yoluyla-vatandaslik-danismanligi.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/ankara/cayyolu.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/cayyolu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/cayyolu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/cayyolu.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/ankara/cukurambar-sogutozu.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/cukurambar-sogutozu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/cukurambar-sogutozu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/cukurambar-sogutozu.html"/>
+  </url>
+  <!-- PAGES_URLS_END -->
+
+  <!-- EN_PAGES_URLS_START -->
+  <url>
+    <loc>https://comertali.com/en/ankara/</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/ankara/real-estate-advisor.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/gayrimenkul-danismani.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/real-estate-advisor.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/gayrimenkul-danismani.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/ankara/turkish-citizenship-by-investment-consultancy.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/yatirim-yoluyla-vatandaslik-danismanligi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/turkish-citizenship-by-investment-consultancy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/yatirim-yoluyla-vatandaslik-danismanligi.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/ankara/cayyolu.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/cayyolu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/cayyolu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/cayyolu.html"/>
+  </url>
+  <url>
+    <loc>https://comertali.com/en/ankara/cukurambar-sogutozu.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://comertali.com/ankara/cukurambar-sogutozu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comertali.com/en/ankara/cukurambar-sogutozu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comertali.com/ankara/cukurambar-sogutozu.html"/>
+  </url>
+  <!-- EN_PAGES_URLS_END -->
 
 </urlset>
