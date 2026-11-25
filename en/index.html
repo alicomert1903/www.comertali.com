@@ -135,6 +135,7 @@
     "sameAs": [
       "https://www.instagram.com/alicomert.realestate",
       "https://www.linkedin.com/in/ali-c%C3%B6mert-27b083380",
+      "https://www.youtube.com/@comertali5810",
       "https://truemaxgayrimenkul.com"
     ]
   }
@@ -167,7 +168,8 @@
     ],
     "sameAs": [
       "https://www.instagram.com/alicomert.realestate",
-      "https://www.linkedin.com/in/ali-c%C3%B6mert-27b083380"
+      "https://www.linkedin.com/in/ali-c%C3%B6mert-27b083380",
+      "https://www.youtube.com/@comertali5810"
     ]
   }
   </script>
@@ -279,6 +281,18 @@
         h.querySelector(".sh-backdrop").addEventListener("click", function () { set(false); });
         h.querySelectorAll(".sh-drawer a").forEach(function (a) { a.addEventListener("click", function () { set(false); }); });
         document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+        document.addEventListener("click", function (e) {
+          var a = e.target.closest ? e.target.closest("a[href]") : null;
+          if (!a || typeof gtag !== "function") return;
+          var u = a.getAttribute("href") || "", n = "";
+          if (u.indexOf("tel:") === 0) n = "phone_click";
+          else if (u.indexOf("wa.me") > -1 || u.indexOf("api.whatsapp.com") > -1) n = "whatsapp_click";
+          else if (u.indexOf("mailto:") === 0) n = "email_click";
+          else if (u.indexOf("instagram.com") > -1) n = "instagram_click";
+          else if (u.indexOf("youtube.com") > -1) n = "youtube_click";
+          else if (u.indexOf("linkedin.com") > -1) n = "linkedin_click";
+          if (n) gtag("event", n, { link_url: u.slice(0, 150), page_path: location.pathname });
+        }, true);
       })();
     </script>
   </header>
@@ -1237,6 +1251,7 @@
           <div class="flex items-center space-x-3 text-sm pt-2 text-titanium">
             <a href="https://www.instagram.com/alicomert.realestate?igsh=MXJ1N3Blcm4zYm9saQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-champagne hover:text-navy-dark transition-colors"><i class="fab fa-instagram"></i></a>
             <a href="https://www.linkedin.com/in/ali-cömert-27b083380?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-champagne hover:text-navy-dark transition-colors"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.youtube.com/@comertali5810" target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-champagne hover:text-navy-dark transition-colors"><i class="fab fa-youtube"></i></a>
             <a href="https://wa.me/905322384039?text=Hello%20Ali%2C%20I'm%20reaching%20out%20via%20comertali.com." target="_blank" rel="noopener" aria-label="WhatsApp" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-champagne hover:text-navy-dark transition-colors"><i class="fab fa-whatsapp"></i></a>
             <a href="https://truemaxgayrimenkul.com" target="_blank" rel="noopener" aria-label="TrueMax Real Estate" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden hover:bg-champagne transition-colors p-1.5" title="TrueMax Real Estate">
               <img loading="lazy" decoding="async" src="../truemax_logo.png" onerror="this.onerror=null; this.src='../logo.png';" alt="TrueMax" class="w-full h-full object-contain" />
