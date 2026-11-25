@@ -55,7 +55,7 @@ const UI = {
     consultSub: "Bölgesel analiz, uygun portföy ve vatandaşlık süreci için doğrudan iletişime geçin.",
     requestAccess: "Özel Portföye Erişin",
     backToAll: "Tüm Makalelere Dön",
-    blogTitle: "Makaleler: Vatandaşlık, Konut Kredisi, Tapu ve Ankara Yatırımı | Ali Cömert",
+    blogTitle: "Makaleler: Vatandaşlık, Konut Kredisi, Ankara Yatırımı",
     blogDescription: "Yatırım yoluyla Türk vatandaşlığı, konut kredisi, tapu masrafları, kira hukuku ve Ankara bölge analizi üzerine kaynaklı makaleler.",
     knowledgeBase: "Bilgi Merkezi",
     blogHeading: "Makaleler ve Güncel Bilgiler",
@@ -79,7 +79,7 @@ const UI = {
     consultSub: "Reach out directly for regional analysis, suitable portfolio and the citizenship process.",
     requestAccess: "Request Private Access",
     backToAll: "Back to All Articles",
-    blogTitle: "Articles: Citizenship, Mortgages, Title Deed Costs & Ankara Property | Ali Cömert",
+    blogTitle: "Articles: Citizenship, Mortgages & Ankara Property",
     blogDescription: "Sourced articles on Turkish citizenship by investment, mortgages, property purchase costs, rental law and Ankara district analysis.",
     knowledgeBase: "Knowledge Center",
     blogHeading: "Articles & Updates",
@@ -259,7 +259,17 @@ function readingMinutes(md) {
  * assetsBase: gerçek site köküne ulaşmak için önek (assets/, truemax_logo.png vb.)
  * TR blog/<slug>.html için "../", EN en/blog/<slug>.html için "../../".
  */
+function trimDescription(text) {
+  const s = String(text || "").replace(/\s+/g, " ").trim();
+  if (s.length <= 158) return s;
+  const cut = s.slice(0, 157);
+  const sentence = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("? "), cut.lastIndexOf("! "));
+  if (sentence > 90) return cut.slice(0, sentence + 1);
+  return cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:\-–—]+$/, "") + "…";
+}
+
 function renderHead(title, description, ogImage, canonicalPath, assetsBase, hreflangBlock, extraMeta) {
+  description = trimDescription(description);
   const isEn = canonicalPath.startsWith("/en/");
   const defaultOg = isEn ? "/og-image-en.jpg?v=2" : "/og-image.jpg?v=2";
   const og = ogImage || defaultOg;
